@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab426e86b3c6ea40818c5b20ff5ec29, type: 3}
+  m_Name: HUD f699ed16aac731f479d78acd34c3c323
+  m_EditorClassIdentifier: 
+  HasReference: 0
+  ID: f699ed16aac731f479d78acd34c3c323
+  Name: HUD
+  Reference: hud
+  Texture: {fileID: 0}
+  Data:
+  - {fileID: 11400000, guid: c9229a2b29142b74cb665ea132778881, type: 2}
+  - {fileID: 11400000, guid: 6198a7e66a0d2cf40933a0a0c0e47a68, type: 2}
+  - {fileID: 11400000, guid: b07192d3e43f3424f94b9668245615ad, type: 2}

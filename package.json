@@ -1,22 +1,23 @@
 {
   "name": "com.unityessentials.settings",
   "version": "1.0.0",
-  "displayName": "UnityEssenstials Settings",
+  "displayName": "UnityEssentials Settings",
   "description": "This is a part of the UnityEssentials Ecosystem",
   "unity": "2022.1",
-  "unityRelease": "",
+  "unityRelease": null,
   "dependencies": {
-    "com.unityessentials.core": "1.0.0"
+    "com.unityessentials.core": "1.0.0",
+    "com.unityessentials.uimenugenerator": "1.0.0"
   },
   "keywords": [],
   "author": {
     "name": "Unity Essentials",
-    "email": "",
-    "url": ""
+    "email": null,
+    "url": null
   },
-  "documentationUrl": "",
-  "changelogUrl": "",
-  "licensesUrl": "",
+  "documentationUrl": null,
+  "changelogUrl": null,
+  "licensesUrl": null,
   "samples": [],
   "hideInEditor": true
 }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
+  m_Name: Anisotropic Filtering f9b2b28bb2ec29944afe8f79db6b04e8
+  m_EditorClassIdentifier: 
+  HasReference: 1
+  ID: f9b2b28bb2ec29944afe8f79db6b04e8
+  Name: Anisotropic Filtering
+  Reference: anisotropic_filtering
+  Reverse: 0
+  Options:
+  - Off
+  - 2x
+  - 4x
+  - 8x
+  - 16x
+  Default: 4

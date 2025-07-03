@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab426e86b3c6ea40818c5b20ff5ec29, type: 3}
+  m_Name: Crosshair b947b081a9309b944bb40a68e5f9e7ec
+  m_EditorClassIdentifier: 
+  HasReference: 0
+  ID: b947b081a9309b944bb40a68e5f9e7ec
+  Name: Crosshair
+  Reference: crosshair
+  Texture: {fileID: 0}
+  Data:
+  - {fileID: 11400000, guid: b79cc98deef65f544a3082a6bdf57623, type: 2}
+  - {fileID: 11400000, guid: 73f5ee2883fc03849a9d59b7e049a8a4, type: 2}
