@@ -16,4 +16,4 @@ MonoBehaviour:
   ID: 6bcde925f81c216489c2ee4189a0ab32
   Name: Crosshair
   Reference: crosshair
-  Default: 0
+  Default: 1
