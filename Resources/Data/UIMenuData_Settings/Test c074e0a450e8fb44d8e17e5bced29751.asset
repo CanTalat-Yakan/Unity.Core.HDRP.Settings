@@ -18,6 +18,5 @@ MonoBehaviour:
   Name: Test
   Reference: test
   Reverse: 0
-  Options:
-  - Test
+  Options: []
   Default: 0
