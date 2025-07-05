@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8e170261d17bf4ea4082d37b81e536, type: 3}
-  m_Name: Asset 99c6368e3df62124595389af6a5c84b5
+  m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
+  m_Name: Test c074e0a450e8fb44d8e17e5bced29751
   m_EditorClassIdentifier: 
-  IsDynamic: 0
-  HasReference: 0
-  ID: 99c6368e3df62124595389af6a5c84b5
-  Name: ' (1)'
-  Reference: _(1)
-  Height: 20
+  IsDynamic: 1
+  HasReference: 1
+  ID: c074e0a450e8fb44d8e17e5bced29751
+  Name: Test
+  Reference: test
+  Reverse: 0
+  Options:
+  - Test
+  Default: 0

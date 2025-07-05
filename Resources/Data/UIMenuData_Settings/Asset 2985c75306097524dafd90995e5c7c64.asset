@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8e170261d17bf4ea4082d37b81e536, type: 3}
   m_Name: Asset 2985c75306097524dafd90995e5c7c64
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 0
   ID: 2985c75306097524dafd90995e5c7c64
   Name: UIMenuSpacerData

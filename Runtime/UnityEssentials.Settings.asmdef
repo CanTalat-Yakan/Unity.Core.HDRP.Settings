@@ -1,13 +1,17 @@
 {
     "name": "UnityEssentials.Settings",
-    "allowUnsafeCode": false,
-    "noEngineReferences": false,
-    "overrideReferences": false,
-    "autoReferenced": true,
     "rootNamespace": "UnityEssentials",
-    "references": [],
-    "precompiledReferences": [],
+    "references": [
+        "GUID:956c25d7bdcc14044bf0e9b7c60ae22d",
+        "GUID:aa09701d312bf8847977605b156e47cc"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "defineConstraints": []
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab426e86b3c6ea40818c5b20ff5ec29, type: 3}
   m_Name: Video ca5f2dcd3dec7ce4f99411ee3ee0a1da
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 0
   ID: ca5f2dcd3dec7ce4f99411ee3ee0a1da
   Name: Video

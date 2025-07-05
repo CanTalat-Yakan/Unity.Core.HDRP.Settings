@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab426e86b3c6ea40818c5b20ff5ec29, type: 3}
   m_Name: Controls 50cd92c4fe2bd1c438c0dddd34d38a57
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 0
   ID: 50cd92c4fe2bd1c438c0dddd34d38a57
   Name: Controls
