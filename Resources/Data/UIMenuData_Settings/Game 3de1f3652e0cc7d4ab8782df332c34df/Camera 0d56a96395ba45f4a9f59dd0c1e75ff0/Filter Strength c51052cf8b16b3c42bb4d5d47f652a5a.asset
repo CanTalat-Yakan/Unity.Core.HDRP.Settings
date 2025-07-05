@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be8b1135702d294dbf0a7c29368077c, type: 3}
   m_Name: Filter Strength c51052cf8b16b3c42bb4d5d47f652a5a
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: c51052cf8b16b3c42bb4d5d47f652a5a
   Name: Filter Strength

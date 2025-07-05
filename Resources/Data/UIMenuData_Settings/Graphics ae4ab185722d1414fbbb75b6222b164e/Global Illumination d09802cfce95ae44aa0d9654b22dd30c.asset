@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
   m_Name: Global Illumination d09802cfce95ae44aa0d9654b22dd30c
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: d09802cfce95ae44aa0d9654b22dd30c
   Name: Global Illumination

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
   m_Name: Render Resolution f20736b095871ab48acce37396ca0b45
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: f20736b095871ab48acce37396ca0b45
   Name: Render Resolution

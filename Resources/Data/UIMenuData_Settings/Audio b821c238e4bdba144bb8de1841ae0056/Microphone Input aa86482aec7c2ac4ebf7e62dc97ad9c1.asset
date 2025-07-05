@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
   m_Name: Microphone Input aa86482aec7c2ac4ebf7e62dc97ad9c1
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: aa86482aec7c2ac4ebf7e62dc97ad9c1
   Name: Microphone Input

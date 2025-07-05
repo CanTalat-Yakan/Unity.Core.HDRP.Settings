@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be8b1135702d294dbf0a7c29368077c, type: 3}
   m_Name: Opacity 001767b02c2cf9e4eba22157dd0780a1
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 001767b02c2cf9e4eba22157dd0780a1
   Name: Opacity

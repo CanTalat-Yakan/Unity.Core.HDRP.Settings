@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be8b1135702d294dbf0a7c29368077c, type: 3}
   m_Name: Shake Strength 60f232d34fd56b849a9e2e4f1725ec2f
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 60f232d34fd56b849a9e2e4f1725ec2f
   Name: Shake Strength

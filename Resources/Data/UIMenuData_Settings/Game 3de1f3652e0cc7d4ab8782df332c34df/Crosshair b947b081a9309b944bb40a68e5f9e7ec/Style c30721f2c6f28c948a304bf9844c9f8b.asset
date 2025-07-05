@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
   m_Name: Style c30721f2c6f28c948a304bf9844c9f8b
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: c30721f2c6f28c948a304bf9844c9f8b
   Name: Style

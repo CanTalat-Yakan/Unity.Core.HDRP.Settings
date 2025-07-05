@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Push to Talk f54b6a09b7e02444cbcdd290a4c92169
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: f54b6a09b7e02444cbcdd290a4c92169
   Name: Push to Talk

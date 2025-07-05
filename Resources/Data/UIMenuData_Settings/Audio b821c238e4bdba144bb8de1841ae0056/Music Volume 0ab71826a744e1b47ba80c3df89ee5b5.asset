@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be8b1135702d294dbf0a7c29368077c, type: 3}
   m_Name: Music Volume 0ab71826a744e1b47ba80c3df89ee5b5
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 0ab71826a744e1b47ba80c3df89ee5b5
   Name: Music Volume

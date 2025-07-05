@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Subtitles 46d2ab8054a40e64ebff5e84a914061d
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 46d2ab8054a40e64ebff5e84a914061d
   Name: Subtitles

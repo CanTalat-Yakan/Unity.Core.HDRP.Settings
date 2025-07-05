@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
   m_Name: Shadow Quality 4b80fbb06f23d87478e5cca71079d46f
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 4b80fbb06f23d87478e5cca71079d46f
   Name: Shadow Quality

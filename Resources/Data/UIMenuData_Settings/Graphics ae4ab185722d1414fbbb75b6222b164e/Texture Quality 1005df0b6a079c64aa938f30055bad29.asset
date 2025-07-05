@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315c72281388142428d78d4309dec82b, type: 3}
   m_Name: Texture Quality 1005df0b6a079c64aa938f30055bad29
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 1005df0b6a079c64aa938f30055bad29
   Name: Texture Quality

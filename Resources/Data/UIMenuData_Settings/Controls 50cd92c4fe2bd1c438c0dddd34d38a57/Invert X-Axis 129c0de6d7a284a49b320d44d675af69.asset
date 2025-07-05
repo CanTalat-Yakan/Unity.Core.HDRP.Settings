@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Invert X-Axis 129c0de6d7a284a49b320d44d675af69
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 129c0de6d7a284a49b320d44d675af69
   Name: Invert X-Axis

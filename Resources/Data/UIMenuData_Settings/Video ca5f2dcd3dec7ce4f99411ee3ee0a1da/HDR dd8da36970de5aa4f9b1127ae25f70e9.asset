@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: HDR dd8da36970de5aa4f9b1127ae25f70e9
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: dd8da36970de5aa4f9b1127ae25f70e9
   Name: HDR

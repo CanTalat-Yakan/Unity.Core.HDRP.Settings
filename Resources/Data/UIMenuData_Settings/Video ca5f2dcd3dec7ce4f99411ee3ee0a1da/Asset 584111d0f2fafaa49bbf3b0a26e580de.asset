@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8e170261d17bf4ea4082d37b81e536, type: 3}
   m_Name: Asset 584111d0f2fafaa49bbf3b0a26e580de
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 0
   ID: 584111d0f2fafaa49bbf3b0a26e580de
   Name: ' (2)'

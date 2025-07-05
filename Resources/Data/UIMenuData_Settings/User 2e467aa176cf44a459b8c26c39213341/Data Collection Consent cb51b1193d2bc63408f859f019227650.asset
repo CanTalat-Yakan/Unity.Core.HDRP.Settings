@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Data Collection Consent cb51b1193d2bc63408f859f019227650
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: cb51b1193d2bc63408f859f019227650
   Name: Data Collection Consent

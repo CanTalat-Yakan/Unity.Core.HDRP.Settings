@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Tutorials & Hints 84c6fd7b71b6d8148a89df1030e45cdd
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 84c6fd7b71b6d8148a89df1030e45cdd
   Name: Tutorials & Hints

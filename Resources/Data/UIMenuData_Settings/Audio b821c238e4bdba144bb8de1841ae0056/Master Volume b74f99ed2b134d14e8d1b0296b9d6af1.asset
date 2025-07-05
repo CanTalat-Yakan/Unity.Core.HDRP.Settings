@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be8b1135702d294dbf0a7c29368077c, type: 3}
   m_Name: Master Volume b74f99ed2b134d14e8d1b0296b9d6af1
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: b74f99ed2b134d14e8d1b0296b9d6af1
   Name: Master Volume

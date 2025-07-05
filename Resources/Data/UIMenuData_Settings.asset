@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c0c84f90ea3f141b617bdb88140b67, type: 3}
   m_Name: UIMenuData_Settings
   m_EditorClassIdentifier: 
-  Name: Menu
+  Name: Settings
   Root:
-  - {fileID: 11400000, guid: d79bac062d5fbce4bb14ef4254329e9c, type: 2}
   - {fileID: 11400000, guid: dd7b4a1800db68f46acfe0ecd34ffec5, type: 2}
   - {fileID: 11400000, guid: b34ffe0df55d425499e50843d5037b11, type: 2}
   - {fileID: 11400000, guid: 22239f72dbb06ce4e807f9f064563ed3, type: 2}

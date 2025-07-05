@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Crosshair 6bcde925f81c216489c2ee4189a0ab32
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: 6bcde925f81c216489c2ee4189a0ab32
   Name: Crosshair

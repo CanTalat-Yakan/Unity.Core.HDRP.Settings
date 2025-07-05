@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02026b838408b1e4faf7d1f189070641, type: 3}
   m_Name: Advanced 35ce1c14da1aa684a99443e502f39652
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 0
   ID: 35ce1c14da1aa684a99443e502f39652
   Name: Advanced

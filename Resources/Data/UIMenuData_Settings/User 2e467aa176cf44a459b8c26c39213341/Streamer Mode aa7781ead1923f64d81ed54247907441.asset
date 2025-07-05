@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b08a5a38ac6a4d8d6fce9b92a0705, type: 3}
   m_Name: Streamer Mode aa7781ead1923f64d81ed54247907441
   m_EditorClassIdentifier: 
+  IsDynamic: 0
   HasReference: 1
   ID: aa7781ead1923f64d81ed54247907441
   Name: Streamer Mode
