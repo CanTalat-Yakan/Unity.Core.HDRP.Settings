@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Settings
   Root:
-  - {fileID: 11400000, guid: dd7b4a1800db68f46acfe0ecd34ffec5, type: 2}
-  - {fileID: 11400000, guid: b34ffe0df55d425499e50843d5037b11, type: 2}
-  - {fileID: 11400000, guid: 22239f72dbb06ce4e807f9f064563ed3, type: 2}
-  - {fileID: 11400000, guid: d4e74420c0caf7c4f9f945f817d0eff4, type: 2}
-  - {fileID: 11400000, guid: d290c0ab62f2a5143a1c760c8bf63a5d, type: 2}
-  - {fileID: 11400000, guid: a649af6f7163b1f499110eaf87d1d71a, type: 2}
-  - {fileID: 11400000, guid: c92cba4716c6d5144bf3734b63b3c8aa, type: 2}
-  - {fileID: 11400000, guid: 4870d15a8bec57745ace04e4378d8d9f, type: 2}
+  - {fileID: 11400000, guid: d2d42ea26a397424688bdf0b06f2cde8, type: 2}
+  - {fileID: 11400000, guid: 9a36cc89ded42a7468910df116cd3d66, type: 2}
+  - {fileID: 11400000, guid: cfd0720818512314ea2aee91a815e76c, type: 2}
+  - {fileID: 11400000, guid: 551339577795efe4cb6413cd4b5a427b, type: 2}
+  - {fileID: 11400000, guid: f5af7c7bef327bc41aac6c434fe0cc2d, type: 2}
+  - {fileID: 11400000, guid: 2e040519a964e404f9fdaa43f17ef743, type: 2}
+  - {fileID: 11400000, guid: b881d41d79177f841b6b6adfdab46782, type: 2}
+  - {fileID: 11400000, guid: e4b10e1c64f73f94eb25605c9a4f3eab, type: 2}

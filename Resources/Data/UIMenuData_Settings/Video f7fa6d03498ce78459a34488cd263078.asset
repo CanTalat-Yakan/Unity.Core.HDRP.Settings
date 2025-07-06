@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e05cf43642f0ff4f83a171ce308dd10, type: 3}
+  m_Name: Video f7fa6d03498ce78459a34488cd263078
+  m_EditorClassIdentifier: 
+  IsDynamic: 0
+  HasReference: 0
+  ID: f7fa6d03498ce78459a34488cd263078
+  Name: Video
+  Reference: video
+  Texture: {fileID: 0}
+  Data:
+  - {fileID: 11400000, guid: 34946aba24ffb35429503d7f59bae800, type: 2}
+  - {fileID: 11400000, guid: b7738c065b1640340802246a4d9f6707, type: 2}
+  - {fileID: 11400000, guid: 220d2fea6ed5d1e4992cb28dd5b65b0e, type: 2}
+  - {fileID: 11400000, guid: ded8552b31dae3740b205e820bfed53a, type: 2}
+  - {fileID: 11400000, guid: 1562a47c5819c9748a3345b63704012f, type: 2}
+  - {fileID: 11400000, guid: fee6c8779327c4840b12c7c0900deef2, type: 2}
+  - {fileID: 11400000, guid: ee70329fd6f06684e8734536ed567688, type: 2}
+  - {fileID: 11400000, guid: e7d47de10e0cf5c4880a15c379d8bc3a, type: 2}
+  - {fileID: 11400000, guid: 25ce5fea696caea48813d3559143959b, type: 2}
+  - {fileID: 11400000, guid: c65c1746d36ec5740bf7e9a7f35101ab, type: 2}
+  - {fileID: 11400000, guid: a60920f029e17a84a98b37506ef3d4f1, type: 2}
+  - {fileID: 11400000, guid: 0a002942386ebb5459b69c51a05f09f6, type: 2}
+  - {fileID: 11400000, guid: fe64d2ca292cd4d4ab1c0def36558061, type: 2}
+  - {fileID: 11400000, guid: 32fc5ba6d4665804f8b696b1b516d912, type: 2}
