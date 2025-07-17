@@ -18,4 +18,6 @@ MonoBehaviour:
   Name: Video
   Reference: video
   Texture: {fileID: 0}
-  Data: []
+  Data:
+  - {fileID: 11400000, guid: 1c5fd1ac96d8cf44b94ecd5581c602e7, type: 2}
+  - {fileID: 11400000, guid: 0967699d54fe1bd498a6a591f6d04b7d, type: 2}
