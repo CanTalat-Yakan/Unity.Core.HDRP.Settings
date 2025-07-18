@@ -1,39 +1,36 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace UnityEssentials
 {
     public class SetDisplayResolutionScale : MonoBehaviour
     {
-        private UIMenuSliderData _data;
+        [Info]
+        [SerializeField]
+        private string _info =
+            "This component sets the display resolution scale based on the settings profile.\n" +
+            "It allows dynamic resolution scaling if the resolution scale is below 100%.";
 
-        private int _resolutionScale;
-        private int _antiAliasing;
-
-        private const string MenuName = "Settings";
-        private const string ProfileName = "Settings";
-        private const string ResolutionScaleReference = "resolution_scale";
-        private const string AntiAliasingReference = "anti_aliasing";
+        [field: Space]
+        [field: SerializeField, ReadOnly] public int ResolutionScale { get; private set; }
 
         public void Awake()
         {
-            if (!UIMenu.TryGetData(MenuName, ResolutionScaleReference, out _data))
+            if (!UIMenu.TryGetProfile("Settings", out var profile))
                 return;
 
-            if (!UIMenu.TryGetProfile(ProfileName, out var profile))
-                return;
-
-            _resolutionScale = profile.Get<int>(_data);
+            profile.OnValueChanged += (reference) =>
+            {
+                const string ResolutionScaleReference = "resolution_scale";
+                if (reference.Equals(ResolutionScaleReference))
+                    ResolutionScale = profile.Get<int>(ResolutionScaleReference);
+            };
         }
 
-        public void Update()
+        public void UpdateResolutionScale()
         {
-            bool allowDynamicScaling = _resolutionScale < 100;
-
-            int usingSTPantiAliasing = 4;
-            if (_antiAliasing == usingSTPantiAliasing)
-                allowDynamicScaling = true;
-
-            //_cameraData.allowDynamicResolution = allowDynamicScaling;
+            CameraProvider.Main.allowDynamicResolution = ResolutionScale < 100;
+            DynamicResolutionHandler.SetDynamicResScaler(() => ResolutionScale, DynamicResScalePolicyType.ReturnsPercentage);
         }
     }
 }
