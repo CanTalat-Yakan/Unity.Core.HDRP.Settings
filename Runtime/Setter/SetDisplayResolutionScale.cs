@@ -14,23 +14,28 @@ namespace UnityEssentials
         [field: Space]
         [field: SerializeField, ReadOnly] public int ResolutionScale { get; private set; }
 
-        public void Awake()
+        private const string ResolutionScaleReference = "resolution_scale";
+
+        public void Start()
         {
             if (!UIMenu.TryGetProfile("Settings", out var profile))
                 return;
 
+            UpdateResolutionScale(profile);
             profile.OnValueChanged += (reference) =>
             {
-                const string ResolutionScaleReference = "resolution_scale";
-                if (reference.Equals(ResolutionScaleReference))
-                    ResolutionScale = profile.Get<int>(ResolutionScaleReference);
+                if (reference == ResolutionScaleReference)
+                    UpdateResolutionScale(profile);
             };
         }
 
-        public void UpdateResolutionScale()
+        public void Update()
         {
-            CameraProvider.Main.allowDynamicResolution = ResolutionScale < 100;
-            DynamicResolutionHandler.SetDynamicResScaler(() => ResolutionScale, DynamicResScalePolicyType.ReturnsPercentage);
+            CameraProvider.Main?.SetDynamicResolution(ResolutionScale < 100);
+            DynamicResolutionHandler.SetDynamicResScaler(() => ResolutionScale, 0);
         }
+
+        public void UpdateResolutionScale(UIMenuProfile profile) =>
+            ResolutionScale = profile.Get<int>(ResolutionScaleReference);
     }
 }
