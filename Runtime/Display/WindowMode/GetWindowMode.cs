@@ -14,13 +14,16 @@ namespace UnityEssentials
             "This component populates the window mode options in the settings menu by retrieving all available FullScreenMode enum names.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred window mode.";
 
+        public static string[] Options { get; private set; }
+
         public void Awake()
         {
-            var fullScreenMode = Enum.GetNames(typeof(FullScreenMode))
+            Options = Enum.GetNames(typeof(FullScreenMode))
                 .Select(mode => ObjectNames.NicifyVariableName(mode))
+                .Reverse()
                 .ToArray();
 
-            GetComponent<UIMenuOptionsDataConfigurator>().Options = fullScreenMode;
+            GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
         }
     }
 }

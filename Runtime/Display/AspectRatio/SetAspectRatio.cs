@@ -22,7 +22,7 @@ namespace UnityEssentials
                 return;
 
             void UpdateAspectRatio(UIMenuProfile profile) =>
-                AspectRatio = profile.Get<string>(AspectRatioReference).ExtractFromString(':');
+                AspectRatio = GetRenderResolution.Options[profile.Get<int>(AspectRatioReference)].ExtractFromString(':');
 
             UpdateAspectRatio(profile);
             profile.OnValueChanged += (reference) =>

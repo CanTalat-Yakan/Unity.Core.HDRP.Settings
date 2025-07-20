@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace UnityEssentials
@@ -11,16 +12,19 @@ namespace UnityEssentials
             "This component retrieves all available display resolutions from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred screen resolution.";
 
+        public static string[] Options { get; private set; }
+
         public void Awake()
         {
-            var displayResolution = new string[Screen.resolutions.Length];
+            Options = new string[Screen.resolutions.Length];
             for (int i = 0; i < Screen.resolutions.Length; i++)
             {
                 var resolution = Screen.resolutions[i];
-                displayResolution[i] = $"{resolution.width}x{resolution.height}";
+                Options[i] = $"{resolution.width}x{resolution.height}";
             }
+            Options = Options.Reverse().ToArray();
 
-            GetComponent<UIMenuOptionsDataConfigurator>().Options = displayResolution;
+            GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
         }
     }
 }

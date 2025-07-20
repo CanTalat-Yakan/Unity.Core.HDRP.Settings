@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace UnityEssentials
@@ -12,11 +13,13 @@ namespace UnityEssentials
             "This component populates the filter mode options in the settings menu by retrieving all available FilterMode enum names.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred texture filtering mode.";
 
+        public static string[] Options { get; private set; }
+
         public void Awake()
         {
-            var filterMode = Enum.GetNames(typeof(FilterMode));
-            
-            GetComponent<UIMenuOptionsDataConfigurator>().Options = filterMode;
+            Options = Enum.GetNames(typeof(FilterMode));
+
+            GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
         }
     }
 }

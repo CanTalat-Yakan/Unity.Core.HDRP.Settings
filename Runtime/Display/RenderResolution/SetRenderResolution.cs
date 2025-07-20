@@ -22,7 +22,7 @@ namespace UnityEssentials
                 return;
 
             void UpdateRenderResolution(UIMenuProfile profile) =>
-                RenderResolution = profile.Get<string>(RenderResolutionReference).ExtractFromString('x').ToVector2Int();
+                RenderResolution = GetRenderResolution.Options[profile.Get<int>(RenderResolutionReference)].ExtractFromString('x').ToVector2Int();
 
             UpdateRenderResolution(profile);
             profile.OnValueChanged += (reference) =>

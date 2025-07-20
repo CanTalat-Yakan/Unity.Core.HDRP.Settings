@@ -21,7 +21,7 @@ namespace UnityEssentials
                 return;
 
             void UpdateDisplayResolution(UIMenuProfile profile) =>
-                DisplayResolution = profile.Get<string>(DisplayResolutionReference).ExtractFromString('x').ToVector2Int();
+                DisplayResolution = GetDisplayResolution.Options[profile.Get<int>(DisplayResolutionReference)].ExtractFromString('x').ToVector2Int();
 
             UpdateDisplayResolution(profile);
             profile.OnValueChanged += (reference) =>

@@ -17,6 +17,5 @@ MonoBehaviour:
   ID: 06d6542f-5832-431d-8afa-31e97d846be6
   Name: Anti Aliasing
   Reference: anti_aliasing
-  Reverse: 0
   Options: []
   Default: 0

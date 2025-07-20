@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
   m_Name: Filter Mode eb9de8ba-27de-45e1-b835-8d6215e3c52d
   m_EditorClassIdentifier: 
-  IsDynamic: 0
+  IsDynamic: 1
   HasReference: 1
   ID: eb9de8ba-27de-45e1-b835-8d6215e3c52d
   Name: Filter Mode
   Reference: filter_mode
-  Reverse: 0
-  Options: []
+  Options:
+  - Point
+  - Bilinear
+  - Trilinear
   Default: 0

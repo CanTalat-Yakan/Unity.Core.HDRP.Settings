@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
   m_Name: V-Sync d69e5d53-b1da-457d-93b8-220ebfdc7869
   m_EditorClassIdentifier: 
-  IsDynamic: 0
+  IsDynamic: 1
   HasReference: 1
   ID: d69e5d53-b1da-457d-93b8-220ebfdc7869
   Name: V-Sync
   Reference: v-sync
-  Reverse: 0
-  Options: []
+  Options:
+  - Don't Sync
+  - Every V Blank
+  - Every Second V Blank
   Default: 0
