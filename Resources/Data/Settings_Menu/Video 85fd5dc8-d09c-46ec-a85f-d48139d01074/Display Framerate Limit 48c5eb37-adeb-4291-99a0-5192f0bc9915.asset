@@ -19,5 +19,5 @@ MonoBehaviour:
   Reference: display_framerate_limit
   IsFloat: 0
   MinRange: 0
-  MaxRange: 500
+  MaxRange: 100
   Default: 0

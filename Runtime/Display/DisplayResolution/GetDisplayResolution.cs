@@ -6,7 +6,8 @@ namespace UnityEssentials
     public class GetDisplayResolution : MonoBehaviour
     {
         [Info]
-        [SerializeField] private string _info =
+        [SerializeField]
+        private string _info =
             "This component retrieves all available display resolutions from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred screen resolution.";
 
