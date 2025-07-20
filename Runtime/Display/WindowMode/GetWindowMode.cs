@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace UnityEssentials
@@ -14,7 +16,9 @@ namespace UnityEssentials
 
         public void Awake()
         {
-            var fullScreenMode = Enum.GetNames(typeof(FullScreenMode));
+            var fullScreenMode = Enum.GetNames(typeof(FullScreenMode))
+                .Select(mode => ObjectNames.NicifyVariableName(mode))
+                .ToArray();
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = fullScreenMode;
         }
