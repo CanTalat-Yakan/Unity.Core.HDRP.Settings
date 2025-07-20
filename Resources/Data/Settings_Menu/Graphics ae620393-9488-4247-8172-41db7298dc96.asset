@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e05cf43642f0ff4f83a171ce308dd10, type: 3}
-  m_Name: Video 85fd5dc8-d09c-46ec-a85f-d48139d01074
+  m_Name: Graphics ae620393-9488-4247-8172-41db7298dc96
   m_EditorClassIdentifier: 
   IsDynamic: 0
   HasReference: 0
-  ID: 85fd5dc8-d09c-46ec-a85f-d48139d01074
-  Name: Video
-  Reference: video
+  ID: ae620393-9488-4247-8172-41db7298dc96
+  Name: Graphics
+  Reference: graphics
   Texture: {fileID: 0}
   Data:
   - {fileID: 11400000, guid: 1c5fd1ac96d8cf44b94ecd5581c602e7, type: 2}
-  - {fileID: 11400000, guid: 0967699d54fe1bd498a6a591f6d04b7d, type: 2}
