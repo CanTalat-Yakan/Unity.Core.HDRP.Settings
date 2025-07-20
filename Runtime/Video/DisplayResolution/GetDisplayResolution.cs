@@ -20,7 +20,6 @@ namespace UnityEssentials
             }
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = displayResolution;
-            Debug.Log("Options Updated");
         }
     }
 }
