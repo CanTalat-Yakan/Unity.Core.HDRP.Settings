@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db6a9a996cd02c44fb6d4d325068ac7e, type: 3}
-  m_Name: Asset a3b681d8-7424-4169-a783-7305d64c7192
+  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
+  m_Name: 0010_Aspect-Ratio_0017c2f4-e5a6-467c-b964-cdeb64a121a7
   m_EditorClassIdentifier: 
-  IsDynamic: 0
-  HasReference: 0
-  ID: a3b681d8-7424-4169-a783-7305d64c7192
-  Name: ' (2)'
-  Reference: _(2)
-  Height: 20
+  IsDynamic: 1
+  HasReference: 1
+  ID: 0017c2f4-e5a6-467c-b964-cdeb64a121a7
+  Name: Aspect Ratio
+  Reference: aspect_ratio
+  Options: []
+  Default: 0

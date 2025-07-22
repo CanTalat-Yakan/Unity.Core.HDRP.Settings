@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: Filter Mode eb9de8ba-27de-45e1-b835-8d6215e3c52d
+  m_Name: 0002_Display-Selection_5e117659-5452-4dd5-8ad2-078fdfc8155d
   m_EditorClassIdentifier: 
-  IsDynamic: 1
+  IsDynamic: 0
   HasReference: 1
-  ID: eb9de8ba-27de-45e1-b835-8d6215e3c52d
-  Name: Filter Mode
-  Reference: filter_mode
-  Options:
-  - Point
-  - Bilinear
-  - Trilinear
+  ID: 5e117659-5452-4dd5-8ad2-078fdfc8155d
+  Name: Display Selection
+  Reference: display_selection
+  Options: []
   Default: 0

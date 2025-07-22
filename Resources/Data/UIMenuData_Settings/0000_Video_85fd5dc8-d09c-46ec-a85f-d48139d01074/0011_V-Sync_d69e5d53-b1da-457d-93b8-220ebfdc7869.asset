@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: Window Mode 31148e26-de2d-4a0e-9d06-2dfa90714421
+  m_Name: 0011_V-Sync_d69e5d53-b1da-457d-93b8-220ebfdc7869
   m_EditorClassIdentifier: 
   IsDynamic: 1
   HasReference: 1
-  ID: 31148e26-de2d-4a0e-9d06-2dfa90714421
-  Name: Window Mode
-  Reference: window_mode
-  Options:
-  - Windowed
-  - Maximized Window
-  - Full Screen Window
-  - Exclusive Full Screen
+  ID: d69e5d53-b1da-457d-93b8-220ebfdc7869
+  Name: V-Sync
+  Reference: v-sync
+  Options: []
   Default: 0

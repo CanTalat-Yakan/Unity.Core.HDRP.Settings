@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: V-Sync d69e5d53-b1da-457d-93b8-220ebfdc7869
+  m_Script: {fileID: 11500000, guid: d1903b73278b2d547908f137c0dc15a6, type: 3}
+  m_Name: 0008_Render-FrameRate-Limit_93a76a81-38ca-4060-a293-bda65ad0e98a
   m_EditorClassIdentifier: 
   IsDynamic: 1
   HasReference: 1
-  ID: d69e5d53-b1da-457d-93b8-220ebfdc7869
-  Name: V-Sync
-  Reference: v-sync
-  Options:
-  - Don't Sync
-  - Every V Blank
-  - Every Second V Blank
+  ID: 93a76a81-38ca-4060-a293-bda65ad0e98a
+  Name: Render FrameRate Limit
+  Reference: render_framerate_limit
+  IsFloat: 0
+  MinRange: 0
+  MaxRange: 500
   Default: 0

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7ff1a0c909eb3c4397a940b34bfe288, type: 3}
-  m_Name: HDR 5d62565f-8ddf-4f88-adb1-9e9424cc70da
+  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
+  m_Name: 0004_Render-Resolution_a17cc8a2-7972-46e4-a020-bb12482be1ce
   m_EditorClassIdentifier: 
-  IsDynamic: 0
+  IsDynamic: 1
   HasReference: 1
-  ID: 5d62565f-8ddf-4f88-adb1-9e9424cc70da
-  Name: HDR
-  Reference: hdr
+  ID: a17cc8a2-7972-46e4-a020-bb12482be1ce
+  Name: Render Resolution
+  Reference: render_resolution
+  Options: []
   Default: 0

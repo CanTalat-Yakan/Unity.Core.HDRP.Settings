@@ -10,23 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: Aspect Ratio 0017c2f4-e5a6-467c-b964-cdeb64a121a7
+  m_Name: 0014_Filter-Mode_eb9de8ba-27de-45e1-b835-8d6215e3c52d
   m_EditorClassIdentifier: 
   IsDynamic: 1
   HasReference: 1
-  ID: 0017c2f4-e5a6-467c-b964-cdeb64a121a7
-  Name: Aspect Ratio
-  Reference: aspect_ratio
-  Options:
-  - Auto
-  - 16:10
-  - 16:10
-  - 21:9
-  - 32:9
-  - 9:16
-  - 10:16
-  - 1:1
-  - 4:3
-  - 2.39:1
-  - 2.35:1
+  ID: eb9de8ba-27de-45e1-b835-8d6215e3c52d
+  Name: Filter Mode
+  Reference: filter_mode
+  Options: []
   Default: 0

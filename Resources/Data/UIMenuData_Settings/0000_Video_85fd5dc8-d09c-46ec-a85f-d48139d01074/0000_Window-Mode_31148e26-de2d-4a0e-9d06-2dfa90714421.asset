@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92c0c84f90ea3f141b617bdb88140b67, type: 3}
-  m_Name: Settings_Menu
+  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
+  m_Name: 0000_Window-Mode_31148e26-de2d-4a0e-9d06-2dfa90714421
   m_EditorClassIdentifier: 
-  Name: Menu
-  Root:
-  - {fileID: 11400000, guid: 18e22bb262e64ee48bb6b1315717a8f0, type: 2}
-  - {fileID: 11400000, guid: 98ec8858076dc0448a231108bea3cc1c, type: 2}
+  IsDynamic: 1
+  HasReference: 1
+  ID: 31148e26-de2d-4a0e-9d06-2dfa90714421
+  Name: Window Mode
+  Reference: window_mode
+  Options: []
+  Default: 0

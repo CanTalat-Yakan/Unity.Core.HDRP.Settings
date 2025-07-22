@@ -10,39 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: Display Resolution 1b516798-d7b5-4d4c-9ef8-05aa31e9d7f9
+  m_Name: 0003_Display-Resolution_1b516798-d7b5-4d4c-9ef8-05aa31e9d7f9
   m_EditorClassIdentifier: 
   IsDynamic: 1
   HasReference: 1
   ID: 1b516798-d7b5-4d4c-9ef8-05aa31e9d7f9
   Name: Display Resolution
   Reference: display_resolution
-  Options:
-  - 4096x2160
-  - 3840x2160
-  - 2560x1600
-  - 2560x1440
-  - 2048x1536
-  - 1920x1440
-  - 1920x1200
-  - 1920x1080
-  - 1680x1050
-  - 1600x1200
-  - 1600x1024
-  - 1600x900
-  - 1440x1080
-  - 1366x768
-  - 1360x768
-  - 1280x1024
-  - 1280x960
-  - 1280x800
-  - 1280x768
-  - 1280x720
-  - 1176x664
-  - 1152x864
-  - 1024x768
-  - 800x600
-  - 720x576
-  - 720x480
-  - 640x480
+  Options: []
   Default: 0
