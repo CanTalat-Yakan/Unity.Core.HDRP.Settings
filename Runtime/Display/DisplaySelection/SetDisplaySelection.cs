@@ -8,8 +8,8 @@ namespace UnityEssentials
         [Info]
         [SerializeField]
         private string _info =
-            "This component sets the active display based on the user's selection from the menu.\n" +
-            "It allows users to choose which display to use for rendering.";
+            "This component sets the display selection based on the user's choice in the settings menu.\n" +
+            "It listens for changes in the display selection setting and activates the corresponding display.";
 
         [field: Space]
         [field: ReadOnly]
