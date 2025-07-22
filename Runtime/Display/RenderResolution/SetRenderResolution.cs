@@ -30,6 +30,7 @@ namespace UnityEssentials
                 if (reference == RenderResolutionReference)
                     UpdateRenderResolution(profile);
             };
+            SetDisplaySelection.OnDisplayIndexChanged += () => UpdateRenderResolution(profile);
         }
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Main?.GetComponent<CameraRenderTextureHandler>();

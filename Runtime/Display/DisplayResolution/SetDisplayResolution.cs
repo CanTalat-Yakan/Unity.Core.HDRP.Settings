@@ -29,6 +29,7 @@ namespace UnityEssentials
                 if (reference == DisplayResolutionReference)
                     UpdateDisplayResolution(profile);
             };
+            SetDisplaySelection.OnDisplayIndexChanged += () => UpdateDisplayResolution(profile);
         }
 
         public void Update() =>

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: 0002_Display-Selection_5e117659-5452-4dd5-8ad2-078fdfc8155d
+  m_Name: 0001_Display-Selection_5e117659-5452-4dd5-8ad2-078fdfc8155d
   m_EditorClassIdentifier: 
   IsDynamic: 0
   HasReference: 1

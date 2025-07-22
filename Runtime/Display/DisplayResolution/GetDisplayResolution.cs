@@ -16,6 +16,12 @@ namespace UnityEssentials
 
         public void Awake()
         {
+            Initialize();
+            SetDisplaySelection.OnDisplayIndexChanged += Initialize;
+        }
+
+        public void Initialize()
+        {
             Options = new string[Screen.resolutions.Length];
             for (int i = 0; i < Screen.resolutions.Length; i++)
             {
