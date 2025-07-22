@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Settings
   Root:
-  - {fileID: 11400000, guid: 18e22bb262e64ee48bb6b1315717a8f0, type: 2}
-  - {fileID: 11400000, guid: 98ec8858076dc0448a231108bea3cc1c, type: 2}
+  - {fileID: 11400000, guid: 0adc35b354c859e45b229f98f707fc4f, type: 2}
+  - {fileID: 11400000, guid: d7a29692a7728b94f9ad5de7b16d552f, type: 2}

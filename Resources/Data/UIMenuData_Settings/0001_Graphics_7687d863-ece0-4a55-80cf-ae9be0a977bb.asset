@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e05cf43642f0ff4f83a171ce308dd10, type: 3}
-  m_Name: 0001_Graphics_ae620393-9488-4247-8172-41db7298dc96
+  m_Name: 0001_Graphics_7687d863-ece0-4a55-80cf-ae9be0a977bb
   m_EditorClassIdentifier: 
   IsDynamic: 0
-  HasReference: 0
-  ID: ae620393-9488-4247-8172-41db7298dc96
+  HasReference: 1
+  ID: 7687d863-ece0-4a55-80cf-ae9be0a977bb
   Name: Graphics
   Reference: graphics
   Texture: {fileID: 0}
