@@ -17,5 +17,6 @@ MonoBehaviour:
   ID: 0017c2f4-e5a6-467c-b964-cdeb64a121a7
   Name: Aspect Ratio
   Reference: aspect_ratio
+  Reverse: 0
   Options: []
   Default: 0

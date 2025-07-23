@@ -17,5 +17,6 @@ MonoBehaviour:
   ID: 31148e26-de2d-4a0e-9d06-2dfa90714421
   Name: Window Mode
   Reference: window_mode
+  Reverse: 0
   Options: []
   Default: 0

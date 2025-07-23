@@ -17,5 +17,6 @@ MonoBehaviour:
   ID: d69e5d53-b1da-457d-93b8-220ebfdc7869
   Name: V-Sync
   Reference: v-sync
+  Reverse: 0
   Options: []
   Default: 0

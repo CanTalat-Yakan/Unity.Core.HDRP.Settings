@@ -17,5 +17,6 @@ MonoBehaviour:
   ID: 5e117659-5452-4dd5-8ad2-078fdfc8155d
   Name: Display Selection
   Reference: display_selection
+  Reverse: 0
   Options: []
   Default: 0

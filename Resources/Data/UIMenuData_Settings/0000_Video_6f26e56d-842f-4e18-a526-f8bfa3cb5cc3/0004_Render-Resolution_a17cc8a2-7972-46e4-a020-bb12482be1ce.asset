@@ -17,5 +17,6 @@ MonoBehaviour:
   ID: a17cc8a2-7972-46e4-a020-bb12482be1ce
   Name: Render Resolution
   Reference: render_resolution
+  Reverse: 0
   Options: []
   Default: 0

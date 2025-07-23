@@ -17,5 +17,6 @@ MonoBehaviour:
   ID: eb9de8ba-27de-45e1-b835-8d6215e3c52d
   Name: Filter Mode
   Reference: filter_mode
+  Reverse: 0
   Options: []
   Default: 0
