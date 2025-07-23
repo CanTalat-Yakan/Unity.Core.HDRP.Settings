@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetVSync : MonoBehaviour
+    public class SetVerticalSynchronization : MonoBehaviour
     {
         [Info]
         [SerializeField]

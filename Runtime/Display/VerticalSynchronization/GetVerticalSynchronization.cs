@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetVSync : MonoBehaviour
+    public class GetVerticalSynchronization : MonoBehaviour
     {
         [Info]
         [SerializeField]
