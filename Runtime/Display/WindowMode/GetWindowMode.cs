@@ -20,7 +20,6 @@ namespace UnityEssentials
         {
             Options = Enum.GetNames(typeof(FullScreenMode))
                 .Select(mode => ObjectNames.NicifyVariableName(mode))
-                .Reverse()
                 .ToArray();
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
