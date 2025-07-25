@@ -3,11 +3,12 @@ using UnityEngine.Rendering;
 
 namespace UnityEssentials
 {
-    public class SetRenderResolutionScale : MonoBehaviour
+    public class SetResolutionScale : MonoBehaviour
     {
         [Info]
-        [SerializeField] private string _info =
-            "This component sets the render resolution scale based on the settings profile.\n" +
+        [SerializeField]
+        private string _info =
+            "This component sets the resolution scale based on the settings profile.\n" +
             "It allows dynamic resolution scaling if the resolution scale is below 100%.";
 
         [field: Space]

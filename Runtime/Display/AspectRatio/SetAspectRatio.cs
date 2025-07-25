@@ -7,14 +7,14 @@ namespace UnityEssentials
         [Info]
         [SerializeField]
         private string _info =
-            "This component sets the render resolution based on the user's selection in the settings menu.\n" +
-            "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
+            "This component sets the aspect ratio of the camera render texture based on the settings profile.\n" +
+            "It listens for changes in the aspect ratio setting and applies the selected aspect ratio to the camera render texture handler.";
 
         [field: Space]
         [field: ReadOnly]
         [field: SerializeField] public Vector2 AspectRatio { get; private set; }
 
-        private const string AspectRatioReference = "render_resolution";
+        private const string AspectRatioReference = "aspect_ratio";
 
         public void Start()
         {

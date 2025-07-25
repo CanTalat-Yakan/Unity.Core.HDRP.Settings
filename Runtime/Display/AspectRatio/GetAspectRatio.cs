@@ -14,7 +14,7 @@ namespace UnityEssentials
         public static string[] Options =
         {
             "Auto",
-            "16:10",
+            "16:9",
             "16:10",
             "21:9",
             "32:9",

@@ -41,13 +41,12 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
+            var renderResolution = RenderResolution;
             if(RenderResolution.x <= 0 || RenderResolution.y <= 0)
-                RenderResolution.Set(
-                    Screen.currentResolution.width, 
-                    Screen.currentResolution.height);
+                renderResolution = new(Screen.currentResolution.width, Screen.currentResolution.height);
 
-            RenderTextureHandler.Settings.RenderWidth = RenderResolution.x;
-            RenderTextureHandler.Settings.RenderHeight = RenderResolution.y;
+            RenderTextureHandler.Settings.RenderWidth = renderResolution.x;
+            RenderTextureHandler.Settings.RenderHeight = renderResolution.y;
         }
     }
 }
