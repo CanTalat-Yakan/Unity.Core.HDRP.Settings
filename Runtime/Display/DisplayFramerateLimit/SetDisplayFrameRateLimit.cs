@@ -7,8 +7,8 @@ namespace UnityEssentials
         [Info]
         [SerializeField]
         private string _info =
-            "SetDisplayFramerateLimit is responsible for managing the frame rate limit of the application. " +
-            "It reads the frame rate limit from the settings profile and applies it to the application, " +
+            "SetDisplayFrameRateLimit is responsible for managing the frame rate limit for the display. " +
+            "It allows the user to set a specific frame rate limit through the settings menu, " +
             "ensuring that the game runs at a consistent frame rate as defined by the user.";
 
         [field: Space]
@@ -35,9 +35,6 @@ namespace UnityEssentials
 
         public void Update()
         {
-            if (DisplayFrameRateLimit <= 0)
-                DisplayFrameRateLimit = (int)GetScreenFrameRate();
-
             Application.targetFrameRate = DisplayFrameRateLimit;
         }
 

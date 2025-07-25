@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: 0014_Filter-Mode_eb9de8ba-27de-45e1-b835-8d6215e3c52d
+  m_Script: {fileID: 11500000, guid: d1903b73278b2d547908f137c0dc15a6, type: 3}
+  m_Name: 0010_Global-Limit_f64b7d81-5e17-4163-a5be-ee3b32d0da86
   m_EditorClassIdentifier: 
-  IsDynamic: 1
+  IsDynamic: 0
   HasReference: 1
-  ID: eb9de8ba-27de-45e1-b835-8d6215e3c52d
-  Name: Filter Mode
-  Reference: filter_mode
-  Reverse: 0
-  Options: []
+  ID: f64b7d81-5e17-4163-a5be-ee3b32d0da86
+  Name: Global Limit
+  Reference: global_framerate_limit
+  IsFloat: 0
+  MinRange: 0
+  MaxRange: 100
   Default: 0

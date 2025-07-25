@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: 0010_Aspect-Ratio_0017c2f4-e5a6-467c-b964-cdeb64a121a7
+  m_Name: 0005_Render_a17cc8a2-7972-46e4-a020-bb12482be1ce
   m_EditorClassIdentifier: 
-  IsDynamic: 1
+  IsDynamic: 0
   HasReference: 1
-  ID: 0017c2f4-e5a6-467c-b964-cdeb64a121a7
-  Name: Aspect Ratio
-  Reference: aspect_ratio
+  ID: a17cc8a2-7972-46e4-a020-bb12482be1ce
+  Name: Render
+  Reference: render_resolution
   Reverse: 0
   Options: []
   Default: 0

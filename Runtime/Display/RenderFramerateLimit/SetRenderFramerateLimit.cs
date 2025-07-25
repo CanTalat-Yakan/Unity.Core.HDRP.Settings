@@ -33,12 +33,16 @@ namespace UnityEssentials
             };
         }
 
+        public CameraFrameRateLimiter CameraFrameRateLimiter => _cameraFrameRateLimiter ??= CameraProvider.Main?.GetComponent<CameraFrameRateLimiter>();
+        private CameraFrameRateLimiter _cameraFrameRateLimiter;
+
         public void Update()
         {
             if (RenderFrameRateLimit <= 0)
                 RenderFrameRateLimit = (int)GetScreenFrameRate();
 
-            GlobalRefreshRateLimiter.SetTargetFrameRate(RenderFrameRateLimit);
+            CameraFrameRateLimiter?.SetTargetFrameRate(RenderFrameRateLimit);
+            //GlobalRefreshRateLimiter.SetTargetFrameRate(RenderFrameRateLimit);
         }
 
         private float GetScreenFrameRate() =>

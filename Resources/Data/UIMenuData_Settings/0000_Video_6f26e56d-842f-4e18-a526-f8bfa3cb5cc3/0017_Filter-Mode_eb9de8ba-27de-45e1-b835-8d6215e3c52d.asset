@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1903b73278b2d547908f137c0dc15a6, type: 3}
-  m_Name: 0007_Display-FrameRate-Limit_48c5eb37-adeb-4291-99a0-5192f0bc9915
+  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
+  m_Name: 0017_Filter-Mode_eb9de8ba-27de-45e1-b835-8d6215e3c52d
   m_EditorClassIdentifier: 
-  IsDynamic: 1
+  IsDynamic: 0
   HasReference: 1
-  ID: 48c5eb37-adeb-4291-99a0-5192f0bc9915
-  Name: Display FrameRate Limit
-  Reference: display_framerate_limit
-  IsFloat: 0
-  MinRange: 0
-  MaxRange: 500
+  ID: eb9de8ba-27de-45e1-b835-8d6215e3c52d
+  Name: Filter Mode
+  Reference: filter_mode
+  Reverse: 0
+  Options: []
   Default: 0

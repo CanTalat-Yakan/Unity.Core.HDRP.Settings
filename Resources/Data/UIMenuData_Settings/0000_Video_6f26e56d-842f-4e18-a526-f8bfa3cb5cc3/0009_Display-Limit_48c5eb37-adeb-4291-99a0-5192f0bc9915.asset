@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295897a9c5ae7b344a5ac7baadd70115, type: 3}
-  m_Name: 0003_Display-Resolution_1b516798-d7b5-4d4c-9ef8-05aa31e9d7f9
+  m_Script: {fileID: 11500000, guid: d1903b73278b2d547908f137c0dc15a6, type: 3}
+  m_Name: 0009_Display-Limit_48c5eb37-adeb-4291-99a0-5192f0bc9915
   m_EditorClassIdentifier: 
-  IsDynamic: 1
+  IsDynamic: 0
   HasReference: 1
-  ID: 1b516798-d7b5-4d4c-9ef8-05aa31e9d7f9
-  Name: Display Resolution
-  Reference: display_resolution
-  Reverse: 0
-  Options: []
+  ID: 48c5eb37-adeb-4291-99a0-5192f0bc9915
+  Name: Display Limit
+  Reference: display_framerate_limit
+  IsFloat: 0
+  MinRange: 0
+  MaxRange: 100
   Default: 0
