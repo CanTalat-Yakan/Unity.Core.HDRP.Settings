@@ -5,7 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsMenuSetterBase : MonoBehaviour
     {
-        public void InitializeSetter(string reference, Action<UIMenuProfile> update, params Action[] callbacks)
+        public void InitializeSetter(string reference, Action<UIMenuProfile> update, Action callback = null)
         {
             if (!UIMenu.TryGetProfile("Settings", out var profile))
                 return;
@@ -18,9 +18,8 @@ namespace UnityEssentials
                     update(profile);
             };
 
-            foreach (var callback in callbacks)
-                if (callback is Action action)
-                    action += () => update(profile);
+            if (callback != null)
+                callback += () => update(profile);
         }
     }
 }
