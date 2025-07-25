@@ -10,8 +10,6 @@ namespace UnityEssentials
             if (!UIMenu.TryGetProfile("Settings", out var profile))
                 return;
 
-            update(profile);
-
             profile.OnValueChanged += (changedValueReference) =>
             {
                 if (changedValueReference == reference)
@@ -20,6 +18,8 @@ namespace UnityEssentials
 
             if (callback != null)
                 callback += () => update(profile);
+
+            update(profile);
         }
     }
 }
