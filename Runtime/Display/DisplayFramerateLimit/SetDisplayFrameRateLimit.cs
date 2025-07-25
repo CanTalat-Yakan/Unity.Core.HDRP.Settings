@@ -21,12 +21,7 @@ namespace UnityEssentials
             InitializeSetter(DisplayFrameRateLimitReference, (profile) =>
                 DisplayFrameRateLimit = profile.Get<int>(DisplayFrameRateLimitReference));
 
-        public void Update()
-        {
+        public void Update() =>
             Application.targetFrameRate = DisplayFrameRateLimit;
-        }
-
-        private float GetScreenFrameRate() =>
-            Screen.currentResolution.refreshRateRatio.numerator / Screen.currentResolution.refreshRateRatio.denominator;
     }
 }

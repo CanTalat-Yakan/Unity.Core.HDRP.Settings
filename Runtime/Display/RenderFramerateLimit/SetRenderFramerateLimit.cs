@@ -30,7 +30,6 @@ namespace UnityEssentials
                 RenderFrameRateLimit = (int)GetScreenFrameRate();
 
             CameraFrameRateLimiter?.SetTargetFrameRate(RenderFrameRateLimit);
-            //GlobalRefreshRateLimiter.SetTargetFrameRate(RenderFrameRateLimit);
         }
 
         private float GetScreenFrameRate() =>
