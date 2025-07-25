@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetDisplaySelection : MonoBehaviour
+    public class SetDisplaySelection : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -17,21 +17,9 @@ namespace UnityEssentials
 
         private const string DisplaySelectionReference = "display_selection";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateDisplaySelection(UIMenuProfile profile) =>
-                DisplaySelection = profile.Get<int>(DisplaySelectionReference);
-
-            UpdateDisplaySelection(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == DisplaySelectionReference)
-                    UpdateDisplaySelection(profile);
-            };
-        }
+        public void Start() =>
+            InitializeSetter(DisplaySelectionReference, (profile) =>
+                DisplaySelection = profile.Get<int>(DisplaySelectionReference));
 
         public UIMenuGenerator Generator => _generator ??= GetGenerator();
         private UIMenuGenerator _generator;

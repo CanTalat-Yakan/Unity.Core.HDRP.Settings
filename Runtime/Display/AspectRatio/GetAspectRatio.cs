@@ -27,6 +27,9 @@ namespace UnityEssentials
         };
 
         public void Awake() =>
+            InitializeGetter();
+
+        public void InitializeGetter() =>
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
     }
 }

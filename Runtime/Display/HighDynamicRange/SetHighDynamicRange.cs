@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetHighDynamicRange : MonoBehaviour
+    public class SetHighDynamicRange : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -16,21 +16,9 @@ namespace UnityEssentials
 
         private const string HighDynamicRangeReference = "hdr";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateHighDynamicRange(UIMenuProfile profile) =>
-                HighDynamicRange = profile.Get<bool>(HighDynamicRangeReference);
-
-            UpdateHighDynamicRange(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == HighDynamicRangeReference)
-                    UpdateHighDynamicRange(profile);
-            };
-        }
+        public void Start() =>
+            InitializeSetter(HighDynamicRangeReference, (profile) =>
+                HighDynamicRange = profile.Get<bool>(HighDynamicRangeReference));
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

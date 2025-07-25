@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetFilterMode : MonoBehaviour
+    public class SetFilterMode : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -16,21 +16,9 @@ namespace UnityEssentials
 
         private const string FilterModeReference = "filter_mode";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateFilterMode(UIMenuProfile profile) =>
-                FilterMode = profile.Get<int>(FilterModeReference);
-
-            UpdateFilterMode(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == FilterModeReference)
-                    UpdateFilterMode(profile);
-            };
-        }
+        public void Start() =>
+            InitializeSetter(FilterModeReference, (profile) =>
+                FilterMode = profile.Get<int>(FilterModeReference));
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

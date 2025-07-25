@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetGlobalFrameRateLimit : MonoBehaviour
+    public class SetGlobalFrameRateLimit : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -17,21 +17,9 @@ namespace UnityEssentials
 
         private const string GlobalFrameRateLimitReference = "global_framerate_limit";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateGlobalFramerateLimit(UIMenuProfile profile) =>
-                GlobalFrameRateLimit = profile.Get<int>(GlobalFrameRateLimitReference);
-
-            UpdateGlobalFramerateLimit(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == GlobalFrameRateLimitReference)
-                    UpdateGlobalFramerateLimit(profile);
-            };
-        }
+        public void Start() =>
+            InitializeSetter(GlobalFrameRateLimitReference, (profile) =>
+                GlobalFrameRateLimit = profile.Get<int>(GlobalFrameRateLimitReference));
 
         public void Update()
         {

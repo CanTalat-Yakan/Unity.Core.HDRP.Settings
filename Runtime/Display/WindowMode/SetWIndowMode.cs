@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetWindowMode : MonoBehaviour
+    public class SetWindowMode : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -16,21 +16,9 @@ namespace UnityEssentials
 
         private const string WindowModeReference = "window_mode";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateResolutionScale(UIMenuProfile profile) =>
-                WindowMode = profile.Get<int>(WindowModeReference);
-
-            UpdateResolutionScale(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == WindowModeReference)
-                    UpdateResolutionScale(profile);
-            };
-        }
+        public void Start() =>
+            InitializeSetter(WindowModeReference, (profile) =>
+                WindowMode = profile.Get<int>(WindowModeReference));
 
         public void Update() =>
             Screen.fullScreenMode = (FullScreenMode)WindowMode; 

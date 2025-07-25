@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetAspectRatio : MonoBehaviour
+    public class SetAspectRatio : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -16,21 +16,9 @@ namespace UnityEssentials
 
         private const string AspectRatioReference = "aspect_ratio";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateAspectRatio(UIMenuProfile profile) =>
-                AspectRatio = GetAspectRatio.Options[profile.Get<int>(AspectRatioReference)].ExtractFromString(':');
-
-            UpdateAspectRatio(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == AspectRatioReference)
-                    UpdateAspectRatio(profile);
-            };
-        }
+        public void Start() =>
+            InitializeSetter(AspectRatioReference, (profile) => 
+                AspectRatio = GetAspectRatio.Options[profile.Get<int>(AspectRatioReference)].ExtractFromString(':'));
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

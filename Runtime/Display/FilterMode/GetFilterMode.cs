@@ -14,7 +14,10 @@ namespace UnityEssentials
 
         public static string[] Options { get; private set; }
 
-        public void Awake()
+        public void Awake() =>
+            InitializeGetter();
+
+        public void InitializeGetter()
         {
             Options = Enum.GetNames(typeof(FilterMode));
 

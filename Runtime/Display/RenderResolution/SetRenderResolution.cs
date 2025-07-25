@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetRenderResolution : MonoBehaviour
+    public class SetRenderResolution : SettingsMenuSetterBase
     {
         [Info]
         [SerializeField]
@@ -16,22 +16,10 @@ namespace UnityEssentials
 
         private const string RenderResolutionReference = "render_resolution";
 
-        public void Start()
-        {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
-                return;
-
-            void UpdateRenderResolution(UIMenuProfile profile) =>
-                RenderResolution = GetRenderResolution.Options[profile.Get<int>(RenderResolutionReference)].ExtractFromString('x').ToVector2Int();
-
-            UpdateRenderResolution(profile);
-            profile.OnValueChanged += (reference) =>
-            {
-                if (reference == RenderResolutionReference)
-                    UpdateRenderResolution(profile);
-            };
-            SetDisplaySelection.OnDisplayIndexChanged += () => UpdateRenderResolution(profile);
-        }
+        public void Start() =>
+            InitializeSetter(RenderResolutionReference, (profile) => 
+                RenderResolution = GetRenderResolution.Options[profile.Get<int>(RenderResolutionReference)].ExtractFromString('x').ToVector2Int(),
+                SetDisplaySelection.OnDisplayIndexChanged);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

@@ -13,7 +13,10 @@ namespace UnityEssentials
 
         public static string[] Options { get; private set; }
 
-        public void Awake()
+        public void Awake() =>
+            InitializeGetter();
+
+        public void InitializeGetter()
         {
             Options = new string[Display.displays.Length];
             for (int i = 0; i < Display.displays.Length; i++)
