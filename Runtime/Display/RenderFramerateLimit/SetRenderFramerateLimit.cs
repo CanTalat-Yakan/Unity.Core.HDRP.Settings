@@ -33,7 +33,7 @@ namespace UnityEssentials
             };
         }
 
-        public CameraFrameRateLimiter CameraFrameRateLimiter => _cameraFrameRateLimiter ??= CameraProvider.Main?.GetComponent<CameraFrameRateLimiter>();
+        public CameraFrameRateLimiter CameraFrameRateLimiter => _cameraFrameRateLimiter ??= CameraProvider.Active?.GetComponent<CameraFrameRateLimiter>();
         private CameraFrameRateLimiter _cameraFrameRateLimiter;
 
         public void Update()

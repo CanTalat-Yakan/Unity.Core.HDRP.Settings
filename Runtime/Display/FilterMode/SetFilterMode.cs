@@ -32,7 +32,7 @@ namespace UnityEssentials
             };
         }
 
-        public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Main?.GetComponent<CameraRenderTextureHandler>();
+        public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;
 
         public void Update()

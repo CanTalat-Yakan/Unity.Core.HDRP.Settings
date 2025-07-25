@@ -22,12 +22,13 @@ namespace UnityEssentials
 
         public void Initialize()
         {
-            Options = new string[Screen.resolutions.Length];
+            Options = new string[Screen.resolutions.Length + 1];
             for (int i = 0; i < Screen.resolutions.Length; i++)
             {
                 var resolution = Screen.resolutions[i];
                 Options[i] = $"{resolution.width}x{resolution.height}";
             }
+            Options[^1] = "Native";
             Options = Options.Reverse().ToArray();
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;

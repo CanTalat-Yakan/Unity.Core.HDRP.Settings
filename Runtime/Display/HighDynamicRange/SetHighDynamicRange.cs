@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetRenderResolution : MonoBehaviour
+    public class SetHighDynamicRange : MonoBehaviour
     {
         [Info]
         [SerializeField]
@@ -12,25 +12,24 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public Vector2Int RenderResolution { get; private set; }
+        [field: SerializeField] public bool HighDynamicRange { get; private set; }
 
-        private const string RenderResolutionReference = "render_resolution";
+        private const string HighDynamicRangeReference = "hdr";
 
         public void Start()
         {
             if (!UIMenu.TryGetProfile("Settings", out var profile))
                 return;
 
-            void UpdateRenderResolution(UIMenuProfile profile) =>
-                RenderResolution = GetRenderResolution.Options[profile.Get<int>(RenderResolutionReference)].ExtractFromString('x').ToVector2Int();
+            void UpdateHighDynamicRange(UIMenuProfile profile) =>
+                HighDynamicRange = profile.Get<bool>(HighDynamicRangeReference);
 
-            UpdateRenderResolution(profile);
+            UpdateHighDynamicRange(profile);
             profile.OnValueChanged += (reference) =>
             {
-                if (reference == RenderResolutionReference)
-                    UpdateRenderResolution(profile);
+                if (reference == HighDynamicRangeReference)
+                    UpdateHighDynamicRange(profile);
             };
-            SetDisplaySelection.OnDisplayIndexChanged += () => UpdateRenderResolution(profile);
         }
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
@@ -41,11 +40,7 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            if(RenderResolution.x <= 0 || RenderResolution.y <= 0)
-                RenderResolution = new(Screen.currentResolution.width, Screen.currentResolution.height);
-
-            RenderTextureHandler.Settings.RenderWidth = RenderResolution.x;
-            RenderTextureHandler.Settings.RenderHeight = RenderResolution.y;
+            RenderTextureHandler.Settings.HighDynamicRange = HighDynamicRange;
         }
     }
 }

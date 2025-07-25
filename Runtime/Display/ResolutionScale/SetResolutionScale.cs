@@ -35,7 +35,7 @@ namespace UnityEssentials
 
         public void Update()
         {
-            CameraProvider.Main?.SetDynamicResolution(ResolutionScale < 100);
+            CameraProvider.Active?.SetDynamicResolution(ResolutionScale < 100);
             DynamicResolutionHandler.SetDynamicResScaler(() => ResolutionScale, 0);
         }
     }

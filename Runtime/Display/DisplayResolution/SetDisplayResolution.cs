@@ -5,7 +5,8 @@ namespace UnityEssentials
     public class SetDisplayResolution : MonoBehaviour
     {
         [Info]
-        [SerializeField] private string _info =
+        [SerializeField]
+        private string _info =
             "This component sets the display resolution based on the settings profile.\n" +
             "It allows changing the screen resolution dynamically from the menu.";
 
@@ -32,7 +33,12 @@ namespace UnityEssentials
             SetDisplaySelection.OnDisplayIndexChanged += () => UpdateDisplayResolution(profile);
         }
 
-        public void Update() =>
+        public void Update()
+        {
+            if (DisplayResolution.x <= 0 || DisplayResolution.y <= 0)
+                DisplayResolution = new(Screen.currentResolution.width, Screen.currentResolution.height);
+
             Screen.SetResolution(DisplayResolution.x, DisplayResolution.y, Screen.fullScreenMode);
+        }
     }
 }
