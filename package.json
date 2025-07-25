@@ -7,7 +7,15 @@
   "unityRelease": null,
   "dependencies": {
     "com.unityessentials.core": "1.0.0",
-    "com.unityessentials.uimenugenerator": "1.0.0"
+    "com.unityessentials.globalrefreshratelimiter": "1.0.0",
+    "com.unityessentials.cameraframeratelimiter": "1.0.0",
+    "com.unityessentials.rendertexturecreator": "1.0.0",
+    "com.unityessentials.utilityextensions": "1.0.0",
+    "com.unityessentials.uimenugenerator": "1.0.0",
+    "com.unityessentials.serializeddictionarydrawer": "1.0.0",
+    "com.unityessentials.cameraprovider": "1.0.0",
+    "com.unityessentials.infoattribute": "1.0.0",
+    "com.unityessentials.readonlyattribute": "1.0.0"
   },
   "keywords": [],
   "author": {
