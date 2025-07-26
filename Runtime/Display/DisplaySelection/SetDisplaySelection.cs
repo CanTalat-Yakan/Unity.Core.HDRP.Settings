@@ -20,9 +20,6 @@ namespace UnityEssentials
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
             DisplaySelection = profile.Get<int>(reference = DisplaySelectionReference);
 
-        public UIMenuGenerator Generator => _generator ??= GetGenerator();
-        private UIMenuGenerator _generator;
-
         public static Action OnDisplayIndexChanged;
 
         private int _lastDisplaySelection = -1;
@@ -36,17 +33,6 @@ namespace UnityEssentials
                 Display.displays[DisplaySelection].Activate();
 
             OnDisplayIndexChanged?.Invoke();
-
-            Generator?.Redraw?.Invoke();
-        }
-
-        private UIMenuGenerator GetGenerator()
-        {
-            if (_generator != null)
-                return _generator;
-            if (UIMenu.RegisteredMenus.TryGetValue("Settings", out var menu))
-                return _generator = menu.Generator;
-            return null;
         }
     }
 }
