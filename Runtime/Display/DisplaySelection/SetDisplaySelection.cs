@@ -27,12 +27,28 @@ namespace UnityEssentials
         {
             if (_lastDisplaySelection != DisplaySelection)
                 _lastDisplaySelection = DisplaySelection;
+            else if (GetDisplaySelection.Dirty)
+                GetDisplaySelection.Dirty = false;
             else return;
 
             if (Display.displays.Length > DisplaySelection && DisplaySelection >= 0)
                 Display.displays[DisplaySelection].Activate();
 
             OnDisplayIndexChanged?.Invoke();
+
+            Generator?.Redraw?.Invoke();
+        }
+
+        public UIMenuGenerator Generator => _generator ??= GetGenerator();
+        private UIMenuGenerator _generator;
+
+        private UIMenuGenerator GetGenerator()
+        {
+            if (_generator != null)
+                return _generator;
+            if (UIMenu.RegisteredMenus.TryGetValue("Settings", out var menu))
+                return _generator = menu.Generator;
+            return null;
         }
     }
 }

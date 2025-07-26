@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetAspectRatio : MonoBehaviour
+    public class GetAspectRatio : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -11,7 +11,7 @@ namespace UnityEssentials
             "This component populates the aspect ratio options in the settings menu.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred aspect ratio.";
 
-        public static string[] Options =
+        public static string[] Options { get; private set; } =
         {
             "Auto",
             "16:9",
@@ -26,10 +26,7 @@ namespace UnityEssentials
             "2.35:1"
         };
 
-        public void Awake() =>
-            InitializeGetter();
-
-        public void InitializeGetter() =>
+        public override void InitializeGetter() =>
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
     }
 }

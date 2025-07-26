@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetDisplaySelection : MonoBehaviour
+    public class GetDisplaySelection : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -12,14 +12,9 @@ namespace UnityEssentials
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred display.";
 
         public static string[] Options { get; private set; }
+        public static bool Dirty { get; set; }
 
-        public void Awake() =>
-            InitializeGetter();
-
-        public void OnEnable() => Display.onDisplaysUpdated += GetDisplaysUpdatedDelegate();
-        public void OnDisable() => Display.onDisplaysUpdated -= GetDisplaysUpdatedDelegate();
-
-        public void InitializeGetter()
+        public override void InitializeGetter()
         {
             Options = new string[Display.displays.Length];
             for (int i = 0; i < Display.displays.Length; i++)
@@ -29,27 +24,11 @@ namespace UnityEssentials
             }
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
+
+            Dirty = true;
         }
 
-        private Display.DisplaysUpdatedDelegate GetDisplaysUpdatedDelegate()
-        {
-            return () =>
-            {
-                InitializeGetter();
-                Generator?.Redraw?.Invoke();
-            };
-        }
-
-        public UIMenuGenerator Generator => _generator ??= GetGenerator();
-        private UIMenuGenerator _generator;
-
-        private UIMenuGenerator GetGenerator()
-        {
-            if (_generator != null)
-                return _generator;
-            if (UIMenu.RegisteredMenus.TryGetValue("Settings", out var menu))
-                return _generator = menu.Generator;
-            return null;
-        }
+        public void OnEnable() => Display.onDisplaysUpdated += () => InitializeGetter();
+        public void OnDisable() => Display.onDisplaysUpdated -= () => InitializeGetter();
     }
 }

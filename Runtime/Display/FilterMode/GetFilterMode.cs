@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetFilterMode : MonoBehaviour
+    public class GetFilterMode : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -14,10 +14,7 @@ namespace UnityEssentials
 
         public static string[] Options { get; private set; }
 
-        public void Awake() =>
-            InitializeGetter();
-
-        public void InitializeGetter()
+        public override void InitializeGetter()
         {
             Options = Enum.GetNames(typeof(FilterMode));
 

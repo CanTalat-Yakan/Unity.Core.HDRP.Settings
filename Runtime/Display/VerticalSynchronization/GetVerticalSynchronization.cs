@@ -11,7 +11,7 @@ namespace UnityEssentials
             "This component populates the VSync options in the settings menu.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred VSync setting.";
 
-        public static string[] Options =
+        public static string[] Options { get; private set; } =
         {
             "Don't Sync",
             "Every V Blank",

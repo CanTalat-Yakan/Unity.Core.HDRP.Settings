@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetRenderResolution : MonoBehaviour
+    public class GetRenderResolution : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -14,13 +14,7 @@ namespace UnityEssentials
 
         public static string[] Options { get; private set; }
 
-        public void Awake()
-        {
-            InitializeGetter();
-            SetDisplaySelection.OnDisplayIndexChanged += InitializeGetter;
-        }
-
-        public void InitializeGetter()
+        public override void InitializeGetter()
         {
             Options = new string[Screen.resolutions.Length + 1];
             for (int i = 0; i < Screen.resolutions.Length; i++)
@@ -33,5 +27,8 @@ namespace UnityEssentials
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
         }
+
+        public void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += InitializeGetter;
+        public void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= InitializeGetter;
     }
 }

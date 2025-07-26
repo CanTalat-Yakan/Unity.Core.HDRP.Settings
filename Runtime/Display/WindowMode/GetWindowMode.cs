@@ -6,7 +6,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetWindowMode : MonoBehaviour
+    public class GetWindowMode : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -16,10 +16,7 @@ namespace UnityEssentials
 
         public static string[] Options { get; private set; }
 
-        public void Awake() =>
-            InitializeGetter();
-
-        public void InitializeGetter()
+        public override void InitializeGetter()
         {
             Options = Enum.GetNames(typeof(FullScreenMode))
                 .Select(mode => ObjectNames.NicifyVariableName(mode))
