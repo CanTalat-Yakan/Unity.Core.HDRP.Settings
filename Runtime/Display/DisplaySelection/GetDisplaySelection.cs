@@ -16,20 +16,8 @@ namespace UnityEssentials
         public void Awake() =>
             InitializeGetter();
 
-        public UIMenuGenerator Generator => _generator ??= GetGenerator();
-        private UIMenuGenerator _generator;
-
-        public void OnEnable() => Display.onDisplaysUpdated += () =>
-        {
-            InitializeGetter();
-            Generator?.Redraw?.Invoke();
-        };
-
-        public void OnDisable() => Display.onDisplaysUpdated -= () =>
-        {
-            InitializeGetter();
-            Generator?.Redraw?.Invoke();
-        };
+        public void OnEnable() => Display.onDisplaysUpdated += GetDisplaysUpdatedDelegate();
+        public void OnDisable() => Display.onDisplaysUpdated -= GetDisplaysUpdatedDelegate();
 
         public void InitializeGetter()
         {
@@ -42,6 +30,18 @@ namespace UnityEssentials
 
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
         }
+
+        private Display.DisplaysUpdatedDelegate GetDisplaysUpdatedDelegate()
+        {
+            return () =>
+            {
+                InitializeGetter();
+                Generator?.Redraw?.Invoke();
+            };
+        }
+
+        public UIMenuGenerator Generator => _generator ??= GetGenerator();
+        private UIMenuGenerator _generator;
 
         private UIMenuGenerator GetGenerator()
         {
