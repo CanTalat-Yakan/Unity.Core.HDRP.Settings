@@ -18,7 +18,7 @@ namespace UnityEssentials
 
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
             AspectRatio = GetAspectRatio.Options[profile.Get<int>(reference = AspectRatioReference)]
-                .ExtractFromString(':');
+                .ExtractVector2FromString(':');
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

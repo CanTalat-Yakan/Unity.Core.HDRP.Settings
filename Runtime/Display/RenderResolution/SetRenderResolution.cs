@@ -18,10 +18,10 @@ namespace UnityEssentials
 
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
             RenderResolution = GetRenderResolution.Options[profile.Get<int>(reference = RenderResolutionReference)]
-                .ExtractFromString('x').ToVector2Int();
+                .ExtractVector2FromString('x').ToVector2Int();
 
-        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += Callback;
-        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= Callback;
+        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += UpdateValue;
+        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= UpdateValue;
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

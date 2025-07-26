@@ -18,10 +18,10 @@ namespace UnityEssentials
 
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
             DisplayResolution = GetDisplayResolution.Options[profile.Get<int>(reference = DisplayResolutionReference)]
-                .ExtractFromString('x').ToVector2Int();
+                .ExtractVector2FromString('x').ToVector2Int();
 
-        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += Callback;
-        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= Callback;
+        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += UpdateValue;
+        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= UpdateValue;
 
         public void Update()
         {
