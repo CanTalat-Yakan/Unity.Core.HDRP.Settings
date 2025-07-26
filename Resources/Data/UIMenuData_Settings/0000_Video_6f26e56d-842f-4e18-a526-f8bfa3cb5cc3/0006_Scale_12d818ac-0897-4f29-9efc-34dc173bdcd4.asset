@@ -20,4 +20,4 @@ MonoBehaviour:
   IsFloat: 0
   MinRange: 0
   MaxRange: 100
-  Default: 100
+  Default: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
+    [DefaultExecutionOrder(-1009)]
     public class SettingsMenuBase : MonoBehaviour
     {
         private string _reference;
