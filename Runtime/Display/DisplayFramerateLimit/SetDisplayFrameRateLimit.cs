@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetDisplayFrameRateLimit : SettingsMenuSetterBase
+    public class SetDisplayFrameRateLimit : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -17,9 +17,8 @@ namespace UnityEssentials
 
         private const string DisplayFrameRateLimitReference = "display_framerate_limit";
 
-        public void Start() =>
-            InitializeSetter(DisplayFrameRateLimitReference, (profile) =>
-                DisplayFrameRateLimit = profile.Get<int>(DisplayFrameRateLimitReference));
+        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+            DisplayFrameRateLimit = profile.Get<int>(reference = DisplayFrameRateLimitReference);
 
         public void Update() =>
             Application.targetFrameRate = DisplayFrameRateLimit;

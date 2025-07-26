@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetDisplayResolution : SettingsMenuSetterBase
+    public class SetDisplayResolution : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -16,10 +16,12 @@ namespace UnityEssentials
 
         private const string DisplayResolutionReference = "display_resolution";
 
-        public void Start() =>
-            InitializeSetter(DisplayResolutionReference, (profile) =>
-                DisplayResolution = GetDisplayResolution.Options[profile.Get<int>(DisplayResolutionReference)].ExtractFromString('x').ToVector2Int(),
-                SetDisplaySelection.OnDisplayIndexChanged);
+        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+            DisplayResolution = GetDisplayResolution.Options[profile.Get<int>(reference = DisplayResolutionReference)]
+                .ExtractFromString('x').ToVector2Int();
+
+        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += Callback;
+        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= Callback;
 
         public void Update()
         {

@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 
 namespace UnityEssentials
 {
-    public class SetResolutionScale : SettingsMenuSetterBase
+    public class SetResolutionScale : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -17,9 +17,8 @@ namespace UnityEssentials
 
         private const string ResolutionScaleReference = "resolution_scale";
 
-        public void Start() =>
-            InitializeSetter(ResolutionScaleReference, (profile) =>
-                ResolutionScale = profile.Get<int>(ResolutionScaleReference));
+        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+            ResolutionScale = profile.Get<int>(reference = ResolutionScaleReference);
 
         public void Update()
         {

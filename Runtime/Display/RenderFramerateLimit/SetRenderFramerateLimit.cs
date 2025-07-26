@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetRenderFrameRateLimit : SettingsMenuSetterBase
+    public class SetRenderFrameRateLimit : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -17,9 +17,8 @@ namespace UnityEssentials
 
         private const string RenderFrameRateLimitReference = "render_framerate_limit";
 
-        public void Start() =>
-            InitializeSetter(RenderFrameRateLimitReference, (profile) =>
-                RenderFrameRateLimit = profile.Get<int>(RenderFrameRateLimitReference));
+        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+            RenderFrameRateLimit = profile.Get<int>(reference = RenderFrameRateLimitReference);
 
         public CameraFrameRateLimiter CameraFrameRateLimiter => _cameraFrameRateLimiter ??= CameraProvider.Active?.GetComponent<CameraFrameRateLimiter>();
         private CameraFrameRateLimiter _cameraFrameRateLimiter;

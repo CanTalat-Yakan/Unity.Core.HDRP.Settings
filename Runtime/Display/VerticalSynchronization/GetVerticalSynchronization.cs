@@ -3,7 +3,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
-    public class GetVerticalSynchronization : MonoBehaviour
+    public class GetVerticalSynchronization : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -18,10 +18,7 @@ namespace UnityEssentials
             "Every Second V Blank"
         };
 
-        public void Awake() =>
-            InitializeGetter();
-
-        public void InitializeGetter() =>
+        public override void InitializeGetter() =>
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
     }
 }

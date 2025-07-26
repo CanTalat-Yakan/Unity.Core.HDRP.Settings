@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetRenderResolution : SettingsMenuSetterBase
+    public class SetRenderResolution : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -16,10 +16,12 @@ namespace UnityEssentials
 
         private const string RenderResolutionReference = "render_resolution";
 
-        public void Start() =>
-            InitializeSetter(RenderResolutionReference, (profile) => 
-                RenderResolution = GetRenderResolution.Options[profile.Get<int>(RenderResolutionReference)].ExtractFromString('x').ToVector2Int(),
-                SetDisplaySelection.OnDisplayIndexChanged);
+        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+            RenderResolution = GetRenderResolution.Options[profile.Get<int>(reference = RenderResolutionReference)]
+                .ExtractFromString('x').ToVector2Int();
+
+        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += Callback;
+        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= Callback;
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;
@@ -29,7 +31,7 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            if(RenderResolution.x <= 0 || RenderResolution.y <= 0)
+            if (RenderResolution.x <= 0 || RenderResolution.y <= 0)
                 RenderResolution = new(Screen.currentResolution.width, Screen.currentResolution.height);
 
             RenderTextureHandler.Settings.RenderWidth = RenderResolution.x;

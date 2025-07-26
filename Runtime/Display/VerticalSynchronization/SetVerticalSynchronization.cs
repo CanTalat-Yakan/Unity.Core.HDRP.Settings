@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SetVerticalSynchronization : SettingsMenuSetterBase
+    public class SetVerticalSynchronization : SettingsMenuBase
     {
         [Info]
         [SerializeField]
@@ -16,9 +16,8 @@ namespace UnityEssentials
 
         private const string VSyncReference = "v-sync";
 
-        public void Start() =>
-            InitializeSetter(VSyncReference, (profile) =>
-                VSync = profile.Get<int>(VSyncReference));
+        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+            VSync = profile.Get<int>(reference = VSyncReference);
 
         public void Update() =>
             QualitySettings.vSyncCount = VSync;
