@@ -28,11 +28,11 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            var aspectRatio = AspectRatio.x / AspectRatio.y;
-            if (AspectRatio.x <= 0 || AspectRatio.y <= 0)
-                aspectRatio = 0;
+            var aspectRatioNumerator = Mathf.Max(0, AspectRatio.x);
+            var aspectRatioDenominator = Mathf.Max(0, AspectRatio.y);
 
-            RenderTextureHandler.Settings.AspectRatio = aspectRatio;
+            RenderTextureHandler.Settings.AspectRatioNumerator = aspectRatioNumerator;
+            RenderTextureHandler.Settings.AspectRatioDenominator = aspectRatioDenominator;
         }
     }
 }
