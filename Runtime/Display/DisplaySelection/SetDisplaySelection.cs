@@ -28,8 +28,9 @@ namespace UnityEssentials
         private int _lastDisplaySelection = -1;
         public void Update()
         {
-            if (_lastDisplaySelection == DisplaySelection)
-                return;
+            if (_lastDisplaySelection != DisplaySelection)
+                _lastDisplaySelection = DisplaySelection;
+            else return;
 
             if (Display.displays.Length > DisplaySelection && DisplaySelection >= 0)
                 Display.displays[DisplaySelection].Activate();
@@ -37,7 +38,6 @@ namespace UnityEssentials
             OnDisplayIndexChanged?.Invoke();
 
             Generator?.Redraw?.Invoke();
-            _lastDisplaySelection = DisplaySelection;
         }
 
         private UIMenuGenerator GetGenerator()
