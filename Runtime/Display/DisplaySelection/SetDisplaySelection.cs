@@ -13,15 +13,15 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int DisplaySelection { get; private set; }
+        [field: SerializeField] 
+        public int DisplaySelection { get; private set; }
 
         private const string DisplaySelectionReference = "display_selection";
 
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
             DisplaySelection = profile.Get<int>(reference = DisplaySelectionReference);
 
-        public static Action OnDisplayIndexChanged;
-
+        public static Action OnDisplaySelectionChanged;
         private int _lastDisplaySelection = -1;
         public void Update()
         {
@@ -34,7 +34,7 @@ namespace UnityEssentials
             if (Display.displays.Length > DisplaySelection && DisplaySelection >= 0)
                 Display.displays[DisplaySelection].Activate();
 
-            OnDisplayIndexChanged?.Invoke();
+            OnDisplaySelectionChanged?.Invoke();
 
             Generator?.Redraw?.Invoke();
         }

@@ -28,7 +28,7 @@ namespace UnityEssentials
             GetComponent<UIMenuOptionsDataConfigurator>().Options = Options;
         }
 
-        public void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += InitializeGetter;
-        public void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= InitializeGetter;
+        public void OnEnable() => SetDisplaySelection.OnDisplaySelectionChanged += InitializeGetter;
+        public void OnDisable() => SetDisplaySelection.OnDisplaySelectionChanged -= InitializeGetter;
     }
 }

@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public Vector2 AspectRatio { get; private set; }
+        [field: SerializeField] 
+        public Vector2 AspectRatio { get; private set; }
 
         private const string AspectRatioReference = "aspect_ratio";
 

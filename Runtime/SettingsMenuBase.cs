@@ -5,8 +5,8 @@ namespace UnityEssentials
 {
     public class SettingsMenuBase : MonoBehaviour
     {
-        [HideInInspector] public string Reference;
-        [HideInInspector] public Action UpdateValue;
+        private string _reference;
+        private Action _updateValueCallback;
 
         public virtual void InitializeSetter(UIMenuProfile profile, out string reference) { reference = string.Empty; }
 
@@ -17,17 +17,20 @@ namespace UnityEssentials
             if (!UIMenu.TryGetProfile("Settings", out var profile))
                 return;
 
-            UpdateValue = () => { InitializeSetter(profile, out Reference); };
-            UpdateValue.Invoke();
+            _updateValueCallback = () => InitializeSetter(profile, out _reference);;
+            _updateValueCallback.Invoke();
 
             profile.OnValueChanged += (changedValueReference) =>
             {
-                if (changedValueReference == Reference)
-                    UpdateValue.Invoke();
+                if (changedValueReference == _reference) 
+                    InvokeUpdateValueCallback();
             };
         }
 
         public void Awake() =>
             InitializeGetter();
+
+        public void InvokeUpdateValueCallback() =>
+            _updateValueCallback?.Invoke();
     }
 }

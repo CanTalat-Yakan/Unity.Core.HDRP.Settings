@@ -13,7 +13,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int RenderFrameRateLimit { get; private set; }
+        [field: SerializeField] 
+        public int RenderFrameRateLimit { get; private set; }
 
         private const string RenderFrameRateLimitReference = "render_framerate_limit";
 

@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public Vector2Int DisplayResolution { get; private set; }
+        [field: SerializeField] 
+        public Vector2Int DisplayResolution { get; private set; }
 
         private const string DisplayResolutionReference = "display_resolution";
 
@@ -20,8 +21,8 @@ namespace UnityEssentials
             DisplayResolution = GetDisplayResolution.Options[profile.Get<int>(reference = DisplayResolutionReference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
-        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += UpdateValue;
-        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= UpdateValue;
+        private void OnEnable() => SetDisplaySelection.OnDisplaySelectionChanged += InvokeUpdateValueCallback;
+        private void OnDisable() => SetDisplaySelection.OnDisplaySelectionChanged -= InvokeUpdateValueCallback;
 
         public void Update()
         {

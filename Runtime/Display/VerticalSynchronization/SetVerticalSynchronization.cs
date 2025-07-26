@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int VSync { get; private set; }
+        [field: SerializeField] 
+        public int VSync { get; private set; }
 
         private const string VSyncReference = "v-sync";
 

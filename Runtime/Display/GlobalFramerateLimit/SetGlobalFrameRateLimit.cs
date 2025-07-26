@@ -13,7 +13,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int GlobalFrameRateLimit { get; private set; }
+        [field: SerializeField] 
+        public int GlobalFrameRateLimit { get; private set; }
 
         private const string GlobalFrameRateLimitReference = "global_framerate_limit";
 

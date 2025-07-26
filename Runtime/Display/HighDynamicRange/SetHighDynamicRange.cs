@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public bool HighDynamicRange { get; private set; }
+        [field: SerializeField] 
+        public bool HighDynamicRange { get; private set; }
 
         private const string HighDynamicRangeReference = "hdr";
 

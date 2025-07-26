@@ -13,7 +13,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int ResolutionScale { get; private set; }
+        [field: SerializeField] 
+        public int ResolutionScale { get; private set; }
 
         private const string ResolutionScaleReference = "resolution_scale";
 

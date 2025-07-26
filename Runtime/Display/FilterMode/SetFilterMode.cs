@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int FilterMode { get; private set; }
+        [field: SerializeField] 
+        public int FilterMode { get; private set; }
 
         private const string FilterModeReference = "filter_mode";
 

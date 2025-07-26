@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public Vector2Int RenderResolution { get; private set; }
+        [field: SerializeField] 
+        public Vector2Int RenderResolution { get; private set; }
 
         private const string RenderResolutionReference = "render_resolution";
 
@@ -20,8 +21,8 @@ namespace UnityEssentials
             RenderResolution = GetRenderResolution.Options[profile.Get<int>(reference = RenderResolutionReference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
-        private void OnEnable() => SetDisplaySelection.OnDisplayIndexChanged += UpdateValue;
-        private void OnDisable() => SetDisplaySelection.OnDisplayIndexChanged -= UpdateValue;
+        private void OnEnable() => SetDisplaySelection.OnDisplaySelectionChanged += InvokeUpdateValueCallback;
+        private void OnDisable() => SetDisplaySelection.OnDisplaySelectionChanged -= InvokeUpdateValueCallback;
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

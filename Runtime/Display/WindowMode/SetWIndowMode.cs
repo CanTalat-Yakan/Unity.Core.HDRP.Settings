@@ -12,7 +12,8 @@ namespace UnityEssentials
 
         [field: Space]
         [field: ReadOnly]
-        [field: SerializeField] public int WindowMode { get; private set; }
+        [field: SerializeField] 
+        public int WindowMode { get; private set; }
 
         private const string WindowModeReference = "window_mode";
 
