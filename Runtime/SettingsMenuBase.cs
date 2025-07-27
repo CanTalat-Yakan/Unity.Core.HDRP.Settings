@@ -7,21 +7,25 @@ namespace UnityEssentials
     public class SettingsMenuBase : MonoBehaviour
     {
         private string _reference;
-        private Action _updateValueCallback;
+        private Action _callback;
+        private UIMenuProfile _profile;
 
         public virtual void InitializeSetter(UIMenuProfile profile, out string reference) { reference = string.Empty; }
 
         public virtual void InitializeGetter() { }
 
+        public void InvokeUpdateValueCallback() =>
+            _callback?.Invoke();
+
         public void Start()
         {
-            if (!UIMenu.TryGetProfile("Settings", out var profile))
+            if (!UIMenu.TryGetProfile("Settings", out _profile))
                 return;
 
-            _updateValueCallback = () => InitializeSetter(profile, out _reference);;
-            _updateValueCallback.Invoke();
+            _callback = () => InitializeSetter(_profile, out _reference);;
+            _callback.Invoke();
 
-            profile.OnValueChanged += (changedValueReference) =>
+            _profile.OnValueChanged += (changedValueReference) =>
             {
                 if (changedValueReference == _reference) 
                     InvokeUpdateValueCallback();
@@ -30,8 +34,5 @@ namespace UnityEssentials
 
         public void Awake() =>
             InitializeGetter();
-
-        public void InvokeUpdateValueCallback() =>
-            _updateValueCallback?.Invoke();
     }
 }
