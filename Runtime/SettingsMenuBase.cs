@@ -17,11 +17,8 @@ namespace UnityEssentials
         private Action _setter;
 
         public virtual void InitializeSetter(UIMenuProfile profile, out string reference) { reference = string.Empty; }
-
         public virtual void InitializeGetter() { }
-
         public virtual void UpdateSettings() { }
-
         public virtual void BindAction(out Action source, out Action toBind) { source = null; toBind = null; }
 
         private void OnEnable()
