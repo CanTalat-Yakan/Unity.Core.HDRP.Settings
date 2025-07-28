@@ -11,11 +11,8 @@ namespace UnityEssentials
             "This component sets the resolution scale based on the settings profile.\n" +
             "It allows dynamic resolution scaling if the resolution scale is below 100%.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField] 
-        public int ResolutionScale { get; private set; }
-        public static string ResolutionScaleReference { get; private set; } = "resolution_scale";
+        public static int ResolutionScale { get; private set; }
+        private static string ResolutionScaleReference { get; set; } = "resolution_scale";
 
         public override void InitializeGetter()
         {

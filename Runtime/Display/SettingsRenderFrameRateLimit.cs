@@ -11,11 +11,8 @@ namespace UnityEssentials
             "It allows the user to set a specific frame rate limit through the settings menu, " +
             "ensuring that the game runs at a consistent frame rate as defined by the user.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField] 
-        public int RenderFrameRateLimit { get; private set; }
-        public static string RenderFrameRateLimitReference { get; private set; } = "render_framerate_limit";
+        public static int RenderFrameRateLimit { get; private set; }
+        private static string RenderFrameRateLimitReference { get; set; } = "render_framerate_limit";
 
         public override void InitializeGetter()
         {

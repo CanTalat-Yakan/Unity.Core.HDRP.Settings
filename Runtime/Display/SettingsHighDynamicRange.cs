@@ -10,12 +10,8 @@ namespace UnityEssentials
             "This component sets the render resolution based on the user's selection in the settings menu.\n" +
             "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField] 
-        public bool HighDynamicRange { get; private set; }
-
-        private const string HighDynamicRangeReference = "hdr";
+        public static bool HighDynamicRange { get; private set; }
+        private static string HighDynamicRangeReference { get; set; } = "hdr";
 
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
             HighDynamicRange = profile.Get<bool>(reference = HighDynamicRangeReference);

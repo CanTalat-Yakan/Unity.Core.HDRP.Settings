@@ -13,19 +13,16 @@ namespace UnityEssentials
             "This component retrieves all available displays from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred display.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField] 
-        public int DisplayInput { get; private set; }
-        public static string[] DisplayInputOptions { get; private set; }
-        public static Action OnDisplayInputChanged { get; private set; }
-        public static string DisplayInputReference { get; private set; } = "display_input";
+        public static int DisplayInput { get; private set; }
+        private static string[] DisplayInputOptions { get; set; }
+        private static string DisplayInputReference { get; set; } = "display_input";
+        [HideInInspector] public static Action OnDisplayInputChanged { get; private set; }
 
         private bool _initialized;
         private bool _displayOptionsUpdated;
         public override void InitializeGetter()
         {
-            if(!_initialized)
+            if (!_initialized)
             {
                 Display.onDisplaysUpdated += () => SetDirty();
                 _initialized = true;

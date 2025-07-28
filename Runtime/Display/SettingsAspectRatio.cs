@@ -12,12 +12,9 @@ namespace UnityEssentials
             "This component populates the aspect ratio options in the settings menu.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred aspect ratio.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField]
-        public Vector2 AspectRatio { get; private set; }
-        public static string[] AspectRatioOptions { get; private set; }
-        public static string AspectRatioReference { get; private set; } = "aspect_ratio";
+        public static Vector2 AspectRatio { get; private set; }
+        private static string[] AspectRatioOptions { get; set; }
+        private static string AspectRatioReference { get; set; } = "aspect_ratio";
 
         public override void InitializeGetter()
         {

@@ -14,12 +14,9 @@ namespace UnityEssentials
             "This component retrieves all available display resolutions from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred screen resolution.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField] 
-        public Vector2Int DisplayResolution { get; private set; }
-        public static string[] DisplayResolutionOptions { get; private set; }
-        public static string DisplayResolutionReference { get; private set; } = "display_resolution";
+        public static Vector2Int DisplayResolution { get; private set; }
+        private static string[] DisplayResolutionOptions { get; set; }
+        private static string DisplayResolutionReference { get; set; } = "display_resolution";
 
         public override void InitializeGetter()
         {

@@ -15,12 +15,9 @@ namespace UnityEssentials
             "This component populates the window name options in the settings menu by retrieving all available FullScreenMode enum names.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred window name.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField]
-        public int WindowMode { get; private set; }
-        public static string[] WindowModeOptions { get; private set; }
-        public static string WindowModeReference { get; private set; } = "window_mode";
+        public static int WindowMode { get; private set; }
+        private static string[] WindowModeOptions { get; set; }
+        private static string WindowModeReference { get; set; } = "window_mode";
 
         public override void InitializeGetter()
         {

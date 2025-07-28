@@ -13,12 +13,9 @@ namespace UnityEssentials
             "This component populates the filter mode options in the settings menu by retrieving all available FilterMode enum names.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred texture filtering mode.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField]
-        public int FilterMode { get; private set; }
-        public static string[] FilterModeOptions { get; private set; }
-        public static string FilterModeReference { get; private set; } = "filter_mode"; 
+        public static int FilterMode { get; private set; }
+        private static string[] FilterModeOptions { get; set; }
+        private static string FilterModeReference { get; set; } = "filter_mode"; 
 
         public override void InitializeGetter()
         {

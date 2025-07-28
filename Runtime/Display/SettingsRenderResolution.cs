@@ -12,12 +12,9 @@ namespace UnityEssentials
             "This component sets the render resolution based on the user's selection in the settings menu.\n" +
             "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField] 
-        public Vector2Int RenderResolution { get; private set; }
-        public static string[] RenderResolutionOptions { get; private set; }
-        public static string RenderResolutionReference { get; private set; } = "render_resolution";
+        public static Vector2Int RenderResolution { get; private set; }
+        private static string[] RenderResolutionOptions { get; set; }
+        private static string RenderResolutionReference { get; set; } = "render_resolution";
 
         public override void InitializeGetter()
         {

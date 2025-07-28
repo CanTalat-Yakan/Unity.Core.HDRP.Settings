@@ -14,11 +14,8 @@ namespace UnityEssentials
         [Space]
         public AudioMixer AudioMixer;
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField]
-        public int MusicVolume { get; private set; }
-        public static string MusicVolumeReference { get; private set; } = "music_volume";
+        public static int MusicVolume { get; private set; }
+        private static string MusicVolumeReference { get; set; } = "music_volume";
 
         public override void InitializeGetter()
         {

@@ -11,12 +11,9 @@ namespace UnityEssentials
             "This component sets the microphone input based on the user's selection in the settings menu.\n" +
             "It listens for changes in the microphone input setting and applies the selected microphone to the audio system.";
 
-        [field: Space]
-        [field: ReadOnly]
-        [field: SerializeField]
-        public string MicrophoneInput { get; private set; }
-        public static string[] MicrophoneInputOptions { get; private set; }
-        public static string MicrophoneInputReference { get; private set; } = "microphoneInput";
+        public static string MicrophoneInput { get; private set; }
+        private static string[] MicrophoneInputOptions { get; set; }
+        private static string MicrophoneInputReference { get; set; } = "microphoneInput";
 
         public override void InitializeGetter()
         {
