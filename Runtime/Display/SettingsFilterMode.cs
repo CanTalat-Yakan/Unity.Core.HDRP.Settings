@@ -13,7 +13,7 @@ namespace UnityEssentials
             "This component populates the filter mode options in the settings menu by retrieving all available FilterMode enum names.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred texture filtering mode.";
 
-        public static int FilterMode { get; private set; }
+        public static FilterMode FilterMode { get; private set; }
         private static string[] FilterModeOptions { get; set; }
         private static string FilterModeReference { get; set; } = "filter_mode"; 
 
@@ -29,7 +29,7 @@ namespace UnityEssentials
         }
 
         public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
-            FilterMode = profile.Get<int>(reference = FilterModeReference);
+            FilterMode = (FilterMode)profile.Get<int>(reference = FilterModeReference);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;
@@ -39,7 +39,7 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            RenderTextureHandler.Settings.FilterMode = (FilterMode)FilterMode;
+            RenderTextureHandler.Settings.FilterMode = FilterMode;
         }
     }
 }

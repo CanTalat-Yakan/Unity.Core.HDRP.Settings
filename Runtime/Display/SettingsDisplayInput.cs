@@ -30,10 +30,10 @@ namespace UnityEssentials
 
             DisplayInputOptions = new string[Display.displays.Length + 1];
             DisplayInputOptions[0] = "Default";
-            for (int i = 1; i < Display.displays.Length; i++)
+            for (int i = 0; i < Display.displays.Length; i++)
             {
                 var display = Display.displays[i];
-                DisplayInputOptions[i] = $"Display {i}";
+                DisplayInputOptions[i + 1] = $"Display {i + 1}";
             }
 
             var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();

@@ -50,7 +50,7 @@ namespace UnityEssentials
                 return;
 
             if (RenderResolution.x <= 0 || RenderResolution.y <= 0)
-                RenderResolution = new(Screen.currentResolution.width, Screen.currentResolution.height);
+                RenderResolution = SettingsDisplayResolution.DisplayResolution;
 
             RenderTextureHandler.Settings.RenderWidth = RenderResolution.x;
             RenderTextureHandler.Settings.RenderHeight = RenderResolution.y;

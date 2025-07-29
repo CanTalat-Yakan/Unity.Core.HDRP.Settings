@@ -23,7 +23,7 @@ namespace UnityEssentials
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = MasterVolumeReference;
             configurator.MinValue = 0;
-            configurator.MaxValue = 200;
+            configurator.MaxValue = 100;
             configurator.Default = 100;
             configurator.ConfigureMenuData();
         }

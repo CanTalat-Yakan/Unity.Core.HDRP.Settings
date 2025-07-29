@@ -23,7 +23,7 @@ namespace UnityEssentials
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = VoiceVolumeReference;
             configurator.MinValue = 0;
-            configurator.MaxValue = 100;
+            configurator.MaxValue = 200;
             configurator.Default = 100;
             configurator.ConfigureMenuData();
         }
