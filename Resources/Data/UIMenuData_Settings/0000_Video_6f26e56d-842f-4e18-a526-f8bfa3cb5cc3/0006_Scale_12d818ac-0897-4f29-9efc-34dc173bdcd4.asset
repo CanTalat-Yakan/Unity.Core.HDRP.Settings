@@ -18,6 +18,6 @@ MonoBehaviour:
   Name: Scale
   Reference: resolution_scale
   IsFloat: 0
-  MinRange: 0
-  MaxRange: 100
+  MinValue: 0
+  MaxValue: 100
   Default: 0

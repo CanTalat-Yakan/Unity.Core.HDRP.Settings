@@ -15,5 +15,5 @@ MonoBehaviour:
   Name: Settings
   Root:
   - {fileID: 11400000, guid: 0adc35b354c859e45b229f98f707fc4f, type: 2}
-  - {fileID: 11400000, guid: d7a29692a7728b94f9ad5de7b16d552f, type: 2}
   - {fileID: 11400000, guid: d653a55e33ade7840b18d58437d238eb, type: 2}
+  - {fileID: 11400000, guid: d7a29692a7728b94f9ad5de7b16d552f, type: 2}
