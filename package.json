@@ -1,22 +1,11 @@
 {
   "name": "com.unityessentials.settings",
   "version": "1.0.0",
-  "displayName": "UnityEssentials Settings",
+  "displayName": "Unity Core Settings",
   "description": "This is a part of the UnityEssentials Ecosystem",
-  "unity": "2022.1",
+  "unity": "6000.0",
   "unityRelease": null,
-  "dependencies": {
-    "com.unityessentials.core": "1.0.0",
-    "com.unityessentials.globalrefreshratelimiter": "1.0.0",
-    "com.unityessentials.cameraframeratelimiter": "1.0.0",
-    "com.unityessentials.rendertexturecreator": "1.0.0",
-    "com.unityessentials.utilityextensions": "1.0.0",
-    "com.unityessentials.uimenugenerator": "1.0.0",
-    "com.unityessentials.serializeddictionarydrawer": "1.0.0",
-    "com.unityessentials.cameraprovider": "1.0.0",
-    "com.unityessentials.infoattribute": "1.0.0",
-    "com.unityessentials.readonlyattribute": "1.0.0"
-  },
+  "dependencies": {},
   "keywords": [],
   "author": {
     "name": "Unity Essentials",
