@@ -33,14 +33,14 @@ namespace UnityEssentials
                 "2.35:1"
             };
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = AspectRatioReference;
             configurator.Options = AspectRatioOptions;
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             AspectRatio = AspectRatioOptions[profile.Get<int>(reference = AspectRatioReference)]
                 .ExtractVector2FromString(':');
 

@@ -25,7 +25,7 @@ namespace UnityEssentials
                 .Select(name => name.Format())
                 .ToArray();
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.Reverse = true;
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = WindowModeReference;
@@ -33,7 +33,7 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             WindowMode = (FullScreenMode)profile.Get<int>(reference = WindowModeReference);
 
         public override void UpdateSettings() =>

@@ -25,14 +25,14 @@ namespace UnityEssentials
                 "Every Second VBlank"
             };
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = VSyncReference;
             configurator.Options = VSyncOptions;
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             VSync = profile.Get<int>(reference = VSyncReference);
 
         public override void UpdateSettings() =>

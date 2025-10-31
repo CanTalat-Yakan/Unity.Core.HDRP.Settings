@@ -16,7 +16,7 @@ namespace UnityEssentials
 
         public override void InitializeGetter()
         {
-            var configurator = gameObject.AddComponent<UIMenuSliderDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuSliderDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = RenderFrameRateLimitReference;
             configurator.MinValue = 0;
@@ -25,7 +25,7 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             RenderFrameRateLimit = profile.Get<int>(reference = RenderFrameRateLimitReference);
 
         public CameraFrameRateLimiter CameraFrameRateLimiter => _cameraFrameRateLimiter ??= CameraProvider.Active?.GetComponent<CameraFrameRateLimiter>();

@@ -21,14 +21,14 @@ namespace UnityEssentials
         {
             FilterModeOptions = Enum.GetNames(typeof(FilterMode));
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = FilterModeReference;
             configurator.Options = FilterModeOptions;
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             FilterMode = (FilterMode)profile.Get<int>(reference = FilterModeReference);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();

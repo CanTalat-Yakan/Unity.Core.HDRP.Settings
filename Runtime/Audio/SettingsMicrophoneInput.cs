@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    [RequireComponent(typeof(UIMenuOptionsDataConfigurator))]
+    [RequireComponent(typeof(MenuOptionsDataConfigurator))]
     public class SettingsMicrophoneInput : SettingsMenuBase
     {
         [Info]
@@ -25,7 +25,7 @@ namespace UnityEssentials
                 MicrophoneInputOptions[i] = $"Microphone {i}";
             }
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = MicrophoneInputReference;
             configurator.Options = MicrophoneInputOptions;

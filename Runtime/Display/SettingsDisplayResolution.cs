@@ -29,14 +29,14 @@ namespace UnityEssentials
             DisplayResolutionOptions[^1] = "Native";
             DisplayResolutionOptions = DisplayResolutionOptions.Reverse().ToArray();
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = DisplayResolutionReference;
             configurator.Options = DisplayResolutionOptions;
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             DisplayResolution = DisplayResolutionOptions[profile.Get<int>(reference = DisplayResolutionReference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 

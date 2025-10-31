@@ -27,14 +27,14 @@ namespace UnityEssentials
             RenderResolutionOptions[^1] = "Native";
             RenderResolutionOptions = RenderResolutionOptions.Reverse().ToArray();
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = RenderResolutionReference;
             configurator.Options = RenderResolutionOptions;
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             RenderResolution = RenderResolutionOptions[profile.Get<int>(reference = RenderResolutionReference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 

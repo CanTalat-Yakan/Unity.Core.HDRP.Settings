@@ -36,7 +36,7 @@ namespace UnityEssentials
                 DisplayInputOptions[i + 1] = $"Display {i + 1}";
             }
 
-            var configurator = gameObject.AddComponent<UIMenuOptionsDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = DisplayInputReference;
             configurator.Options = DisplayInputOptions;
@@ -48,7 +48,7 @@ namespace UnityEssentials
         public override void BindAction(out Action source, out Action toBind) =>
             (source, toBind) = (OnDisplayInputChanged, SetDirty);
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             DisplayInput = profile.Get<int>(reference = DisplayInputReference);
 
         private int _lastDisplayInput = -1;
@@ -67,14 +67,14 @@ namespace UnityEssentials
             Generator?.Redraw?.Invoke();
         }
 
-        public UIMenuGenerator Generator => _generator ??= GetGenerator();
-        private UIMenuGenerator _generator;
+        public MenuGenerator Generator => _generator ??= GetGenerator();
+        private MenuGenerator _generator;
 
-        private UIMenuGenerator GetGenerator()
+        private MenuGenerator GetGenerator()
         {
             if (_generator != null)
                 return _generator;
-            if (UIMenu.RegisteredMenus.TryGetValue("Settings", out var menu))
+            if (Menu.RegisteredMenus.TryGetValue("Settings", out var menu))
                 return _generator = menu.Generator;
             return null;
         }

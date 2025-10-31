@@ -13,7 +13,7 @@ namespace UnityEssentials
         public static bool HighDynamicRange { get; private set; }
         private static string HighDynamicRangeReference { get; set; } = "hdr";
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             HighDynamicRange = profile.Get<bool>(reference = HighDynamicRangeReference);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();

@@ -19,7 +19,7 @@ namespace UnityEssentials
 
         public override void InitializeGetter()
         {
-            var configurator = gameObject.AddComponent<UIMenuSliderDataConfigurator>();
+            var configurator = gameObject.AddComponent<MenuSliderDataConfigurator>();
             configurator.MenuName = SettingsMenuName;
             configurator.DataReference = MusicVolumeReference;
             configurator.MinValue = 0;
@@ -28,7 +28,7 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(UIMenuProfile profile, out string reference) =>
+        public override void InitializeSetter(MenuProfile profile, out string reference) =>
             MusicVolume = profile.Get<int>(reference = MusicVolumeReference);
 
         private const string MusicVolumeParameter = "music";
