@@ -34,8 +34,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            RenderResolution = RenderResolutionOptions[profile.Get<int>(reference = RenderResolutionReference)]
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            RenderResolution = RenderResolutionOptions[profile.Value.Get<int>(reference = RenderResolutionReference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
         public override void BindAction(out Action source, out Action toBind) =>

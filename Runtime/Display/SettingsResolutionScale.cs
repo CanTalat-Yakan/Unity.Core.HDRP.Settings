@@ -25,8 +25,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            ResolutionScale = profile.Get<int>(reference = ResolutionScaleReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            ResolutionScale = profile.Value.Get<int>(reference = ResolutionScaleReference);
 
         public override void UpdateSettings()
         {

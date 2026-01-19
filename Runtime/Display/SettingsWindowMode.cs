@@ -33,8 +33,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            WindowMode = (FullScreenMode)profile.Get<int>(reference = WindowModeReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            WindowMode = (FullScreenMode)profile.Value.Get<int>(reference = WindowModeReference);
 
         public override void UpdateSettings() =>
             Screen.fullScreenMode = WindowMode;

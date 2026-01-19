@@ -28,8 +28,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            VoiceVolume = profile.Get<int>(reference = VoiceVolumeReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            VoiceVolume = profile.Value.Get<int>(reference = VoiceVolumeReference);
 
         private const string VoiceVolumeParameter = "voice";
         public override void UpdateSettings() => 

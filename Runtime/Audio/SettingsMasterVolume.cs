@@ -28,8 +28,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            MasterVolume = profile.Get<int>(reference = MasterVolumeReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            MasterVolume = profile.Value.Get<int>(reference = MasterVolumeReference);
 
         private const string MasterVolumeParameter = "master";
         public override void UpdateSettings() =>

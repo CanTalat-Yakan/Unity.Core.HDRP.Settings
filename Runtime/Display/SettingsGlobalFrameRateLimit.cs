@@ -25,8 +25,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            GlobalFrameRateLimit = profile.Get<int>(reference = GlobalFrameRateLimitReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            GlobalFrameRateLimit = profile.Value.Get<int>(reference = GlobalFrameRateLimitReference);
 
         public override void UpdateSettings()
         {

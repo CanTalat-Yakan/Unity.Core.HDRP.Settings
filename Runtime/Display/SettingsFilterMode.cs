@@ -28,8 +28,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            FilterMode = (FilterMode)profile.Get<int>(reference = FilterModeReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            FilterMode = (FilterMode)profile.Value.Get<int>(reference = FilterModeReference);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

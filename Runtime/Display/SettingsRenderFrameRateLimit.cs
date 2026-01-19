@@ -25,8 +25,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            RenderFrameRateLimit = profile.Get<int>(reference = RenderFrameRateLimitReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            RenderFrameRateLimit = profile.Value.Get<int>(reference = RenderFrameRateLimitReference);
 
         public CameraFrameRateLimiter CameraFrameRateLimiter => _cameraFrameRateLimiter ??= CameraProvider.Active?.GetComponent<CameraFrameRateLimiter>();
         private CameraFrameRateLimiter _cameraFrameRateLimiter;

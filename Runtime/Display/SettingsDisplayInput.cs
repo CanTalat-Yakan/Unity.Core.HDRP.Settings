@@ -48,8 +48,8 @@ namespace UnityEssentials
         public override void BindAction(out Action source, out Action toBind) =>
             (source, toBind) = (OnDisplayInputChanged, SetDirty);
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            DisplayInput = profile.Get<int>(reference = DisplayInputReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            DisplayInput = profile.Value.Get<int>(reference = DisplayInputReference);
 
         private int _lastDisplayInput = -1;
         public override void UpdateSettings()

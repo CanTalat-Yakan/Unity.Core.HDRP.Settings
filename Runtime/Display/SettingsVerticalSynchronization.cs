@@ -32,8 +32,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            VSync = profile.Get<int>(reference = VSyncReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            VSync = profile.Value.Get<int>(reference = VSyncReference);
 
         public override void UpdateSettings() =>
             QualitySettings.vSyncCount = VSync;

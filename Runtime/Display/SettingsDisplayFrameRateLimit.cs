@@ -25,10 +25,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference)
-        {
-            DisplayFrameRateLimit = profile.Get<int>(reference = DisplayFrameRateLimitReference);
-        }
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            DisplayFrameRateLimit = profile.Value.Get<int>(reference = DisplayFrameRateLimitReference);
 
         public override void UpdateSettings() =>
             Application.targetFrameRate = DisplayFrameRateLimit;

@@ -28,8 +28,8 @@ namespace UnityEssentials
             configurator.ConfigureMenuData();
         }
 
-        public override void InitializeSetter(MenuProfile profile, out string reference) =>
-            EffectsVolume = profile.Get<int>(reference = EffectsVolumeReference);
+        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
+            EffectsVolume = profile.Value.Get<int>(reference = EffectsVolumeReference);
 
         private const string EffectsVolumeParameter = "effects";
         public override void UpdateSettings() =>

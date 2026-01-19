@@ -13,10 +13,10 @@ namespace UnityEssentials
         public static string SettingsProfileName { get; private set; } = "Settings";
 
         private string _reference;
-        private MenuProfile _profile;
+        private SettingsProfile _profile;
         private Action _setter;
 
-        public virtual void InitializeSetter(MenuProfile profile, out string reference) { reference = string.Empty; }
+        public virtual void InitializeSetter(SettingsProfile profile, out string reference) { reference = string.Empty; }
         public virtual void InitializeGetter() { }
         public virtual void UpdateSettings() { }
         public virtual void BindAction(out Action source, out Action toBind) { source = null; toBind = null; }
@@ -38,15 +38,15 @@ namespace UnityEssentials
 
         public void Start()
         {
-            if (!Menu.TryGetProfile(SettingsProfileName, out _profile))
-                return;
+            _profile = new SettingsProfile(SettingsProfileName);
+            _profile.GetOrLoad();
 
             _setter = () => InitializeSetter(_profile, out _reference); ;
             _setter.Invoke();
 
             SetDirty = () => Dirty = true;
 
-            _profile.OnValueChanged += (changedValueReference) =>
+            _profile.Value.OnValueChanged += (changedValueReference) =>
             {
                 if (changedValueReference == _reference)
                     _setter?.Invoke();
