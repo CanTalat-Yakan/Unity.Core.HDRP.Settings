@@ -53,17 +53,13 @@ namespace UnityEssentials
 
         public void Update()
         {
-            if (Dirty)
-                InitOptions();
+            if (Dirty) InitOptions();
         }
 
         public void LateUpdate()
         {
-            if (Dirty)
-                _setter?.Invoke();
-
+            if (Dirty) _setter?.Invoke();
             UpdateSettings();
-
             Dirty = false;
         }
     }
