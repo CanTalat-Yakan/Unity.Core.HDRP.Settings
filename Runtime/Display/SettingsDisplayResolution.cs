@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsDisplayResolution : SettingsMenuBase, ISettingsBase<Vector2Int>, ISettingsOptionsConfiguration
+    public class SettingsDisplayResolution : SettingsBase, ISettingsBase<Vector2Int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]

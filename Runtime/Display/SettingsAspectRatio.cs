@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsAspectRatio : SettingsMenuBase, ISettingsBase<Vector2>, ISettingsOptionsConfiguration
+    public class SettingsAspectRatio : SettingsBase, ISettingsBase<Vector2>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]

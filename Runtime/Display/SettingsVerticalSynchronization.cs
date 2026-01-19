@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsVerticalSynchronization : SettingsMenuBase, ISettingsBase<int>, ISettingsOptionsConfiguration
+    public class SettingsVerticalSynchronization : SettingsBase, ISettingsBase<int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]

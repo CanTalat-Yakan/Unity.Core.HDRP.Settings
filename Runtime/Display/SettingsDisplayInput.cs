@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsDisplayInput : SettingsMenuBase, ISettingsBase<int>, ISettingsOptionsConfiguration
+    public class SettingsDisplayInput : SettingsBase, ISettingsBase<int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]

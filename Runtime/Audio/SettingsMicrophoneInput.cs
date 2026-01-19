@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsMicrophoneInput : SettingsMenuBase, ISettingsBase<int>, ISettingsOptionsConfiguration
+    public class SettingsMicrophoneInput : SettingsBase, ISettingsBase<int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]

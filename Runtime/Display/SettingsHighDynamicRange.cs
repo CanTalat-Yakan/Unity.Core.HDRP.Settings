@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsHighDynamicRange : SettingsMenuBase, ISettingsBase<bool>
+    public class SettingsHighDynamicRange : SettingsBase, ISettingsBase<bool>
     {
         [Info]
         [SerializeField]

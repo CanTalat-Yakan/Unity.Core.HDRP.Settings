@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsWindowMode : SettingsMenuBase, ISettingsBase<FullScreenMode>, ISettingsOptionsConfiguration
+    public class SettingsWindowMode : SettingsBase, ISettingsBase<FullScreenMode>, ISettingsOptionsConfiguration
     {
         [Info] [SerializeField] private string _info =
             "This component sets the window name based on the user's selection in the settings menu.\n" +

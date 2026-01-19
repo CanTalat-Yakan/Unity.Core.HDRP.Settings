@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UnityEssentials
 {
     [DefaultExecutionOrder(-1009)]
-    public abstract class SettingsMenuBase : MonoBehaviour
+    public class SettingsBase : MonoBehaviour
     {
         [HideInInspector] public bool Dirty;
         [HideInInspector] public Action SetDirty;

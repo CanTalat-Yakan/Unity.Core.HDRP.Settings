@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 
 namespace UnityEssentials
 {
-    public class SettingsResolutionScale : SettingsMenuBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsResolutionScale : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]

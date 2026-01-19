@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsRenderFrameRate : SettingsMenuBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsRenderFrameRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]

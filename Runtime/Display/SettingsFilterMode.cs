@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsFilterMode : SettingsMenuBase, ISettingsBase<FilterMode>, ISettingsOptionsConfiguration
+    public class SettingsFilterMode : SettingsBase, ISettingsBase<FilterMode>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]

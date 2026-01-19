@@ -3,7 +3,7 @@ using UnityEngine.Audio;
 
 namespace UnityEssentials
 {
-    public class SettingsMusicVolume : SettingsMenuBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsMusicVolume : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]
