@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsGlobalFrameRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsGlobalRefreshRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]
@@ -12,7 +12,7 @@ namespace UnityEssentials
             "ensuring that the game runs at a consistent frame rate as defined by the user.";
 
         public int Value { get; set; }
-        public string Reference => "global_framerate";
+        public string Reference => "global_refreshrate";
 
         public float MinValue => 0;
         public float MaxValue => 1000;
@@ -29,7 +29,7 @@ namespace UnityEssentials
                 Value = Mathf.CeilToInt(ratio.numerator / ratio.denominator);
             }
 
-            GlobalRefreshRate.SetTargetRefreshRate(Value);
+            GlobalRefreshRate.SetTarget(Value);
         }
     }
 }

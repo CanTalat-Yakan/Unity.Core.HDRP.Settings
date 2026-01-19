@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsRenderFrameRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsRenderRefreshRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]
         private string _info =
-            "SettingsRenderFrameRate is responsible for managing the frame rate limit for rendering cameras. " +
+            "SettingsRenderRefreshRate is responsible for managing the frame rate limit for rendering cameras. " +
             "It allows the user to set a specific frame rate limit through the settings menu, " +
             "ensuring that the game runs at a consistent frame rate as defined by the user.";
 
         public int Value { get; set; }
-        public string Reference => "render_framerate";
+        public string Reference => "render_refreshrate";
 
         public float MinValue => 0;
         public float MaxValue => 1000;
@@ -21,8 +21,8 @@ namespace UnityEssentials
         public override void InitValue(SettingsProfile profile, out string reference) =>
             Value = profile.Value.Get<int>(reference = Reference);
 
-        public CameraRefreshRate CameraFramerate => _cameraFramerate ??= CameraProvider.Active?.GetComponent<CameraRefreshRate>();
-        private CameraRefreshRate _cameraFramerate;
+        public CameraRefreshRate CameraRefreshRate => _cameraRefreshRate ??= CameraProvider.Active?.GetComponent<CameraRefreshRate>();
+        private CameraRefreshRate _cameraRefreshRate;
 
         public override void UpdateSettings()
         {
@@ -32,7 +32,7 @@ namespace UnityEssentials
                 Value = Mathf.CeilToInt(ratio.numerator / ratio.denominator);
             }
 
-            CameraFramerate?.SetTargetRefreshRate(Value);
+            CameraRefreshRate?.SetTarget(Value);
         }
     }
 }
