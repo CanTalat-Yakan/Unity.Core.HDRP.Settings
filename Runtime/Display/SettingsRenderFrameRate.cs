@@ -21,8 +21,8 @@ namespace UnityEssentials
         public override void InitValue(SettingsProfile profile, out string reference) =>
             Value = profile.Value.Get<int>(reference = Reference);
 
-        public CameraFrameRate CameraFrameRate => _cameraFrameRate ??= CameraProvider.Active?.GetComponent<CameraFrameRate>();
-        private CameraFrameRate _cameraFrameRate;
+        public CameraRefreshRate CameraFramerate => _cameraFramerate ??= CameraProvider.Active?.GetComponent<CameraRefreshRate>();
+        private CameraRefreshRate _cameraFramerate;
 
         public override void UpdateSettings()
         {
@@ -32,7 +32,7 @@ namespace UnityEssentials
                 Value = Mathf.CeilToInt(ratio.numerator / ratio.denominator);
             }
 
-            CameraFrameRate?.SetTargetFrameRate(Value);
+            CameraFramerate?.SetTargetRefreshRate(Value);
         }
     }
 }

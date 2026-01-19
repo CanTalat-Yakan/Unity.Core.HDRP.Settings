@@ -29,7 +29,7 @@ namespace UnityEssentials
                 Value = Mathf.CeilToInt(ratio.numerator / ratio.denominator);
             }
 
-            GlobalRefreshRateLimiter.SetTargetFrameRate(Value);
+            GlobalRefreshRate.SetTargetRefreshRate(Value);
         }
     }
 }
