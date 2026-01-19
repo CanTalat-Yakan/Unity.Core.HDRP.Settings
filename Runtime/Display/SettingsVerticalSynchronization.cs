@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsVerticalSynchronization : SettingsMenuBase
+    public class SettingsVerticalSynchronization : SettingsMenuBase, ISettingsBase<int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]
@@ -12,30 +12,24 @@ namespace UnityEssentials
             "This component populates the VSync options in the settings menu.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred VSync setting.";
 
-        public static int VSync { get; private set; }
-        private static string[] VSyncOptions { get; set; }
-        private static string VSyncReference { get; set; } = "v-sync";
+        public int Value { get; set; }
+        public string Reference => "v-sync";
+        
+        public string[] Options { get; set; }
+        public bool Reverse { get; }
 
-        public override void InitializeGetter()
-        {
-            VSyncOptions = new string[]
+        public override void InitOptions() =>
+            Options = new[]
             {
                 "Disabled",
                 "Every VBlank",
                 "Every Second VBlank"
             };
 
-            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = VSyncReference;
-            configurator.Options = VSyncOptions;
-            configurator.ConfigureMenuData();
-        }
-
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            VSync = profile.Value.Get<int>(reference = VSyncReference);
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = profile.Value.Get<int>(reference = Reference);
 
         public override void UpdateSettings() =>
-            QualitySettings.vSyncCount = VSync;
+            QualitySettings.vSyncCount = Value;
     }
 }

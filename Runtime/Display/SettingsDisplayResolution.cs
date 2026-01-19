@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsDisplayResolution : SettingsMenuBase
+    public class SettingsDisplayResolution : SettingsMenuBase, ISettingsBase<Vector2Int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]
@@ -14,41 +14,38 @@ namespace UnityEssentials
             "This component retrieves all available display resolutions from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred screen resolution.";
 
-        public static Vector2Int DisplayResolution { get; private set; }
-        private static string[] DisplayResolutionOptions { get; set; }
-        private static string DisplayResolutionReference { get; set; } = "display_resolution";
+        public Vector2Int Value { get; set; }
+        public string Reference => "display_resolution";
+        
+        public string[] Options { get; set; }
+        public bool Reverse => false;
 
-        public override void InitializeGetter()
+        public override void InitOptions()
         {
-            DisplayResolutionOptions = new string[Screen.resolutions.Length + 1];
+            Options = new string[Screen.resolutions.Length + 1];
             for (int i = 0; i < Screen.resolutions.Length; i++)
             {
                 var resolution = Screen.resolutions[i];
-                DisplayResolutionOptions[i] = $"{resolution.width}x{resolution.height}";
+                Options[i] = $"{resolution.width}x{resolution.height}";
             }
-            DisplayResolutionOptions[^1] = "Native";
-            DisplayResolutionOptions = DisplayResolutionOptions.Reverse().ToArray();
-
-            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = DisplayResolutionReference;
-            configurator.Options = DisplayResolutionOptions;
-            configurator.ConfigureMenuData();
+            Options[^1] = "Native";
+            Options = Options.Reverse().ToArray();
         }
 
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            DisplayResolution = DisplayResolutionOptions[profile.Value.Get<int>(reference = DisplayResolutionReference)]
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = Options[profile.Value.Get<int>(reference = Reference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
-        public override void BindAction(out Action source, out Action toBind) =>
+        public override void 
+            BindAction(out Action source, out Action toBind) =>
             (source, toBind) = (SettingsDisplayInput.OnDisplayInputChanged, SetDirty);
 
         public override void UpdateSettings()
         {
-            if (DisplayResolution.x <= 0 || DisplayResolution.y <= 0)
-                DisplayResolution = new(Screen.currentResolution.width, Screen.currentResolution.height);
+            if (Value.x <= 0 || Value.y <= 0)
+                Value = new(Screen.currentResolution.width, Screen.currentResolution.height);
 
-            Screen.SetResolution(DisplayResolution.x, DisplayResolution.y, Screen.fullScreenMode);
+            Screen.SetResolution(Value.x, Value.y, Screen.fullScreenMode);
         }
     }
 }

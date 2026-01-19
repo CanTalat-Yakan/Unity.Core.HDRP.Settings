@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsAspectRatio : SettingsMenuBase
+    public class SettingsAspectRatio : SettingsMenuBase, ISettingsBase<Vector2>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]
@@ -12,13 +12,14 @@ namespace UnityEssentials
             "This component populates the aspect ratio options in the settings menu.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred aspect ratio.";
 
-        public static Vector2 AspectRatio { get; private set; }
-        private static string[] AspectRatioOptions { get; set; }
-        private static string AspectRatioReference { get; set; } = "aspect_ratio";
+        public Vector2 Value { get; set; }
+        public string Reference => "aspect_ratio";
+        
+        public string[] Options { get; set; }
+        public bool Reverse => false;
 
-        public override void InitializeGetter()
-        {
-            AspectRatioOptions = new[]
+        public override void InitOptions() =>
+            Options = new[]
             {
                 "Auto",
                 "16:9",
@@ -33,15 +34,8 @@ namespace UnityEssentials
                 "2.35:1"
             };
 
-            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = AspectRatioReference;
-            configurator.Options = AspectRatioOptions;
-            configurator.ConfigureMenuData();
-        }
-
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            AspectRatio = AspectRatioOptions[profile.Value.Get<int>(reference = AspectRatioReference)]
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = Options[profile.Value.Get<int>(reference = Reference)]
                 .ExtractVector2FromString(':');
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
@@ -52,11 +46,8 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            var aspectRatioNumerator = Mathf.Max(0, AspectRatio.x);
-            var aspectRatioDenominator = Mathf.Max(0, AspectRatio.y);
-
-            RenderTextureHandler.Settings.AspectRatioNumerator = aspectRatioNumerator;
-            RenderTextureHandler.Settings.AspectRatioDenominator = aspectRatioDenominator;
+            RenderTextureHandler.Settings.AspectRatioNumerator = Mathf.Max(0, Value.x);
+            RenderTextureHandler.Settings.AspectRatioDenominator = Mathf.Max(0, Value.y);
         }
     }
 }

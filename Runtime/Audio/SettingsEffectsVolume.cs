@@ -3,7 +3,7 @@ using UnityEngine.Audio;
 
 namespace UnityEssentials
 {
-    public class SettingsEffectsVolume : SettingsMenuBase
+    public class SettingsEffectsVolume : SettingsMenuBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]
@@ -14,25 +14,18 @@ namespace UnityEssentials
         [Space]
         public AudioMixer AudioMixer;
 
-        public static int EffectsVolume { get; private set; }
-        private static string EffectsVolumeReference { get; set; } = "effects_volume";
-
-        public override void InitializeGetter()
-        {
-            var configurator = gameObject.AddComponent<MenuSliderDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = EffectsVolumeReference;
-            configurator.MinValue = 0;
-            configurator.MaxValue = 200;
-            configurator.Default = 100;
-            configurator.ConfigureMenuData();
-        }
-
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            EffectsVolume = profile.Value.Get<int>(reference = EffectsVolumeReference);
+        public int Value { get; set; }
+        public string Reference => "effects_volume";
+        
+        public float MinValue => 0;
+        public float MaxValue => 200;
+        public float Default => 100;
+        
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = profile.Value.Get<int>(reference = Reference);
 
         private const string EffectsVolumeParameter = "effects";
         public override void UpdateSettings() =>
-            AudioMixer?.SetFloat(EffectsVolumeParameter, EffectsVolume.ToDecibelLevel());
+            AudioMixer?.SetFloat(EffectsVolumeParameter, Value.ToDecibelLevel());
     }
 }

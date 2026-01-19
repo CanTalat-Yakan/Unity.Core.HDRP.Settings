@@ -3,7 +3,7 @@ using UnityEngine.Audio;
 
 namespace UnityEssentials
 {
-    public class SettingsVoiceVolume : SettingsMenuBase
+    public class SettingsVoiceVolume : SettingsMenuBase, ISettingsBase<int>, ISettingsSliderConfiguration
     {
         [Info]
         [SerializeField]
@@ -14,25 +14,18 @@ namespace UnityEssentials
         [Space]
         public AudioMixer AudioMixer;
 
-        public static int VoiceVolume { get; private set; }
-        private static string VoiceVolumeReference { get; set; } = "voice_volume";
+        public int Value { get; set; }
+        public string Reference => "voice_volume";
+        
+        public float MinValue => 0;
+        public float MaxValue => 200;
+        public float Default => 100;
 
-        public override void InitializeGetter()
-        {
-            var configurator = gameObject.AddComponent<MenuSliderDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = VoiceVolumeReference;
-            configurator.MinValue = 0;
-            configurator.MaxValue = 200;
-            configurator.Default = 100;
-            configurator.ConfigureMenuData();
-        }
-
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            VoiceVolume = profile.Value.Get<int>(reference = VoiceVolumeReference);
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = profile.Value.Get<int>(reference = Reference);
 
         private const string VoiceVolumeParameter = "voice";
         public override void UpdateSettings() => 
-            AudioMixer?.SetFloat(VoiceVolumeParameter, VoiceVolume.ToDecibelLevel());
+            AudioMixer?.SetFloat(VoiceVolumeParameter, Value.ToDecibelLevel());
     }
 }

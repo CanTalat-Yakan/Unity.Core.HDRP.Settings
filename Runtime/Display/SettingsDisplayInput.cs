@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsDisplayInput : SettingsMenuBase
+    public class SettingsDisplayInput : SettingsMenuBase, ISettingsBase<int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]
@@ -13,14 +13,17 @@ namespace UnityEssentials
             "This component retrieves all available displays from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred display.";
 
-        public static int DisplayInput { get; private set; }
-        private static string[] DisplayInputOptions { get; set; }
-        private static string DisplayInputReference { get; set; } = "display_input";
+        public int Value { get; set; }
+        public string Reference => "display_input";
+        
+        public string[] Options { get; set; }
+        public bool Reverse => false;
+        
         [HideInInspector] public static Action OnDisplayInputChanged { get; private set; }
 
         private bool _initialized;
         private bool _displayOptionsUpdated;
-        public override void InitializeGetter()
+        public override void InitOptions()
         {
             if (!_initialized)
             {
@@ -28,19 +31,13 @@ namespace UnityEssentials
                 _initialized = true;
             }
 
-            DisplayInputOptions = new string[Display.displays.Length + 1];
-            DisplayInputOptions[0] = "Default";
+            Options = new string[Display.displays.Length + 1];
+            Options[0] = "Default";
             for (int i = 0; i < Display.displays.Length; i++)
             {
                 var display = Display.displays[i];
-                DisplayInputOptions[i + 1] = $"Display {i + 1}";
+                Options[i + 1] = $"Display {i + 1}";
             }
-
-            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = DisplayInputReference;
-            configurator.Options = DisplayInputOptions;
-            configurator.ConfigureMenuData();
 
             _displayOptionsUpdated = true;
         }
@@ -48,35 +45,23 @@ namespace UnityEssentials
         public override void BindAction(out Action source, out Action toBind) =>
             (source, toBind) = (OnDisplayInputChanged, SetDirty);
 
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            DisplayInput = profile.Value.Get<int>(reference = DisplayInputReference);
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = profile.Value.Get<int>(reference = Reference);
 
         private int _lastDisplayInput = -1;
         public override void UpdateSettings()
         {
-            if (_lastDisplayInput != DisplayInput)
-                _lastDisplayInput = DisplayInput;
+            if (_lastDisplayInput != Value)
+                _lastDisplayInput = Value;
             else if (_displayOptionsUpdated)
                 _displayOptionsUpdated = false;
             else return;
 
-            if (Display.displays.Length > DisplayInput && DisplayInput >= 0)
-                Display.displays[DisplayInput].Activate();
+            if (Display.displays.Length > Value && Value >= 0)
+                Display.displays[Value].Activate();
 
             OnDisplayInputChanged?.Invoke();
-            Generator?.Redraw?.Invoke();
-        }
-
-        public MenuGenerator Generator => _generator ??= GetGenerator();
-        private MenuGenerator _generator;
-
-        private MenuGenerator GetGenerator()
-        {
-            if (_generator != null)
-                return _generator;
-            if (Menu.RegisteredMenus.TryGetValue("Settings", out var menu))
-                return _generator = menu.Generator;
-            return null;
+            //Redraw UI;
         }
     }
 }

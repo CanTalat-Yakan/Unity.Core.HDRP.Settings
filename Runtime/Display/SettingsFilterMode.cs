@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsFilterMode : SettingsMenuBase
+    public class SettingsFilterMode : SettingsMenuBase, ISettingsBase<FilterMode>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]
@@ -13,23 +13,17 @@ namespace UnityEssentials
             "This component populates the filter mode options in the settings menu by retrieving all available FilterMode enum names.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred texture filtering mode.";
 
-        public static FilterMode FilterMode { get; private set; }
-        private static string[] FilterModeOptions { get; set; }
-        private static string FilterModeReference { get; set; } = "filter_mode"; 
+        public FilterMode Value { get; set; }
+        public string Reference => "filter_mode";
+        
+        public string[] Options { get; set; }
+        public bool Reverse => false;
 
-        public override void InitializeGetter()
-        {
-            FilterModeOptions = Enum.GetNames(typeof(FilterMode));
+        public override void InitOptions() =>
+            Options = Enum.GetNames(typeof(FilterMode));
 
-            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = FilterModeReference;
-            configurator.Options = FilterModeOptions;
-            configurator.ConfigureMenuData();
-        }
-
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            FilterMode = (FilterMode)profile.Value.Get<int>(reference = FilterModeReference);
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = (FilterMode)profile.Value.Get<int>(reference = Reference);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;
@@ -39,7 +33,7 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            RenderTextureHandler.Settings.FilterMode = FilterMode;
+            RenderTextureHandler.Settings.FilterMode = Value;
         }
     }
 }

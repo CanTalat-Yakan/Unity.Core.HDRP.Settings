@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsRenderResolution : SettingsMenuBase
+    public class SettingsRenderResolution : SettingsMenuBase, ISettingsBase<Vector2Int>, ISettingsOptionsConfiguration
     {
         [Info]
         [SerializeField]
@@ -12,30 +12,26 @@ namespace UnityEssentials
             "This component sets the render resolution based on the user's selection in the settings menu.\n" +
             "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
 
-        public static Vector2Int RenderResolution { get; private set; }
-        private static string[] RenderResolutionOptions { get; set; }
-        private static string RenderResolutionReference { get; set; } = "render_resolution";
+        public Vector2Int Value { get; set; }
+        public string Reference => "render_resolution";
 
-        public override void InitializeGetter()
+        public string[] Options { get; set; }
+        public bool Reverse { get; }
+
+        public override void InitOptions()
         {
-            RenderResolutionOptions = new string[Screen.resolutions.Length + 1];
+            Options = new string[Screen.resolutions.Length + 1];
             for (int i = 0; i < Screen.resolutions.Length; i++)
             {
                 var resolution = Screen.resolutions[i];
-                RenderResolutionOptions[i] = $"{resolution.width}x{resolution.height}";
+                Options[i] = $"{resolution.width}x{resolution.height}";
             }
-            RenderResolutionOptions[^1] = "Native";
-            RenderResolutionOptions = RenderResolutionOptions.Reverse().ToArray();
-
-            var configurator = gameObject.AddComponent<MenuOptionsDataConfigurator>();
-            configurator.MenuName = SettingsMenuName;
-            configurator.DataReference = RenderResolutionReference;
-            configurator.Options = RenderResolutionOptions;
-            configurator.ConfigureMenuData();
+            Options[^1] = "Native";
+            Options = Options.Reverse().ToArray();
         }
 
-        public override void InitializeSetter(SettingsProfile profile, out string reference) =>
-            RenderResolution = RenderResolutionOptions[profile.Value.Get<int>(reference = RenderResolutionReference)]
+        public override void InitValue(SettingsProfile profile, out string reference) =>
+            Value = Options[profile.Value.Get<int>(reference = Reference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
         public override void BindAction(out Action source, out Action toBind) =>
@@ -49,11 +45,11 @@ namespace UnityEssentials
             if (RenderTextureHandler == null)
                 return;
 
-            if (RenderResolution.x <= 0 || RenderResolution.y <= 0)
-                RenderResolution = SettingsDisplayResolution.DisplayResolution;
+            if (Value.x <= 0 || Value.y <= 0)
+                Value = new(Screen.currentResolution.width, Screen.currentResolution.height);
 
-            RenderTextureHandler.Settings.RenderWidth = RenderResolution.x;
-            RenderTextureHandler.Settings.RenderHeight = RenderResolution.y;
+            RenderTextureHandler.Settings.RenderWidth = Value.x;
+            RenderTextureHandler.Settings.RenderHeight = Value.y;
         }
     }
 }
