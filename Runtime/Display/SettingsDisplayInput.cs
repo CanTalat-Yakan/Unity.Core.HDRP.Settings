@@ -13,40 +13,35 @@ namespace UnityEssentials
             "This component retrieves all available displays from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred display.";
 
-        public int Value { get; set; }
-        public string Reference => "display_input";
-        
-        public string[] Options { get; set; }
-        public bool Reverse => false;
-        
-        [HideInInspector] public static Action OnDisplayInputChanged { get; private set; }
+        public static event Action Changed;
+        private static void RaiseChanged() => Changed?.Invoke();
 
-        private bool _initialized;
+        protected override string ProfileName => "Display";
+        protected override string Reference => "DisplayInput";
+
+        public int Value { get; set; }
+        public string[] Options { get; set; }
+        public int Default => 0;
+
+        protected override void SubscribeActions() =>
+            Display.onDisplaysUpdated += MarkDirty;
+
+        protected override void UnsubscribeActions() =>
+            Display.onDisplaysUpdated -= MarkDirty;
+
         private bool _displayOptionsUpdated;
         public override void InitOptions()
         {
-            if (!_initialized)
-            {
-                Display.onDisplaysUpdated += () => SetDirty();
-                _initialized = true;
-            }
-
             Options = new string[Display.displays.Length + 1];
             Options[0] = "Default";
             for (int i = 0; i < Display.displays.Length; i++)
-            {
-                var display = Display.displays[i];
                 Options[i + 1] = $"Display {i + 1}";
-            }
 
             _displayOptionsUpdated = true;
         }
 
-        public override void BindAction(out Action source, out Action toBind) =>
-            (source, toBind) = (OnDisplayInputChanged, SetDirty);
-
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = profile.Value.Get<int>(reference = Reference);
+        public override void InitValue(SettingsProfile profile) =>
+            Value = profile.Value.Get<int>(Reference);
 
         private int _lastDisplayInput = -1;
         public override void UpdateSettings()
@@ -59,9 +54,8 @@ namespace UnityEssentials
 
             if (Display.displays.Length > Value && Value >= 0)
                 Display.displays[Value].Activate();
-
-            OnDisplayInputChanged?.Invoke();
-            //Redraw UI;
+            
+            RaiseChanged();
         }
     }
 }

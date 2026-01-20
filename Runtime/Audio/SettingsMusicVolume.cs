@@ -14,16 +14,17 @@ namespace UnityEssentials
         [Space]
         public AudioMixer AudioMixer;
 
-        public int Value { get; set; }
-        public string Reference => "music_volume";
+        protected override string ProfileName => "Audio";
+        protected override string Reference => "MusicVolume";
         
+        public int Value { get; set; }
         public float MinValue => 0;
         public float MaxValue => 200;
         public float Default => 100;
 
 
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = profile.Value.Get<int>(reference = Reference);
+        public override void InitValue(SettingsProfile profile) =>
+            Value = profile.Value.Get<int>(Reference);
 
         private const string MusicVolumeParameter = "music";
         public override void UpdateSettings() => 

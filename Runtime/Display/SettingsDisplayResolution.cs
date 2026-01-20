@@ -14,11 +14,12 @@ namespace UnityEssentials
             "This component retrieves all available display resolutions from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred screen resolution.";
 
+        protected override string ProfileName => "Display";
+        protected override string Reference => "DisplayResolution";
+
         public Vector2Int Value { get; set; }
-        public string Reference => "display_resolution";
-        
         public string[] Options { get; set; }
-        public bool Reverse => false;
+        public int Default => 0;
 
         public override void InitOptions()
         {
@@ -32,13 +33,15 @@ namespace UnityEssentials
             Options = Options.Reverse().ToArray();
         }
 
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = Options[profile.Value.Get<int>(reference = Reference)]
+        public override void InitValue(SettingsProfile profile) =>
+            Value = Options[profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
-        public override void 
-            BindAction(out Action source, out Action toBind) =>
-            (source, toBind) = (SettingsDisplayInput.OnDisplayInputChanged, SetDirty);
+        protected override void SubscribeActions() =>
+            SettingsDisplayInput.Changed += MarkDirty;
+
+        protected override void UnsubscribeActions() =>
+            SettingsDisplayInput.Changed -= MarkDirty;
 
         public override void UpdateSettings()
         {

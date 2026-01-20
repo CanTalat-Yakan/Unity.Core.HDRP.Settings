@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsHighDynamicRange : SettingsBase, ISettingsBase<bool>
+    public class SettingsHighDynamicRange : SettingsBase, ISettingsBase<bool>, ISettingsBoolConfiguration
     {
         [Info]
         [SerializeField]
@@ -10,11 +10,14 @@ namespace UnityEssentials
             "This component sets the render resolution based on the user's selection in the settings menu.\n" +
             "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
 
-        public bool Value { get; set; }
-        public string Reference => "hdr";
+        protected override string ProfileName => "Display";
+        protected override string Reference => "HDR";
 
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = profile.Value.Get<bool>(reference = Reference);
+        public bool Value { get; set; }
+        public bool Default => false;
+
+        public override void InitValue(SettingsProfile profile) =>
+            Value = profile.Value.Get<bool>(Reference);
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

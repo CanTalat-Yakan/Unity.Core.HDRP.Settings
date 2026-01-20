@@ -3,13 +3,13 @@ namespace UnityEssentials
     public interface ISettingsBase<T>
     {
         public T Value { get; set; }
-        public string Reference { get; }
     }
     
     public interface ISettingsOptionsConfiguration
     {
         public string[] Options { get; set; }
-        public bool Reverse { get; }
+        public bool Reverse => false;
+        public int Default { get; }
     }
     
     public interface ISettingsSliderConfiguration
@@ -17,5 +17,10 @@ namespace UnityEssentials
         public float MinValue { get; }
         public float MaxValue { get; }
         public float Default { get; }
+    }
+    
+    public interface ISettingsBoolConfiguration
+    {
+        public bool Default { get; }
     }
 }

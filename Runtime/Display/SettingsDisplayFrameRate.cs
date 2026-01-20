@@ -11,15 +11,16 @@ namespace UnityEssentials
             "It allows the user to set a specific frame rate limit through the settings menu, " +
             "ensuring that the game runs at a consistent frame rate as defined by the user.";
 
+        protected override string ProfileName => "Display";
+        protected override string Reference => "DisplayFramerate";
+
         public int Value { get; set; }
-        public string Reference => "display_framerate";
-        
         public float MinValue => 0;
         public float MaxValue => 1000;
         public float Default => 0;
 
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = profile.Value.Get<int>(reference = Reference);
+        public override void InitValue(SettingsProfile profile) =>
+            Value = profile.Value.Get<int>(Reference);
 
         public override void UpdateSettings() =>
             Application.targetFrameRate = Value;

@@ -1,66 +1,111 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace UnityEssentials
 {
-    [DefaultExecutionOrder(-1009)]
-    public class SettingsBase : MonoBehaviour
+    public abstract class SettingsBase : MonoBehaviour
     {
-        [HideInInspector] public bool Dirty;
-        [HideInInspector] public Action SetDirty;
+        protected abstract string ProfileName { get; }
+        protected abstract string Reference { get; }
 
-        private string _reference;
+        private bool _isDirty;
+
         private SettingsProfile _profile;
         private Action _setter;
 
-        public virtual void InitValue(SettingsProfile profile, out string reference) { reference = string.Empty; }
+        private Action<string> _onProfileChanged;
+        private Coroutine _applyCoroutine;
+
+        private bool _initialized;
+
+        public virtual void InitValue(SettingsProfile profile) { }
+
         public virtual void InitOptions() { }
+
         public virtual void UpdateSettings() { }
-        public virtual void BindAction(out Action source, out Action toBind) { source = null; toBind = null; }
 
-        private void OnEnable()
+        protected virtual void SubscribeActions() { }
+
+        protected virtual void UnsubscribeActions() { }
+
+        protected void MarkDirty()
         {
-            BindAction(out var source, out var toAdd);
-            source += toAdd;
+            _isDirty = true;
+            EnsureApplyScheduled();
         }
 
-        private void OnDisable()
+        private void EnsureApplyScheduled()
         {
-            BindAction(out var source, out var toAdd);
-            source -= toAdd;
+            if (!isActiveAndEnabled) return;
+            if (_applyCoroutine != null) return;
+            _applyCoroutine = StartCoroutine(ApplyAtEndOfFrame());
         }
 
-        public void Awake() =>
+        private IEnumerator ApplyAtEndOfFrame()
+        {
+            yield return null; // coalesce multiple changes this frame
+            _applyCoroutine = null;
+            if (!isActiveAndEnabled) yield break;
+            if (!_isDirty) yield break;
+            _isDirty = false;
+            InitOptions();
+            Apply();
+        }
+
+        protected virtual void Awake()
+        {
             InitOptions();
 
-        public void Start()
-        {
-            const string settingsProfileName = "HDRP_Settings";
-            _profile = SettingsProfileFactory.Create(settingsProfileName);
+            // Prepare profile + handler early so event subscriptions in OnEnable are safe.
+            _profile = SettingsProfileFactory.Create(ProfileName);
             _profile.GetOrLoad();
 
-            _setter = () => InitValue(_profile, out _reference); ;
-            _setter.Invoke();
-
-            SetDirty = () => Dirty = true;
-
-            _profile.Value.OnChanged += (changedValueReference) =>
+            _setter = () =>
             {
-                if (changedValueReference == _reference)
-                    _setter?.Invoke();
+                InitValue(_profile);
+                UpdateSettings();
             };
+
+            _onProfileChanged = (changedValueReference) =>
+            {
+                if (changedValueReference == Reference)
+                    Apply();
+            };
+
+            _profile.Value.OnChanged += _onProfileChanged;
+            _initialized = true;
         }
 
-        public void Update()
+        protected virtual void OnEnable()
         {
-            if (Dirty) InitOptions();
+            SubscribeActions();
+            // Apply once when enabled (covers initial start + re-enables).
+            if (_initialized) Apply();
+            // In case something marked dirty while disabled, apply when re-enabled.
+            EnsureApplyScheduled();
         }
 
-        public void LateUpdate()
+        protected virtual void OnDisable()
         {
-            if (Dirty) _setter?.Invoke();
-            UpdateSettings();
-            Dirty = false;
+            UnsubscribeActions();
+            if (_applyCoroutine != null)
+            {
+                StopCoroutine(_applyCoroutine);
+                _applyCoroutine = null;
+            }
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (_profile != null && _onProfileChanged != null)
+                _profile.Value.OnChanged -= _onProfileChanged;
+        }
+
+        protected void Apply()
+        {
+            if (_profile == null) return;
+            _setter?.Invoke();
         }
     }
 }

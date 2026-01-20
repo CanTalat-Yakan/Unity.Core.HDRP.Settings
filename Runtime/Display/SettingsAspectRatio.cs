@@ -12,11 +12,12 @@ namespace UnityEssentials
             "This component populates the aspect ratio options in the settings menu.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred aspect ratio.";
 
+        protected override string ProfileName => "Display";
+        protected override string Reference => "AspectRatio";
+
         public Vector2 Value { get; set; }
-        public string Reference => "aspect_ratio";
-        
         public string[] Options { get; set; }
-        public bool Reverse => false;
+        public int Default => 0;
 
         public override void InitOptions() =>
             Options = new[]
@@ -34,8 +35,8 @@ namespace UnityEssentials
                 "2.35:1"
             };
 
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = Options[profile.Value.Get<int>(reference = Reference)]
+        public override void InitValue(SettingsProfile profile) =>
+            Value = Options[profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString(':');
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();

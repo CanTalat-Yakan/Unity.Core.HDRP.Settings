@@ -11,15 +11,16 @@ namespace UnityEssentials
             "This component sets the resolution scale based on the settings profile.\n" +
             "It allows dynamic resolution scaling if the resolution scale is below 100%.";
 
+        protected override string ProfileName => "Display";
+        protected override string Reference => "ResolutionScale";
+
         public int Value { get; set; }
-        public string Reference => "resolution_scale";
-        
         public float MinValue => 10;
         public float MaxValue => 100;
         public float Default => 100;
         
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = profile.Value.Get<int>(reference = Reference);
+        public override void InitValue(SettingsProfile profile) =>
+            Value = profile.Value.Get<int>(Reference);
 
         public override void UpdateSettings()
         {

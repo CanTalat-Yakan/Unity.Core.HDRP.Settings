@@ -11,28 +11,33 @@ namespace UnityEssentials
             "This component sets the microphone input based on the user's selection in the settings menu.\n" +
             "It listens for changes in the microphone input setting and applies the selected microphone to the audio system.";
 
+        public static event Action Changed;
+        private static void RaiseChanged() => Changed?.Invoke();
+
+        protected override string ProfileName => "Audio";
+        protected override string Reference => "MicrophoneInput";
+
         public int Value { get; set; }
-        public string Reference => "microphoneInput";
-        
         public string[] Options { get; set; }
-        public bool Reverse => false;
-        
-        [HideInInspector] public static Action OnMicrophoneInputChanged { get; private set; }
+        public int Default => 0;
 
         private bool _microphoneOptionsUpdated;
         public override void InitOptions()
         {
             Options = new string[Microphone.devices.Length + 1];
             Options[0] = "Default";
-            for (int i = 1; i < Microphone.devices.Length; i++)
+            for (int i = 0; i < Microphone.devices.Length; i++)
             {
                 var microphone = Microphone.devices[i];
-                Options[i] = $"Microphone {i}";
+                Options[i + 1] = string.IsNullOrWhiteSpace(microphone) ? $"Microphone {i + 1}" : microphone;
             }
 
             _microphoneOptionsUpdated = true;
         }
-        
+
+        public override void InitValue(SettingsProfile profile) =>
+            Value = profile.Value.Get<int>(Reference);
+
         private int _lastMicrophoneInput = -1;
         public override void UpdateSettings()
         {
@@ -42,8 +47,7 @@ namespace UnityEssentials
                 _microphoneOptionsUpdated = false;
             else return;
 
-            OnMicrophoneInputChanged?.Invoke();
-            //Redraw UI;
+            RaiseChanged();
         }
     }
 }

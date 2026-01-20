@@ -12,11 +12,12 @@ namespace UnityEssentials
             "This component sets the render resolution based on the user's selection in the settings menu.\n" +
             "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
 
-        public Vector2Int Value { get; set; }
-        public string Reference => "render_resolution";
+        protected override string ProfileName => "Display";
+        protected override string Reference => "RenderResolution";
 
+        public Vector2Int Value { get; set; }
         public string[] Options { get; set; }
-        public bool Reverse { get; }
+        public int Default => 100;
 
         public override void InitOptions()
         {
@@ -30,12 +31,15 @@ namespace UnityEssentials
             Options = Options.Reverse().ToArray();
         }
 
-        public override void InitValue(SettingsProfile profile, out string reference) =>
-            Value = Options[profile.Value.Get<int>(reference = Reference)]
+        public override void InitValue(SettingsProfile profile) =>
+            Value = Options[profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
-        public override void BindAction(out Action source, out Action toBind) =>
-            (source, toBind) = (SettingsDisplayInput.OnDisplayInputChanged, SetDirty);
+        protected override void SubscribeActions() =>
+            SettingsDisplayInput.Changed += MarkDirty;
+
+        protected override void UnsubscribeActions() =>
+            SettingsDisplayInput.Changed -= MarkDirty;
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;
