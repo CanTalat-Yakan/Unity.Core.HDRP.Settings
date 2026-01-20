@@ -19,6 +19,7 @@ namespace UnityEssentials
 
         public int Value { get; set; }
         public string[] Options { get; set; }
+        public bool Reverse => false;
         public int Default => 0;
 
         private bool _microphoneOptionsUpdated;
@@ -27,10 +28,7 @@ namespace UnityEssentials
             Options = new string[Microphone.devices.Length + 1];
             Options[0] = "Default";
             for (int i = 0; i < Microphone.devices.Length; i++)
-            {
-                var microphone = Microphone.devices[i];
-                Options[i + 1] = string.IsNullOrWhiteSpace(microphone) ? $"Microphone {i + 1}" : microphone;
-            }
+                Options[i + 1] = $"Microphone {i + 1}";
 
             _microphoneOptionsUpdated = true;
         }

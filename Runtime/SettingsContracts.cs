@@ -8,7 +8,7 @@ namespace UnityEssentials
     public interface ISettingsOptionsConfiguration
     {
         public string[] Options { get; set; }
-        public bool Reverse => false;
+        public bool Reverse { get; }
         public int Default { get; }
     }
     

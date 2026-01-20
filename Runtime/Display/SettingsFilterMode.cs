@@ -18,6 +18,7 @@ namespace UnityEssentials
 
         public FilterMode Value { get; set; }
         public string[] Options { get; set; }
+        public bool Reverse => false;
         public int Default => 0;
 
         public override void InitOptions() =>

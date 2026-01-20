@@ -17,7 +17,8 @@ namespace UnityEssentials
 
         public Vector2Int Value { get; set; }
         public string[] Options { get; set; }
-        public int Default => 100;
+        public bool Reverse => false;
+        public int Default => 0;
 
         public override void InitOptions()
         {
