@@ -37,10 +37,10 @@ namespace UnityEssentials
                 .ExtractVector2FromString('x').ToVector2Int();
 
         protected override void SubscribeActions() =>
-            SettingsDisplayInput.Changed += MarkDirty;
+            SettingsDisplayInput.OnChanged += MarkDirty;
 
         protected override void UnsubscribeActions() =>
-            SettingsDisplayInput.Changed -= MarkDirty;
+            SettingsDisplayInput.OnChanged -= MarkDirty;
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;

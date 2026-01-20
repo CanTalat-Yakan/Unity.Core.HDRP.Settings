@@ -13,8 +13,8 @@ namespace UnityEssentials
             "This component retrieves all available displays from the system and populates the menu options.\n" +
             "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred display.";
 
-        public static event Action Changed;
-        private static void RaiseChanged() => Changed?.Invoke();
+        public static event Action OnChanged;
+        private static void RaiseChanged() => OnChanged?.Invoke();
 
         protected override string ProfileName => "Display";
         protected override string Reference => "DisplayInput";

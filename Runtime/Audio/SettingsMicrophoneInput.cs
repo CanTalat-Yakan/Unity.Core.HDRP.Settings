@@ -11,8 +11,8 @@ namespace UnityEssentials
             "This component sets the microphone input based on the user's selection in the settings menu.\n" +
             "It listens for changes in the microphone input setting and applies the selected microphone to the audio system.";
 
-        public static event Action Changed;
-        private static void RaiseChanged() => Changed?.Invoke();
+        public static event Action OnChanged;
+        private static void RaiseChanged() => OnChanged?.Invoke();
 
         protected override string ProfileName => "Audio";
         protected override string Reference => "MicrophoneInput";
