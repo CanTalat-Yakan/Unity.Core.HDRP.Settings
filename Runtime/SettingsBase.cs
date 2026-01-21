@@ -58,8 +58,8 @@ namespace UnityEssentials
             InitOptions();
 
             // Prepare profile + handler early so event subscriptions in OnEnable are safe.
-            _profile = SettingsProfileFactory.Create(ProfileName);
-            _profile.GetOrLoad();
+            _profile = SettingsProfile.GetOrCreate(ProfileName);
+            _profile.GetValue();
 
             _setter = () =>
             {
