@@ -16,27 +16,33 @@ namespace UnityEssentials
     {
         private const string RootObjectName = "[Settings]";
 
-        // Child naming to keep hierarchy tidy and avoid collisions with user objects.
-        // Note: do NOT include slashes in item GameObject names; create hierarchy explicitly.
-        private const string SettingsContainerName = "Settings";
-
         private static bool _quitting;
         private static GameObject _root;
 
-        [Tooltip("If enabled, SettingsBoot will create the persistent root if it doesn't exist.")]
-        public bool AutoCreateRoot = true;
+        /// <summary>
+        /// Internal toggles for boot behavior.
+        /// These are intentionally not public/serialized because SettingsBoot is designed to be auto-created.
+        /// </summary>
+        public static class Options
+        {
+            /// <summary>If true, SettingsBoot will create the persistent root if it doesn't exist.</summary>
+            public static bool AutoCreateRoot = true;
 
-        [Tooltip("If enabled, SettingsBoot will ensure every discovered settings component exists under the persistent root.")]
-        public bool AutoInstantiateSettings = true;
+            /// <summary>If true, SettingsBoot will ensure every discovered settings component exists under the persistent root.</summary>
+            public static bool AutoInstantiateSettings = true;
 
-        [Tooltip("If enabled, each settings component will live on its own child GameObject under the persistent root (recommended for clarity in the hierarchy).")]
-        public bool CreateChildGameObjectPerSetting = true;
+            /// <summary>
+            /// If true, each settings component will live on its own child GameObject under the persistent root.
+            /// If false, all settings components will be attached to the root itself.
+            /// </summary>
+            public static bool CreateChildGameObjectPerSetting = true;
+        }
 
         private void Awake()
         {
             if (_quitting) return;
 
-            if (!AutoCreateRoot && _root == null)
+            if (!Options.AutoCreateRoot && _root == null)
                 return;
 
             var root = GetOrCreateRoot();
@@ -45,14 +51,14 @@ namespace UnityEssentials
             if (gameObject != root)
             {
                 // Ensure settings are instantiated once even if multiple boots exist.
-                if (AutoInstantiateSettings)
+                if (Options.AutoInstantiateSettings)
                     EnsureAllSettings(root);
 
                 Destroy(gameObject);
                 return;
             }
 
-            if (AutoInstantiateSettings)
+            if (Options.AutoInstantiateSettings)
                 EnsureAllSettings(root);
         }
 
@@ -118,10 +124,7 @@ namespace UnityEssentials
         {
             var types = FindAllSettingsComponentTypes();
 
-            // Options should be driven by the boot component living on the root.
-            // If missing (e.g., temporarily during creation), default to the safer/clearer behavior.
-            var boot = root.GetComponent<SettingsBoot>();
-            var createChildPerSetting = boot == null || boot.CreateChildGameObjectPerSetting;
+            var createChildPerSetting = Options.CreateChildGameObjectPerSetting;
 
             foreach (var type in types)
             {
@@ -140,20 +143,31 @@ namespace UnityEssentials
                     // If it's already on the target host we're done.
                     if (existingInScene.gameObject != targetHost)
                     {
-                        // If the component is on an object with multiple components (or user content), we avoid moving
-                        // the whole GameObject; instead, we add a fresh component to our host.
-                        // This keeps SettingsBoot from unexpectedly re-parenting user objects.
-                        var existingGo = existingInScene.gameObject;
-                        var canMoveWholeObject = existingGo.GetComponents<Component>().Length <= 2; // Transform + this component
-
-                        if (createChildPerSetting && !canMoveWholeObject)
+                        // Special case: when hosting directly on the root, we must not attempt to re-parent a component
+                        // under its own GameObject (that would be a no-op and would not move the component).
+                        // Instead, ensure the component exists on the root.
+                        if (!createChildPerSetting)
                         {
                             if (targetHost.GetComponent(type) == null)
                                 targetHost.AddComponent(type);
                         }
                         else
                         {
-                            existingInScene.transform.SetParent(targetHost.transform, worldPositionStays: false);
+                            // If the component is on an object with multiple components (or user content), we avoid moving
+                            // the whole GameObject; instead, we add a fresh component to our host.
+                            // This keeps SettingsBoot from unexpectedly re-parenting user objects.
+                            var existingGo = existingInScene.gameObject;
+                            var canMoveWholeObject = existingGo.GetComponents<Component>().Length <= 2; // Transform + this component
+
+                            if (!canMoveWholeObject)
+                            {
+                                if (targetHost.GetComponent(type) == null)
+                                    targetHost.AddComponent(type);
+                            }
+                            else
+                            {
+                                existingInScene.transform.SetParent(targetHost.transform, worldPositionStays: false);
+                            }
                         }
                     }
                 }
@@ -168,9 +182,10 @@ namespace UnityEssentials
                 //    We only dedupe within the [Settings] hierarchy to avoid breaking intentionally duplicated scene setups.
                 var inRootHierarchy = root.GetComponentsInChildren(type, includeInactive: true);
                 var kept = false;
-                foreach (var inst in inRootHierarchy)
+                foreach (Component c in inRootHierarchy)
                 {
-                    if (inst is not Component c) continue;
+                    if (c == null)
+                        continue;
 
                     if (!kept)
                     {
@@ -188,28 +203,15 @@ namespace UnityEssentials
             if (!createChildPerSetting)
                 return root;
 
-            // Ensure a dedicated container child exists: [Settings]/Settings
-            var containerTransform = root.transform.Find(SettingsContainerName);
-            if (containerTransform == null)
-            {
-                var container = new GameObject(SettingsContainerName);
-                container.transform.SetParent(root.transform, worldPositionStays: false);
-                containerTransform = container.transform;
-            }
-
-            // Ensure a dedicated host child exists: [Settings]/Settings/<TypeName>
-            var hostTransform = containerTransform.Find(settingType.Name);
+            // Ensure a dedicated host child exists: [Settings]/<TypeName>
+            var hostTransform = root.transform.Find(settingType.Name);
             if (hostTransform != null)
                 return hostTransform.gameObject;
 
             var go = new GameObject(settingType.Name);
-            go.transform.SetParent(containerTransform, worldPositionStays: false);
+            go.transform.SetParent(root.transform, worldPositionStays: false);
             return go;
         }
-
-        // Keep the old signature for any existing internal callers (if any).
-        private static GameObject GetOrCreateHost(GameObject root, Type settingType) =>
-            GetOrCreateHost(root, settingType, createChildPerSetting: true);
 
         private static IReadOnlyList<Type> FindAllSettingsComponentTypes()
         {
@@ -227,5 +229,22 @@ namespace UnityEssentials
                 .OrderBy(t => t.FullName, StringComparer.Ordinal)
                 .ToArray();
         }
+
+#if UNITY_INCLUDE_TESTS
+        /// <summary>
+        /// Test-only hook: re-run bootstrapping deterministically within the same play session.
+        /// Needed because RuntimeInitializeOnLoadMethod(BeforeSceneLoad) only runs once per play session.
+        /// </summary>
+        public static void RefreshForTests()
+        {
+            if (_quitting) return;
+
+            var root = GetOrCreateRoot();
+            EnsureHasBootComponent(root);
+
+            if (Options.AutoInstantiateSettings)
+                EnsureAllSettings(root);
+        }
+#endif
     }
 }

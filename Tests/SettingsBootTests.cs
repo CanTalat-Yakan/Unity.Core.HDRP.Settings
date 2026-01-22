@@ -7,6 +7,23 @@ namespace UnityEssentials.Tests
 {
     public class SettingsBootTests
     {
+
+        [TearDown]
+        public void Cleanup_Test_Profile_And_Definition_Files()
+        {
+#if UNITY_INCLUDE_TESTS
+            const string testFileName = "__unityessentials_settingsboot_tests";
+            
+            // Best-effort cleanup: remove disk artifacts created by SettingsBase<T>.Awake() during these tests.
+            // This keeps the project folder clean and avoids test order coupling via persisted data.
+            try { SettingsProfile.GetOrCreate(testFileName).DeleteFile(); } catch { /* ignore */ }
+            try { SettingsDefinition.GetOrCreate(testFileName).DeleteFile(); } catch { /* ignore */ }
+            // Also delete legacy/alternate names if any test changed the filename.
+            // (No-op if missing.)
+            try { SettingsProfile.GetOrCreate().SaveIfDirty(); } catch { /* ignore */ }
+#endif
+        }
+
         [UnityTest]
         public System.Collections.IEnumerator CreatesPersistentRootAndInstantiatesSettings()
         {
@@ -36,7 +53,7 @@ namespace UnityEssentials.Tests
             Assert.IsNotNull(types);
 
             // This is the key regression guard: if we can't discover this type, SettingsBoot can't instantiate it.
-            Assert.IsTrue(types.Contains(typeof(TestSettingsComponent)),
+            Assert.IsTrue(types.Contains(typeof(SettingsTestComponent)),
                 "Expected PredefinedAssemblyUtilities.GetTypes(ISettingsComponent) to include TestSettingsComponent. " +
                 "If this fails, the assembly scanning rules are too restrictive for asmdef-based projects.");
         }
@@ -50,15 +67,15 @@ namespace UnityEssentials.Tests
             Assert.NotNull(root);
 
             // Expect the child host to exist if CreateChildGameObjectPerSetting is enabled (default true).
-            var host = root.transform.Find("Settings/" + nameof(TestSettingsComponent));
+            var host = root.transform.Find(nameof(SettingsTestComponent));
             Assert.NotNull(host, "Expected a per-setting child host GameObject under [Settings]");
 
-            var component = host.GetComponent<TestSettingsComponent>();
+            var component = host.GetComponent<SettingsTestComponent>();
             Assert.NotNull(component, "Expected TestSettingsComponent to be attached to its host child");
         }
 
         [UnityTest]
-        public System.Collections.IEnumerator Creates_Settings_Container_Under_Root()
+        public System.Collections.IEnumerator Does_Not_Create_Settings_Container_Under_Root()
         {
             yield return null;
 
@@ -66,20 +83,53 @@ namespace UnityEssentials.Tests
             Assert.NotNull(root);
 
             var settingsContainer = root.transform.Find("Settings");
-            Assert.NotNull(settingsContainer, "Expected [Settings]/Settings container GameObject to exist");
+            Assert.IsNull(settingsContainer, "Did not expect a redundant [Settings]/Settings container GameObject");
 
-            var testHost = settingsContainer.Find(nameof(TestSettingsComponent));
-            Assert.NotNull(testHost, "Expected [Settings]/Settings/<TypeName> host to exist for TestSettingsComponent");
+            // Host should be directly under the root.
+            var testHost = root.transform.Find(nameof(SettingsTestComponent));
+            Assert.NotNull(testHost);
+            Assert.AreEqual(root.transform, testHost.parent);
+        }
+
+        [UnityTest]
+        public System.Collections.IEnumerator Creates_On_Root_When_CreateChildGameObjectPerSetting_Is_False()
+        {
+            var previous = SettingsBoot.Options.CreateChildGameObjectPerSetting;
+            SettingsBoot.Options.CreateChildGameObjectPerSetting = false;
+            try
+            {
+                var existingRoot = GameObject.Find("[Settings]");
+                if (existingRoot != null)
+                    Object.DestroyImmediate(existingRoot);
+
+                // Re-run bootstrapping deterministically (BeforeSceneLoad won't run again in this play session).
+                SettingsBoot.RefreshForTests();
+
+                // Allow Awake/OnEnable on newly added components to run.
+                yield return null;
+
+                var root = GameObject.Find("[Settings]");
+                Assert.NotNull(root);
+
+                Assert.NotNull(root.GetComponent<SettingsTestComponent>(), "Expected SettingsTestComponent to be attached directly to [Settings] when CreateChildGameObjectPerSetting is false.");
+
+                var host = root.transform.Find(nameof(SettingsTestComponent));
+                Assert.IsNull(host, "Did not expect a per-setting host when CreateChildGameObjectPerSetting is false.");
+            }
+            finally
+            {
+                SettingsBoot.Options.CreateChildGameObjectPerSetting = previous;
+            }
         }
     }
 
 #if UNITY_INCLUDE_TESTS
-    /// <summary>
-    /// Minimal concrete settings component used by tests to validate SettingsBoot discovery/instantiation.
-    /// </summary>
-    public sealed class TestSettingsComponent : SettingsBase<int>
+    public sealed class SettingsTestComponent : SettingsBase<int>
     {
-        // Keep it simple: no file IO impact beyond whatever SettingsProfile/Definition already does.
+        [Info, SerializeField]
+        private string info =
+            "A test settings component for unit testing SettingsBoot.";
+
         protected override int Value { get; set; }
         protected override string FileName => "__unityessentials_settingsboot_tests";
         protected override string Reference => "test.settings.component";
