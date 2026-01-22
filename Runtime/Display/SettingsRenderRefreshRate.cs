@@ -2,22 +2,21 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsRenderRefreshRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsRenderRefreshRate : SettingsBase<int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "SettingsRenderRefreshRate is responsible for managing the frame rate limit for rendering cameras. " +
-            "It allows the user to set a specific frame rate limit through the settings menu, " +
-            "ensuring that the game runs at a consistent frame rate as defined by the user.";
+            "Specifies a refresh rate for rendering, which can differ from the screen refresh rate. " +
+            "Performance optimization, as rendering at a lower refresh rate can improve GPU frame times while still displaying at a higher fps. " +
+            "If set to 0, it will match the current screen refresh rate.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "RenderRefreshRate";
+        protected override int Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/RenderRefreshRate";
 
-        public int Value { get; set; }
-        public float MinValue => 0;
-        public float MaxValue => 1000;
-        public float Default => 120;
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetIntSlider(Reference, 0, 1000, 1, 120, "FPS")
+                .SetTooltip(_info);
 
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<int>(Reference);

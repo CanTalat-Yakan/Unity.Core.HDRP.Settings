@@ -2,23 +2,17 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsAspectRatio : SettingsBase, ISettingsBase<Vector2>, ISettingsOptionsConfiguration
+    public class SettingsAspectRatio : SettingsBase<Vector2>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "This component sets the aspect ratio of the camera render texture based on the settings profile.\n" +
-            "It listens for changes in the aspect ratio setting and applies the selected aspect ratio to the camera render texture handler.\n\n" +
-            "This component populates the aspect ratio options in the settings menu.\n" +
-            "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred aspect ratio.";
+            "Sets the aspect ratio for the camera's render texture.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "AspectRatio";
+        protected override Vector2 Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/AspectRatio";
 
-        public Vector2 Value { get; set; }
         public string[] Options { get; set; }
-        public bool Reverse => false;
-        public int Default => 0;
 
         public override void InitOptions() =>
             Options = new[]
@@ -36,6 +30,10 @@ namespace UnityEssentials
                 "2.35:1"
             };
 
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetOptions(Reference, Options)
+                .SetTooltip(_info);
+        
         public override void InitValue(SettingsProfile profile) =>
             Value = Options[profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString(':');

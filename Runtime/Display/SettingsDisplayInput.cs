@@ -3,27 +3,21 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsDisplayInput : SettingsBase, ISettingsBase<int>, ISettingsOptionsConfiguration
+    public class SettingsDisplayInput : SettingsBase<int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "This component sets the display input based on the user's choice in the settings menu.\n" +
-            "It listens for changes in the display input setting and activates the corresponding display.\n\n" +
-            "This component retrieves all available displays from the system and populates the menu options.\n" +
-            "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred display.";
+            "Selects which display to use for rendering when multiple displays are connected.";
 
         public static event Action OnChanged;
         private static void RaiseChanged() => OnChanged?.Invoke();
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "DisplayInput";
+        protected override int Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/DisplayInput";
 
-        public int Value { get; set; }
         public string[] Options { get; set; }
-        public bool Reverse => false;
-        public int Default => 0;
-
+        
         protected override void SubscribeActions() =>
             Display.onDisplaysUpdated += MarkDirty;
 
@@ -40,6 +34,10 @@ namespace UnityEssentials
 
             _displayOptionsUpdated = true;
         }
+        
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetOptions(Reference, Options)
+                .SetTooltip(_info);
 
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<int>(Reference);

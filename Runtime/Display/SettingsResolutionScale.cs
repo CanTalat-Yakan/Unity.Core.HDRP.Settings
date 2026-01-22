@@ -3,22 +3,21 @@ using UnityEngine.Rendering;
 
 namespace UnityEssentials
 {
-    public class SettingsResolutionScale : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsResolutionScale : SettingsBase<int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "This component sets the resolution scale based on the settings profile.\n" +
-            "It allows dynamic resolution scaling if the resolution scale is below 100%.";
+            "Enables or disables dynamic resolution and sets the resolution scale factor accordingly.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "ResolutionScale";
-
-        public int Value { get; set; }
-        public float MinValue => 10;
-        public float MaxValue => 100;
-        public float Default => 100;
+        protected override int Value { get; set; }
         
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/ResolutionScale";
+
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetIntSlider(Reference, 10, 100, 1, 100, "%")
+                .SetTooltip(_info);
+
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<int>(Reference);
 

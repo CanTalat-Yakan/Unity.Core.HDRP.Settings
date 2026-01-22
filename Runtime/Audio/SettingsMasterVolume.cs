@@ -3,25 +3,23 @@ using UnityEngine.Audio;
 
 namespace UnityEssentials
 {
-    public class SettingsMasterVolume : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsMasterVolume : SettingsBase<int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "This component sets the master volume for the audio mixer based on the user's selection in the settings menu.\n" +
-            "It listens for changes in the master volume setting and applies the selected volume level to the audio mixer.";
+            "Adjusts the overall master volume level within the application.";
 
         [Space]
         public AudioMixer AudioMixer;
 
-        protected override string ProfileName => "Audio";
-        protected override string Reference => "MasterVolume";
+        protected override int Value { get; set; }
+        protected override string FileName => "Settings/Audio";
+        protected override string Reference => "Settings/Audio/MasterVolume";
         
-        public int Value { get; set; }
-        public float MinValue => 0;
-        public float MaxValue => 100;
-        public float Default => 100;
-        
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetIntSlider(Reference, 0, 100, 100)
+                .SetTooltip(_info);
+
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<int>(Reference);
 

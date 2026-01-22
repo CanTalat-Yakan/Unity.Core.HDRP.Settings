@@ -4,13 +4,20 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public abstract class SettingsBase : MonoBehaviour
+    /// <summary>
+    /// Non-generic marker interface for all settings components.
+    /// </summary>
+    public interface ISettingsComponent { }
+
+    public abstract class SettingsBase<T> : MonoBehaviour, ISettingsComponent
     {
-        protected abstract string ProfileName { get; }
+        protected abstract T Value { get; set; }
+        protected abstract string FileName { get; }
         protected abstract string Reference { get; }
 
         private bool _isDirty;
 
+        private SettingsDefinition _definition;
         private SettingsProfile _profile;
         private Action _setter;
 
@@ -19,9 +26,11 @@ namespace UnityEssentials
 
         private bool _initialized;
 
-        public virtual void InitValue(SettingsProfile profile) { }
-
         public virtual void InitOptions() { }
+        
+        public virtual void InitMetadata(SettingsDefinition definition) { }
+
+        public virtual void InitValue(SettingsProfile profile) { }
 
         public virtual void UpdateSettings() { }
 
@@ -57,12 +66,15 @@ namespace UnityEssentials
         {
             InitOptions();
 
-            // Prepare profile + handler early so event subscriptions in OnEnable are safe.
-            _profile = SettingsProfile.GetOrCreate(ProfileName);
+            _definition = SettingsDefinition.GetOrCreate(FileName);
+            _definition.GetValue();
+
+            _profile = SettingsProfile.GetOrCreate(FileName);
             _profile.GetValue();
 
             _setter = () =>
             {
+                InitMetadata(_definition);
                 InitValue(_profile);
                 UpdateSettings();
             };

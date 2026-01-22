@@ -4,23 +4,17 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsDisplayResolution : SettingsBase, ISettingsBase<Vector2Int>, ISettingsOptionsConfiguration
+    public class SettingsScreenResolution : SettingsBase<Vector2Int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "This component sets the display resolution based on the settings profile.\n" +
-            "It allows changing the screen resolution dynamically from the menu.\n\n" +
-            "This component retrieves all available display resolutions from the system and populates the menu options.\n" +
-            "It is intended for use with UIMenuOptionsDataConfigurator to allow users to select their preferred screen resolution.";
+            "Listens for changes in the screen resolution setting and applies the selected resolution to the application window.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "DisplayResolution";
+        protected override Vector2Int Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/ScreenResolution";
 
-        public Vector2Int Value { get; set; }
         public string[] Options { get; set; }
-        public bool Reverse => false;
-        public int Default => 0;
 
         public override void InitOptions()
         {
@@ -34,6 +28,10 @@ namespace UnityEssentials
             Options = Options.Reverse().ToArray();
         }
 
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetOptions(Reference, Options)
+                .SetTooltip(_info);
+        
         public override void InitValue(SettingsProfile profile) =>
             Value = Options[profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString('x').ToVector2Int();

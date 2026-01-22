@@ -2,23 +2,26 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsGlobalRefreshRate : SettingsBase, ISettingsBase<int>, ISettingsSliderConfiguration
+    public class SettingsGlobalRefreshRate : SettingsBase<int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "SettingsGlobalFrameRate is responsible for managing the global frame rate limit for the application. " +
-            "It allows the user to set a specific frame rate limit through the settings menu, " +
-            "ensuring that the game runs at a consistent frame rate as defined by the user.";
+            "Sets the global refresh rate for all cameras that use the GlobalRefreshRate component. " +
+            "Performance optimization, as scheduling updates at a lower refresh rate can improve CPU frame times while still displaying at a higher fps. " +
+            "If set to 0, it will match the current screen refresh rate.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "GlobalRefreshRate";
+        protected override int Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/GlobalRefreshRate";
 
-        public int Value { get; set; }
         public float MinValue => 0;
         public float MaxValue => 1000;
         public float Default => 1000;
-
+        
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetIntSlider(Reference, 0, 1000, 1, 1000, "FPS")
+                .SetTooltip(_info);
+     
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<int>(Reference);
 

@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsHighDynamicRange : SettingsBase, ISettingsBase<bool>, ISettingsBoolConfiguration
+    public class SettingsHighDynamicRange : SettingsBase<bool>
     {
-        [Info]
-        [SerializeField]
-        private string _info =
-            "This component sets the render resolution based on the user's selection in the settings menu.\n" +
-            "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
+        [Info, SerializeField]
+        private string _info = 
+            "Enables or disables High Dynamic Range (HDR) rendering for the camera's render texture.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "HDR";
+        protected override bool Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/HDR";
 
-        public bool Value { get; set; }
-        public bool Default => false;
-
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetToggle(Reference)
+                .SetTooltip(_info);
+        
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<bool>(Reference);
 

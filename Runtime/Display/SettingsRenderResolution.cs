@@ -4,22 +4,19 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsRenderResolution : SettingsBase, ISettingsBase<Vector2Int>, ISettingsOptionsConfiguration
+    public class SettingsRenderResolution : SettingsBase<Vector2Int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
-            "This component sets the render resolution based on the user's selection in the settings menu.\n" +
-            "It listens for changes in the render resolution setting and applies the selected resolution to the camera render texture handler.";
+            "Specifies a resolution for rendering, which can differ from the screen resolution. " +
+            "Performance optimization, as rendering at a lower resolution can improve GPU frame times while still displaying at a higher resolution.";
 
-        protected override string ProfileName => "Display";
-        protected override string Reference => "RenderResolution";
-
-        public Vector2Int Value { get; set; }
+        protected override Vector2Int Value { get; set; }
+        protected override string FileName => "Settings/Display";
+        protected override string Reference => "Settings/Display/RenderResolution";
+        
         public string[] Options { get; set; }
-        public bool Reverse => false;
-        public int Default => 0;
-
+        
         public override void InitOptions()
         {
             Options = new string[Screen.resolutions.Length + 1];
@@ -31,6 +28,10 @@ namespace UnityEssentials
             Options[^1] = "Native";
             Options = Options.Reverse().ToArray();
         }
+
+        public override void InitMetadata(SettingsDefinition definition) =>
+            definition.SetOptions(Reference, Options)
+                .SetTooltip(_info);
 
         public override void InitValue(SettingsProfile profile) =>
             Value = Options[profile.Value.Get<int>(Reference)]
