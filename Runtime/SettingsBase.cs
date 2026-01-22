@@ -77,6 +77,8 @@ namespace UnityEssentials
                 InitMetadata(_definition);
                 InitValue(_profile);
                 UpdateSettings();
+                _definition.SaveIfDirty();
+                _profile.SaveIfDirty();
             };
 
             _onProfileChanged = (changedValueReference) =>

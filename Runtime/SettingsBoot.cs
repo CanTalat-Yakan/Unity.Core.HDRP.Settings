@@ -16,6 +16,9 @@ namespace UnityEssentials
     {
         private const string RootObjectName = "[Settings]";
 
+        // Child naming to keep hierarchy tidy and avoid collisions with user objects.
+        private const string ChildPrefix = "Settings/";
+
         private static bool _quitting;
         private static GameObject _root;
 
@@ -24,6 +27,9 @@ namespace UnityEssentials
 
         [Tooltip("If enabled, SettingsBoot will ensure every discovered settings component exists under the persistent root.")]
         public bool AutoInstantiateSettings = true;
+
+        [Tooltip("If enabled, each settings component will live on its own child GameObject under the persistent root (recommended for clarity in the hierarchy).")]
+        public bool CreateChildGameObjectPerSetting = true;
 
         private void Awake()
         {
@@ -109,48 +115,98 @@ namespace UnityEssentials
 
         private static void EnsureAllSettings(GameObject root)
         {
-            // Add missing settings components and move any scene instances under the root.
             var types = FindAllSettingsComponentTypes();
 
-            // Make sure the root has exactly one of each settings component type.
+            // Options should be driven by the boot component living on the root.
+            // If missing (e.g., temporarily during creation), default to the safer/clearer behavior.
+            var boot = root.GetComponent<SettingsBoot>();
+            var createChildPerSetting = boot == null || boot.CreateChildGameObjectPerSetting;
+
             foreach (var type in types)
             {
-                // 1) If one exists somewhere else in the scene, prefer it and re-parent.
+                var targetHost = GetOrCreateHost(root, type, createChildPerSetting);
+
+                // 1) Find an existing instance anywhere (including root/children/scenes).
 #if UNITY_2023_1_OR_NEWER
                 var existingInScene = UnityEngine.Object.FindFirstObjectByType(type) as MonoBehaviour;
 #else
                 var existingInScene = UnityEngine.Object.FindObjectOfType(type) as MonoBehaviour;
 #endif
+
+                // 2) If an instance exists, prefer it.
                 if (existingInScene != null)
                 {
-                    // If it's not already on the root, move it.
-                    if (existingInScene.gameObject != root)
-                        existingInScene.transform.SetParent(root.transform, worldPositionStays: false);
+                    // If it's already on the target host we're done.
+                    if (existingInScene.gameObject != targetHost)
+                    {
+                        // If the component is on an object with multiple components (or user content), we avoid moving
+                        // the whole GameObject; instead, we add a fresh component to our host.
+                        // This keeps SettingsBoot from unexpectedly re-parenting user objects.
+                        var existingGo = existingInScene.gameObject;
+                        var canMoveWholeObject = existingGo.GetComponents<Component>().Length <= 2; // Transform + this component
+
+                        if (createChildPerSetting && !canMoveWholeObject)
+                        {
+                            if (targetHost.GetComponent(type) == null)
+                                targetHost.AddComponent(type);
+                        }
+                        else
+                        {
+                            existingInScene.transform.SetParent(targetHost.transform, worldPositionStays: false);
+                        }
+                    }
                 }
                 else
                 {
-                    // 2) None exist in the scene -> ensure one exists on the root.
-                    if (root.GetComponent(type) == null)
-                        root.AddComponent(type);
+                    // 3) None exist in the scene -> ensure one exists on our host.
+                    if (targetHost.GetComponent(type) == null)
+                        targetHost.AddComponent(type);
                 }
 
-                // 3) If there are duplicates on the root, keep the first and remove the rest.
-                //    This can happen if multiple boots ran or a scene included components on the root prefab.
-                var rootInstances = root.GetComponents(type);
-                for (var i = 1; i < rootInstances.Length; i++)
+                // 4) If there are duplicates under our settings root (root + children), destroy extras on our managed hosts.
+                //    We only dedupe within the [Settings] hierarchy to avoid breaking intentionally duplicated scene setups.
+                var inRootHierarchy = root.GetComponentsInChildren(type, includeInactive: true);
+                var kept = false;
+                foreach (var inst in inRootHierarchy)
                 {
-                    if (rootInstances[i] is Component c)
-                        UnityEngine.Object.Destroy(c);
+                    if (inst is not Component c) continue;
+
+                    if (!kept)
+                    {
+                        kept = true;
+                        continue;
+                    }
+
+                    UnityEngine.Object.Destroy(c);
                 }
             }
         }
+
+        private static GameObject GetOrCreateHost(GameObject root, Type settingType, bool createChildPerSetting)
+        {
+            if (!createChildPerSetting)
+                return root;
+
+            var childName = ChildPrefix + settingType.Name;
+            var existing = root.transform.Find(childName);
+            if (existing != null)
+                return existing.gameObject;
+
+            var go = new GameObject(childName);
+            go.transform.SetParent(root.transform, worldPositionStays: false);
+            return go;
+        }
+
+        // Keep the old signature for any existing internal callers (if any).
+        private static GameObject GetOrCreateHost(GameObject root, Type settingType) =>
+            GetOrCreateHost(root, settingType, createChildPerSetting: true);
 
         private static IReadOnlyList<Type> FindAllSettingsComponentTypes()
         {
             var marker = typeof(ISettingsComponent);
 
             // Use predefined runtime assemblies for performance and consistency.
-            var types = PredefinedAssemblyUtilities.GetTypes(marker);
+            var types = PredefinedAssemblyUtility.GetTypes(marker);
 
             // Filter to runtime-safe MonoBehaviours.
             return types

@@ -1,10 +1,11 @@
 {
-    "name": "UnityEssentials.Settings.Tests",
+    "name": "UnityEssentials.HDRPSettings.Tests",
     "rootNamespace": "UnityEssentials.Tests",
     "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "UnityEssentials.HDRPSettings"
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:72822d92d72e5dd49b6e4982390936ae",
+        "GUID:6e0673ce8d7371149ac9c15f75f1b48d"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
