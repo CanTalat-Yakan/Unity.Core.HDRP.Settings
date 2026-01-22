@@ -5,8 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsMicrophoneInput : SettingsBase<int>
     {
-        [Info]
-        [SerializeField]
+        [Info, SerializeField]
         private string _info =
             "Selects the microphone input device for audio capture. 'Default' uses the system's default microphone.";
 

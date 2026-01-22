@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
@@ -57,8 +56,24 @@ namespace UnityEssentials.Tests
             var component = host.GetComponent<TestSettingsComponent>();
             Assert.NotNull(component, "Expected TestSettingsComponent to be attached to its host child");
         }
+
+        [UnityTest]
+        public System.Collections.IEnumerator Creates_Settings_Container_Under_Root()
+        {
+            yield return null;
+
+            var root = GameObject.Find("[Settings]");
+            Assert.NotNull(root);
+
+            var settingsContainer = root.transform.Find("Settings");
+            Assert.NotNull(settingsContainer, "Expected [Settings]/Settings container GameObject to exist");
+
+            var testHost = settingsContainer.Find(nameof(TestSettingsComponent));
+            Assert.NotNull(testHost, "Expected [Settings]/Settings/<TypeName> host to exist for TestSettingsComponent");
+        }
     }
-    
+
+#if UNITY_INCLUDE_TESTS
     /// <summary>
     /// Minimal concrete settings component used by tests to validate SettingsBoot discovery/instantiation.
     /// </summary>
@@ -69,4 +84,5 @@ namespace UnityEssentials.Tests
         protected override string FileName => "__unityessentials_settingsboot_tests";
         protected override string Reference => "test.settings.component";
     }
+#endif
 }

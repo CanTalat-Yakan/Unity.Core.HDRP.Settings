@@ -17,7 +17,8 @@ namespace UnityEssentials
         private const string RootObjectName = "[Settings]";
 
         // Child naming to keep hierarchy tidy and avoid collisions with user objects.
-        private const string ChildPrefix = "Settings/";
+        // Note: do NOT include slashes in item GameObject names; create hierarchy explicitly.
+        private const string SettingsContainerName = "Settings";
 
         private static bool _quitting;
         private static GameObject _root;
@@ -187,13 +188,22 @@ namespace UnityEssentials
             if (!createChildPerSetting)
                 return root;
 
-            var childName = ChildPrefix + settingType.Name;
-            var existing = root.transform.Find(childName);
-            if (existing != null)
-                return existing.gameObject;
+            // Ensure a dedicated container child exists: [Settings]/Settings
+            var containerTransform = root.transform.Find(SettingsContainerName);
+            if (containerTransform == null)
+            {
+                var container = new GameObject(SettingsContainerName);
+                container.transform.SetParent(root.transform, worldPositionStays: false);
+                containerTransform = container.transform;
+            }
 
-            var go = new GameObject(childName);
-            go.transform.SetParent(root.transform, worldPositionStays: false);
+            // Ensure a dedicated host child exists: [Settings]/Settings/<TypeName>
+            var hostTransform = containerTransform.Find(settingType.Name);
+            if (hostTransform != null)
+                return hostTransform.gameObject;
+
+            var go = new GameObject(settingType.Name);
+            go.transform.SetParent(containerTransform, worldPositionStays: false);
             return go;
         }
 

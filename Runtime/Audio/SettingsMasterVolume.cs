@@ -9,9 +9,6 @@ namespace UnityEssentials
         private string _info =
             "Adjusts the overall master volume level within the application.";
 
-        [Space]
-        public AudioMixer AudioMixer;
-
         protected override int Value { get; set; }
         protected override string FileName => "Settings/Audio";
         protected override string Reference => "Settings/Audio/MasterVolume";
@@ -22,6 +19,9 @@ namespace UnityEssentials
 
         public override void InitValue(SettingsProfile profile) =>
             Value = profile.Value.Get<int>(Reference);
+
+        public AudioMixer AudioMixer => _audioMixer ??= AssetResolver.TryGet<AudioMixer>("UnityEssentials_AudioMixer", true);
+        private AudioMixer _audioMixer;
 
         private const string MasterVolumeParameter = "master";
         public override void UpdateSettings() =>
