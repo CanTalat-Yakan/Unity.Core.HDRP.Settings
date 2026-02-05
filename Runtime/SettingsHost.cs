@@ -68,7 +68,7 @@ namespace UnityEssentials
         private static IReadOnlyList<Type> FindAllSettingsComponentTypes()
         {
             var marker = typeof(ISettingsComponent);
-            var types = PredefinedAssemblyUtility.GetTypes(marker);
+            var types = PredefinedAssemblies.GetTypes(marker);
 
             return types
                 .Where(t => t != null)
