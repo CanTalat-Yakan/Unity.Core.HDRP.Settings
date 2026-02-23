@@ -4,8 +4,7 @@ namespace UnityEssentials
 {
     public class SettingsAspectRatio : SettingsBase<Vector2>
     {
-        [Info, SerializeField]
-        private string _info =
+        [Info, SerializeField] private string _info =
             "Sets the aspect ratio for the camera's render texture.";
 
         protected override Vector2 Value { get; set; }
@@ -30,15 +29,17 @@ namespace UnityEssentials
                 "2.35:1"
             };
 
-        public override void InitMetadata(SettingsDefinition definition) =>
-            definition.SetOptions(Reference, Options)
+        public override void InitMetadata() =>
+            Definition.SetOptions(Reference, Options)
                 .SetTooltip(_info);
-        
-        public override void InitValue(SettingsProfile profile) =>
-            Value = Options[profile.Value.Get<int>(Reference)]
+
+        public override void InitValue() =>
+            Value = Options[Profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString(':');
 
-        public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
+        public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??=
+            CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
+
         private CameraRenderTextureHandler _renderTextureHandler;
 
         public override void UpdateSettings()
@@ -48,6 +49,14 @@ namespace UnityEssentials
 
             RenderTextureHandler.Settings.AspectRatioNumerator = Mathf.Max(0, Value.x);
             RenderTextureHandler.Settings.AspectRatioDenominator = Mathf.Max(0, Value.y);
+        }
+
+        [Console("settings.display.aspectRatio", "Gets/sets aspect ratio option index (0=Auto).")]
+        private string ConsoleAspectRatio(int? index)
+        {
+            if (index == null) return $"AspectRatio index = {Profile.Value.Get<int>(Reference)}";
+            Profile.Value.Set(Reference, index.Value);
+            return $"AspectRatio index = {Options[index.Value]}";
         }
     }
 }

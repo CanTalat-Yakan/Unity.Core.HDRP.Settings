@@ -5,8 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsDisplayInput : SettingsBase<int>
     {
-        [Info, SerializeField]
-        private string _info =
+        [Info, SerializeField] private string _info =
             "Selects which display to use for rendering when multiple displays are connected.";
 
         public static event Action OnChanged;
@@ -17,7 +16,7 @@ namespace UnityEssentials
         protected override string Reference => "Settings/Display/DisplayInput";
 
         public string[] Options { get; set; }
-        
+
         protected override void SubscribeActions() =>
             Display.onDisplaysUpdated += MarkDirty;
 
@@ -25,6 +24,7 @@ namespace UnityEssentials
             Display.onDisplaysUpdated -= MarkDirty;
 
         private bool _displayOptionsUpdated;
+
         public override void InitOptions()
         {
             Options = new string[Display.displays.Length + 1];
@@ -34,15 +34,16 @@ namespace UnityEssentials
 
             _displayOptionsUpdated = true;
         }
-        
-        public override void InitMetadata(SettingsDefinition definition) =>
-            definition.SetOptions(Reference, Options)
+
+        public override void InitMetadata() =>
+            Definition.SetOptions(Reference, Options)
                 .SetTooltip(_info);
 
-        public override void InitValue(SettingsProfile profile) =>
-            Value = profile.Value.Get<int>(Reference);
+        public override void InitValue() =>
+            Value = Profile.Value.Get<int>(Reference);
 
         private int _lastDisplayInput = -1;
+
         public override void UpdateSettings()
         {
             if (_lastDisplayInput != Value)
@@ -53,8 +54,16 @@ namespace UnityEssentials
 
             if (Display.displays.Length > Value && Value >= 0)
                 Display.displays[Value].Activate();
-            
+
             RaiseChanged();
+        }
+
+        [Console("settings.display.displayInput", "Gets/sets display index (0=Default).")]
+        private string ConsoleDisplayInput(int? index)
+        {
+            if (index == null) return $"DisplayInput index = {Profile.Value.Get<int>(Reference)}";
+            Profile.Value.Set(Reference, index.Value);
+            return $"DisplayInput index = {Options[index.Value]}";
         }
     }
 }

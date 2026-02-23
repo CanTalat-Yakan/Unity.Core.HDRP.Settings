@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -6,8 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsScreenResolution : SettingsBase<Vector2Int>
     {
-        [Info, SerializeField]
-        private string _info =
+        [Info, SerializeField] private string _info =
             "Listens for changes in the screen resolution setting and applies the selected resolution to the application window.";
 
         protected override Vector2Int Value { get; set; }
@@ -24,16 +22,17 @@ namespace UnityEssentials
                 var resolution = Screen.resolutions[i];
                 Options[i] = $"{resolution.width}x{resolution.height}";
             }
+
             Options[^1] = "Native";
             Options = Options.Reverse().ToArray();
         }
 
-        public override void InitMetadata(SettingsDefinition definition) =>
-            definition.SetOptions(Reference, Options)
+        public override void InitMetadata() =>
+            Definition.SetOptions(Reference, Options)
                 .SetTooltip(_info);
-        
-        public override void InitValue(SettingsProfile profile) =>
-            Value = Options[profile.Value.Get<int>(Reference)]
+
+        public override void InitValue() =>
+            Value = Options[Profile.Value.Get<int>(Reference)]
                 .ExtractVector2FromString('x').ToVector2Int();
 
         protected override void SubscribeActions() =>
@@ -48,6 +47,14 @@ namespace UnityEssentials
                 Value = new(Screen.currentResolution.width, Screen.currentResolution.height);
 
             Screen.SetResolution(Value.x, Value.y, Screen.fullScreenMode);
+        }
+
+        [Console("settings.display.screenResolution", "Gets/sets screen resolution option index.")]
+        private string ConsoleScreenResolution(int? index)
+        {
+            if (index == null) return $"ScreenResolution index = {Profile.Value.Get<int>(Reference)}";
+            Profile.Value.Set(Reference, index.Value);
+            return $"ScreenResolution index = {Options[index.Value]}";
         }
     }
 }

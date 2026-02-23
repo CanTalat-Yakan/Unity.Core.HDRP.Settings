@@ -15,10 +15,11 @@ namespace UnityEssentials
         protected abstract string FileName { get; }
         protected abstract string Reference { get; }
 
+        protected SettingsDefinition Definition { get; private set; }
+        protected SettingsProfile Profile { get; private set;}
+        
         private bool _isDirty;
-
-        private SettingsDefinition _definition;
-        private SettingsProfile _profile;
+        
         private Action _setter;
 
         private Action<string> _onProfileChanged;
@@ -28,9 +29,9 @@ namespace UnityEssentials
 
         public virtual void InitOptions() { }
         
-        public virtual void InitMetadata(SettingsDefinition definition) { }
+        public virtual void InitMetadata() { }
 
-        public virtual void InitValue(SettingsProfile profile) { }
+        public virtual void InitValue() { }
 
         public virtual void UpdateSettings() { }
 
@@ -66,19 +67,19 @@ namespace UnityEssentials
         {
             InitOptions();
 
-            _definition = SettingsDefinition.GetOrCreate(FileName);
-            _definition.GetValue();
+            Definition = SettingsDefinition.GetOrCreate(FileName);
+            Definition.GetValue();
 
-            _profile = SettingsProfile.GetOrCreate(FileName);
-            _profile.GetValue();
+            Profile = SettingsProfile.GetOrCreate(FileName);
+            Profile.GetValue();
 
             _setter = () =>
             {
-                InitMetadata(_definition);
-                InitValue(_profile);
+                InitMetadata();
+                InitValue();
                 UpdateSettings();
-                _definition.SaveIfDirty();
-                _profile.SaveIfDirty();
+                Definition.SaveIfDirty();
+                Profile.SaveIfDirty();
             };
 
             _onProfileChanged = (changedValueReference) =>
@@ -87,7 +88,7 @@ namespace UnityEssentials
                     Apply();
             };
 
-            _profile.Value.OnChanged += _onProfileChanged;
+            Profile.Value.OnChanged += _onProfileChanged;
             _initialized = true;
         }
 
@@ -112,13 +113,13 @@ namespace UnityEssentials
 
         protected virtual void OnDestroy()
         {
-            if (_profile != null && _onProfileChanged != null)
-                _profile.Value.OnChanged -= _onProfileChanged;
+            if (Profile != null && _onProfileChanged != null)
+                Profile.Value.OnChanged -= _onProfileChanged;
         }
 
         protected void Apply()
         {
-            if (_profile == null) return;
+            if (Profile == null) return;
             _setter?.Invoke();
         }
     }

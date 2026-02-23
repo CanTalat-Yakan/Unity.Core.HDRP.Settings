@@ -5,8 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsMicrophoneInput : SettingsBase<int>
     {
-        [Info, SerializeField]
-        private string _info =
+        [Info, SerializeField] private string _info =
             "Selects the microphone input device for audio capture. 'Default' uses the system's default microphone.";
 
         public static event Action OnChanged;
@@ -19,6 +18,7 @@ namespace UnityEssentials
         public string[] Options { get; set; }
 
         private bool _microphoneOptionsUpdated;
+
         public override void InitOptions()
         {
             Options = new string[Microphone.devices.Length + 1];
@@ -28,15 +28,16 @@ namespace UnityEssentials
 
             _microphoneOptionsUpdated = true;
         }
-        
-        public override void InitMetadata(SettingsDefinition definition) =>
-            definition.SetOptions(Reference, Options)
+
+        public override void InitMetadata() =>
+            Definition.SetOptions(Reference, Options)
                 .SetTooltip(_info);
 
-        public override void InitValue(SettingsProfile profile) =>
-            Value = profile.Value.Get<int>(Reference);
+        public override void InitValue() =>
+            Value = Profile.Value.Get<int>(Reference);
 
         private int _lastMicrophoneInput = -1;
+
         public override void UpdateSettings()
         {
             if (_lastMicrophoneInput != Value)
@@ -46,6 +47,14 @@ namespace UnityEssentials
             else return;
 
             RaiseChanged();
+        }
+
+        [Console("settings.audio.microphoneInput", "Gets/sets microphone input option index (0=Default).")]
+        private string ConsoleMicrophoneInput(int? index)
+        {
+            if (index == null) return $"MicrophoneInput index = {Profile.Value.Get<int>(Reference)}";
+            Profile.Value.Set(Reference, index.Value);
+            return $"MicrophoneInput index = {index.Value}";
         }
     }
 }
