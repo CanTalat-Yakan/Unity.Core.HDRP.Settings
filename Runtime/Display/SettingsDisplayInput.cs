@@ -59,11 +59,7 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.displayInput", "Gets/sets display index (0=Default).")]
-        private string ConsoleDisplayInput(int? index)
-        {
-            if (index == null) return $"DisplayInput index = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, index.Value);
-            return $"DisplayInput index = {Options[index.Value]}";
-        }
+        private string ConsoleDisplayInput(int? index) =>
+            $"DisplayInput index = {Options[GetOrSetProfileValue(index).Value]}";
     }
 }

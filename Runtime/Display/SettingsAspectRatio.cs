@@ -52,11 +52,15 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.aspectRatio", "Gets/sets aspect ratio option index (0=Auto).")]
-        private string ConsoleAspectRatio(int? index)
+        private string ConsoleAspectRatio(int? index) =>
+            $"AspectRatio index = {Options[GetOrSetProfileValue(index).Value]}";
+
+        [Console("settings.display.aspectRatioForced", "Gets/sets aspect ratio with numerator and denominator (e.g. '16 9').")] 
+        private string ConsoleAspectRatioForced(float numerator, float denominator)
         {
-            if (index == null) return $"AspectRatio index = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, index.Value);
-            return $"AspectRatio index = {Options[index.Value]}";
+            Value = new Vector2(numerator, denominator);
+            UpdateSettings();
+            return $"AspectRatio index = {Value}";
         }
     }
 }

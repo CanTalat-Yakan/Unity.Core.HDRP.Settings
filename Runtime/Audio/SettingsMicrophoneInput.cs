@@ -50,11 +50,7 @@ namespace UnityEssentials
         }
 
         [Console("settings.audio.microphoneInput", "Gets/sets microphone input option index (0=Default).")]
-        private string ConsoleMicrophoneInput(int? index)
-        {
-            if (index == null) return $"MicrophoneInput index = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, index.Value);
-            return $"MicrophoneInput index = {index.Value}";
-        }
+        private string ConsoleMicrophoneInput(int? index) =>
+            $"MicrophoneInput index = {GetOrSetProfileValue(index).Value}";
     }
 }

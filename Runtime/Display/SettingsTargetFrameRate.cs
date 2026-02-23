@@ -16,18 +16,14 @@ namespace UnityEssentials
                 .SetTooltip(_info);
 
         public override void InitValue() =>
-            Value = Profile.Value.Get<int>(Reference);
+            Value = GetProfileValue<int>();
 
         public override void UpdateSettings() =>
             Application.targetFrameRate = Value;
 
         [Console("settings.display.targetFrameRate",
             "Gets/sets Application target framerate (<=0 means platform default).")]
-        private string ConsoleTargetFrameRate(int? fps)
-        {
-            if (fps == null) return $"TargetFrameRate = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, fps.Value);
-            return $"TargetFrameRate = {fps.Value}";
-        }
+        private string ConsoleTargetFrameRate(int? fps) =>
+            $"TargetFrameRate = {GetOrSetProfileValue(fps).Value}";
     }
 }

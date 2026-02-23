@@ -61,11 +61,16 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.renderResolution", "Gets/sets render resolution option index.")]
-        private string ConsoleRenderResolution(int? index)
+        private string ConsoleRenderResolution(int? index) =>
+            $"RenderResolution index = {Options[GetOrSetProfileValue(index).Value]}";
+
+        [Console("settings.display.renderResolutionForced",
+            "Gets/sets render resolution with width and height (e.g. '1920 1080').")]
+        private string ConsoleRenderResolutionForced(int width, int height)
         {
-            if (index == null) return $"RenderResolution index = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, index.Value);
-            return $"RenderResolution index = {Options[index.Value]}";
+            Value = new Vector2Int(width, height);
+            UpdateSettings();
+            return $"RenderResolution = {Value.x}x{Value.y}";
         }
     }
 }

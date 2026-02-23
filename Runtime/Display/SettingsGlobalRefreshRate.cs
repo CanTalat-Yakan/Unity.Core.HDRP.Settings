@@ -30,11 +30,7 @@ namespace UnityEssentials
 
         [Console("settings.display.globalRefreshRate",
             "Gets/sets global refresh rate target FPS (<=0 disables limiter).")]
-        private string ConsoleGlobalRefreshRate(int? fps)
-        {
-            if (fps == null) return $"GlobalRefreshRate = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, fps.Value);
-            return $"GlobalRefreshRate = {fps.Value}";
-        }
+        private string ConsoleGlobalRefreshRate(int? fps) =>
+            $"GlobalRefreshRate = {GetOrSetProfileValue(fps).Value}";
     }
 }

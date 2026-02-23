@@ -32,11 +32,7 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.hdr", "Gets/sets HDR rendering.")]
-        private string ConsoleHdr(bool? enabled)
-        {
-            if (enabled == null) return $"HDR = {Profile.Value.Get<bool>(Reference)}";
-            Profile.Value.Set(Reference, enabled.Value);
-            return $"HDR = {enabled.Value}";
-        }
+        private string ConsoleHdr(bool? enabled) =>
+            $"HDR = {GetOrSetProfileValue(enabled).Value}";
     }
 }

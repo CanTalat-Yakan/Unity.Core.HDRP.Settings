@@ -7,7 +7,9 @@ namespace UnityEssentials
     /// <summary>
     /// Non-generic marker interface for all settings components.
     /// </summary>
-    public interface ISettingsComponent { }
+    public interface ISettingsComponent
+    {
+    }
 
     public abstract class SettingsBase<T> : MonoBehaviour, ISettingsComponent
     {
@@ -16,10 +18,10 @@ namespace UnityEssentials
         protected abstract string Reference { get; }
 
         protected SettingsDefinition Definition { get; private set; }
-        protected SettingsProfile Profile { get; private set;}
-        
+        protected SettingsProfile Profile { get; private set; }
+
         private bool _isDirty;
-        
+
         private Action _setter;
 
         private Action<string> _onProfileChanged;
@@ -27,17 +29,29 @@ namespace UnityEssentials
 
         private bool _initialized;
 
-        public virtual void InitOptions() { }
-        
-        public virtual void InitMetadata() { }
+        public virtual void InitOptions()
+        {
+        }
 
-        public virtual void InitValue() { }
+        public virtual void InitMetadata()
+        {
+        }
 
-        public virtual void UpdateSettings() { }
+        public virtual void InitValue()
+        {
+        }
 
-        protected virtual void SubscribeActions() { }
+        public virtual void UpdateSettings()
+        {
+        }
 
-        protected virtual void UnsubscribeActions() { }
+        protected virtual void SubscribeActions()
+        {
+        }
+
+        protected virtual void UnsubscribeActions()
+        {
+        }
 
         protected void MarkDirty()
         {
@@ -121,6 +135,24 @@ namespace UnityEssentials
         {
             if (Profile == null) return;
             _setter?.Invoke();
+        }
+
+        protected TValue GetProfileValue<TValue>() =>
+            Profile.Value.Get<TValue>(Reference);
+
+        protected TValue SetProfileValue<TValue>(TValue value)
+        {
+            Profile.Value.Set(Reference, value);
+            return value;
+        }
+
+        protected TValue GetOrSetProfileValue<TValue>(TValue value)
+        {
+            if (value == null)
+                return GetProfileValue<TValue>();
+
+            SetProfileValue(value);
+            return value;
         }
     }
 }

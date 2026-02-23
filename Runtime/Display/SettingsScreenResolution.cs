@@ -50,11 +50,16 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.screenResolution", "Gets/sets screen resolution option index.")]
-        private string ConsoleScreenResolution(int? index)
+        private string ConsoleScreenResolution(int? index) =>
+            $"ScreenResolution index = {Options[GetOrSetProfileValue(index).Value]}";
+
+        [Console("settings.display.screenResolutionForced",
+            "Gets/sets screen resolution with width and height (e.g., '1920 1080').")]
+        private string ConsoleScreenResolutionForced(int width, int height)
         {
-            if (index == null) return $"ScreenResolution index = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, index.Value);
-            return $"ScreenResolution index = {Options[index.Value]}";
+            Value = new Vector2Int(width, height);
+            UpdateSettings();
+            return $"ScreenResolution = {Value.x}x{Value.y}";
         }
     }
 }

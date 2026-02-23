@@ -30,11 +30,7 @@ namespace UnityEssentials
             AudioMixer?.SetFloat(EffectsVolumeParameter, Value.ToDecibelLevel());
 
         [Console("settings.audio.effectsVolume", "Gets/sets effects volume (0-200).")]
-        private string ConsoleEffectsVolume(int? value)
-        {
-            if (value == null) return $"EffectsVolume = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Get(Reference, value.Value);
-            return $"EffectsVolume = {value.Value}";
-        }
+        private string ConsoleEffectsVolume(int? volume) =>
+            $"EffectsVolume = {GetOrSetProfileValue(volume).Value}";
     }
 }

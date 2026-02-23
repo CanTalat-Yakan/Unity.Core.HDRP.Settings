@@ -45,11 +45,7 @@ namespace UnityEssentials
         }
         
         [Console("settings.display.renderRequest", "Gets/sets send render request.")]
-        private string ConsoleRenderRequest(bool? enabled)
-        {
-            if (enabled == null) return $"RenderRequest = {CameraRefreshRate.Settings.SendRenderRequest}";
-            CameraRefreshRate.Settings.SendRenderRequest = enabled.Value;
-            return $"RenderRefreshRate = {enabled.Value}";
-        }
+        private string ConsoleRenderRequest(bool? enabled) =>
+            $"RenderRefreshRate = {GetOrSetProfileValue(enabled).Value}";
     }
 }

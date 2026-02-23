@@ -27,17 +27,13 @@ namespace UnityEssentials
                 .SetTooltip(_info);
 
         public override void InitValue() =>
-            Value = Profile.Value.Get<int>(Reference);
+            Value = GetProfileValue<int>();
 
         public override void UpdateSettings() =>
             QualitySettings.vSyncCount = Value;
 
         [Console("settings.display.vsync", "Gets/sets VSync count (0=Disabled, 1=Full, 2=Half).")]
-        private string ConsoleVSync(int? count)
-        {
-            if (count == null) return $"VSync = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, count.Value);
-            return $"VSync = {Options[count.Value]}";
-        }
+        private string ConsoleVSync(int? count) =>
+            $"VSync = {GetOrSetProfileValue(count).Value}";
     }
 }

@@ -25,17 +25,13 @@ namespace UnityEssentials
                 .SetTooltip(_info);
 
         public override void InitValue() =>
-            Value = (FullScreenMode)Profile.Value.Get<int>(Reference);
+            Value = (FullScreenMode)GetProfileValue<int>();
 
         public override void UpdateSettings() =>
             Screen.fullScreenMode = Value;
 
         [Console("settings.display.windowMode", "Gets/sets window mode (FullScreenMode enum name or value).")]
-        private string ConsoleWindowMode(int? mode)
-        {
-            if (mode == null) return $"WindowMode = {(FullScreenMode)Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, mode.Value);
-            return $"WindowMode = {(FullScreenMode)mode.Value}";
-        }
+        private string ConsoleWindowMode(int? mode) =>
+            $"WindowMode = {GetOrSetProfileValue(mode).Value}";
     }
 }

@@ -27,11 +27,7 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.resolutionScale", "Gets/sets dynamic resolution scale (percent).")]
-        private string ConsoleResolutionScale(int? percent)
-        {
-            if (percent == null) return $"ResolutionScale = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, percent.Value);
-            return $"ResolutionScale = {percent.Value}";
-        }
+        private string ConsoleResolutionScale(int? percent) =>
+            $"ResolutionScale = {GetOrSetProfileValue(percent).Value}";
     }
 }

@@ -37,11 +37,7 @@ namespace UnityEssentials
         }
 
         [Console("settings.display.filterMode", "Gets/sets filter mode index (FilterMode enum int).")]
-        private string ConsoleFilterMode(int? value)
-        {
-            if (value == null) return $"FilterMode = {(FilterMode)Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, value.Value);
-            return $"FilterMode = {(FilterMode)value.Value}";
-        }
+        private string ConsoleFilterMode(int? value) =>
+            $"FilterMode = {(FilterMode)GetOrSetProfileValue(value).Value}";
     }
 }

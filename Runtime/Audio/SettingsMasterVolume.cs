@@ -30,11 +30,7 @@ namespace UnityEssentials
             AudioMixer?.SetFloat(MasterVolumeParameter, Value.ToDecibelLevel());
 
         [Console("settings.audio.masterVolume", "Gets/sets master volume (0-100).")]
-        private string ConsoleMasterVolume(int? value)
-        {
-            if (value == null) return $"MasterVolume = {Profile.Value.Get<int>(Reference)}";
-            Profile.Value.Set(Reference, value.Value);
-            return $"MasterVolume = {value.Value}";
-        }
+        private string ConsoleMasterVolume(int? volume) =>
+            $"MasterVolume = {GetOrSetProfileValue(volume).Value}";
     }
 }
