@@ -1,5 +1,5 @@
 {
-    "name": "UnityEssentials.HDRPSettings",
+    "name": "UnityEssentials.Core.HDRP.Settings",
     "rootNamespace": "UnityEssentials",
     "references": [
         "GUID:23d88515503fc844cabb0e2fd918af85",
