@@ -5,7 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsScreenResolution : SettingsBase<Vector2Int>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Listens for changes in the screen resolution setting and applies the selected resolution to the application window.";
 
         protected override Vector2Int Value { get; set; }
@@ -27,12 +27,12 @@ namespace UnityEssentials
             Options = Options.Reverse().ToArray();
         }
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetOptions(Reference, Options)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Options[Profile.Value.Get<int>(Reference)]
+            Value = Options[GetProfileValue<int>()]
                 .ExtractVector2FromString('x').ToVector2Int();
 
         protected override void SubscribeActions() =>
@@ -49,12 +49,11 @@ namespace UnityEssentials
             Screen.SetResolution(Value.x, Value.y, Screen.fullScreenMode);
         }
 
-        [Console("settings.display.screenResolution", "Gets/sets screen resolution option index.")]
+        [Console("settings.display.screenResolution", Info)]
         private string ConsoleScreenResolution(int? index) =>
             $"ScreenResolution index = {Options[GetOrSetProfileValue(index).Value]}";
 
-        [Console("settings.display.screenResolutionForced",
-            "Gets/sets screen resolution with width and height (e.g., '1920 1080').")]
+        [Console("settings.display.screenResolutionForced",Info)]
         private string ConsoleScreenResolutionForced(int width, int height)
         {
             Value = new Vector2Int(width, height);

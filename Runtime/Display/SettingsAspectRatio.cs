@@ -4,7 +4,7 @@ namespace UnityEssentials
 {
     public class SettingsAspectRatio : SettingsBase<Vector2>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Sets the aspect ratio for the camera's render texture.";
 
         protected override Vector2 Value { get; set; }
@@ -29,12 +29,12 @@ namespace UnityEssentials
                 "2.35:1"
             };
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetOptions(Reference, Options)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Options[Profile.Value.Get<int>(Reference)]
+            Value = Options[GetProfileValue<int>()]
                 .ExtractVector2FromString(':');
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??=
@@ -51,11 +51,11 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.AspectRatioDenominator = Mathf.Max(0, Value.y);
         }
 
-        [Console("settings.display.aspectRatio", "Gets/sets aspect ratio option index (0=Auto).")]
+        [Console("settings.display.aspectRatio", Info)]
         private string ConsoleAspectRatio(int? index) =>
             $"AspectRatio index = {Options[GetOrSetProfileValue(index).Value]}";
 
-        [Console("settings.display.aspectRatioForced", "Gets/sets aspect ratio with numerator and denominator (e.g. '16 9').")] 
+        [Console("settings.display.aspectRatioForced", Info)] 
         private string ConsoleAspectRatioForced(float numerator, float denominator)
         {
             Value = new Vector2(numerator, denominator);

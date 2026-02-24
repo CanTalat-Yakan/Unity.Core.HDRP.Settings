@@ -5,7 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsDisplayInput : SettingsBase<int>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Selects which display to use for rendering when multiple displays are connected.";
 
         public static event Action OnChanged;
@@ -35,12 +35,12 @@ namespace UnityEssentials
             _displayOptionsUpdated = true;
         }
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetOptions(Reference, Options)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Profile.Value.Get<int>(Reference);
+            Value = GetProfileValue<int>();
 
         private int _lastDisplayInput = -1;
 
@@ -58,7 +58,7 @@ namespace UnityEssentials
             RaiseChanged();
         }
 
-        [Console("settings.display.displayInput", "Gets/sets display index (0=Default).")]
+        [Console("settings.display.displayInput", Info)]
         private string ConsoleDisplayInput(int? index) =>
             $"DisplayInput index = {Options[GetOrSetProfileValue(index).Value]}";
     }

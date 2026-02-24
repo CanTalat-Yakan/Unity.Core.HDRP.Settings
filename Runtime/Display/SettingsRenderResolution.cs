@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsRenderResolution : SettingsBase<Vector2Int>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Specifies a resolution for rendering, which can differ from the screen resolution. " +
             "Performance optimization, as rendering at a lower resolution can improve GPU frame times while still displaying at a higher resolution.";
 
@@ -29,12 +28,12 @@ namespace UnityEssentials
             Options = Options.Reverse().ToArray();
         }
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetOptions(Reference, Options)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Options[Profile.Value.Get<int>(Reference)]
+            Value = Options[GetProfileValue<int>()]
                 .ExtractVector2FromString('x').ToVector2Int();
 
         protected override void SubscribeActions() =>
@@ -60,12 +59,11 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.RenderHeight = Value.y;
         }
 
-        [Console("settings.display.renderResolution", "Gets/sets render resolution option index.")]
+        [Console("settings.display.renderResolution", Info)]
         private string ConsoleRenderResolution(int? index) =>
             $"RenderResolution index = {Options[GetOrSetProfileValue(index).Value]}";
 
-        [Console("settings.display.renderResolutionForced",
-            "Gets/sets render resolution with width and height (e.g. '1920 1080').")]
+        [Console("settings.display.renderResolutionForced",Info)]
         private string ConsoleRenderResolutionForced(int width, int height)
         {
             Value = new Vector2Int(width, height);

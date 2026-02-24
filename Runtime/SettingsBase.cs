@@ -33,7 +33,7 @@ namespace UnityEssentials
         {
         }
 
-        public virtual void InitMetadata()
+        public virtual void InitDefinition()
         {
         }
 
@@ -89,7 +89,7 @@ namespace UnityEssentials
 
             _setter = () =>
             {
-                InitMetadata();
+                InitDefinition();
                 InitValue();
                 UpdateSettings();
                 Definition.SaveIfDirty();

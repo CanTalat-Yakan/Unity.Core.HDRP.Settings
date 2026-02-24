@@ -1,22 +1,20 @@
-using UnityEngine;
-
 namespace UnityEssentials
 {
     public class SettingsHighDynamicRange : SettingsBase<bool>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Enables or disables High Dynamic Range (HDR) rendering for the camera's render texture.";
 
         protected override bool Value { get; set; }
         protected override string FileName => "Settings/Display";
         protected override string Reference => "Settings/Display/HDR";
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetToggle(Reference)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Profile.Value.Get<bool>(Reference);
+            Value = GetProfileValue<bool>();
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??=
             CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
@@ -31,7 +29,7 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.HighDynamicRange = Value;
         }
 
-        [Console("settings.display.hdr", "Gets/sets HDR rendering.")]
+        [Console("settings.display.hdr", Info)]
         private string ConsoleHdr(bool? enabled) =>
             $"HDR = {GetOrSetProfileValue(enabled).Value}";
     }

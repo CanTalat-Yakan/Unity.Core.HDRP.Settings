@@ -1,10 +1,8 @@
-using UnityEngine;
-
 namespace UnityEssentials
 {
     public class SettingsGlobalRefreshRate : SettingsBase<int>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Sets the global refresh rate for all cameras that use the GlobalRefreshRate component. " +
             "Performance optimization, as scheduling updates at a lower refresh rate can improve CPU frame times while still displaying at a higher fps. " +
             "If set to 0, the limiter is disabled (unlimited).";
@@ -17,19 +15,18 @@ namespace UnityEssentials
         public float MaxValue => 1000;
         public float Default => 0;
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetIntSlider(Reference, 0, 1000, 1, 0, "FPS")
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Profile.Value.Get<int>(Reference);
+            Value = GetProfileValue<int>();
 
         public override void UpdateSettings() =>
             // 0 (or less) means unlimited / disabled limiter.
             GlobalRefreshRate.SetTarget(Value);
 
-        [Console("settings.display.globalRefreshRate",
-            "Gets/sets global refresh rate target FPS (<=0 disables limiter).")]
+        [Console("settings.display.globalRefreshRate",Info)]
         private string ConsoleGlobalRefreshRate(int? fps) =>
             $"GlobalRefreshRate = {GetOrSetProfileValue(fps).Value}";
     }

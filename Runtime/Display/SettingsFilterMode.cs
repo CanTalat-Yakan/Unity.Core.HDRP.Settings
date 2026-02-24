@@ -5,8 +5,7 @@ namespace UnityEssentials
 {
     public class SettingsFilterMode : SettingsBase<FilterMode>
     {
-        [Info, SerializeField]
-        private string _info =
+        private const string Info =
             "Sets the filter mode for the camera's render texture.";
 
         protected override FilterMode Value { get; set; }
@@ -18,12 +17,12 @@ namespace UnityEssentials
         public override void InitOptions() =>
             Options = Enum.GetNames(typeof(FilterMode));
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetOptions(Reference, Options)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
         
         public override void InitValue() =>
-            Value = (FilterMode)Profile.Value.Get<int>(Reference);
+            Value = (FilterMode)GetProfileValue<int>();
 
         public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
         private CameraRenderTextureHandler _renderTextureHandler;
@@ -36,8 +35,8 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.FilterMode = Value;
         }
 
-        [Console("settings.display.filterMode", "Gets/sets filter mode index (FilterMode enum int).")]
-        private string ConsoleFilterMode(int? value) =>
+        [Console("settings.display.filterMode", Info)]
+        private string ConsoleFillMode(int? value) =>
             $"FilterMode = {(FilterMode)GetOrSetProfileValue(value).Value}";
     }
 }

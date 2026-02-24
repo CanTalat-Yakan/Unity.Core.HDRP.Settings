@@ -6,7 +6,7 @@ namespace UnityEssentials
 {
     public class SettingsWindowMode : SettingsBase<FullScreenMode>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Listens for changes in the window mode setting and applies the selected mode to the application window.";
 
         protected override FullScreenMode Value { get; set; }
@@ -20,9 +20,9 @@ namespace UnityEssentials
                 .Select(name => name.Format())
                 .ToArray();
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetOptions(Reference, Options, reverseOrder: true)
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
             Value = (FullScreenMode)GetProfileValue<int>();
@@ -30,7 +30,7 @@ namespace UnityEssentials
         public override void UpdateSettings() =>
             Screen.fullScreenMode = Value;
 
-        [Console("settings.display.windowMode", "Gets/sets window mode (FullScreenMode enum name or value).")]
+        [Console("settings.display.windowMode", Info)]
         private string ConsoleWindowMode(int? mode) =>
             $"WindowMode = {GetOrSetProfileValue(mode).Value}";
     }

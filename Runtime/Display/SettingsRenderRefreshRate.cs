@@ -4,7 +4,7 @@ namespace UnityEssentials
 {
     public class SettingsRenderRefreshRate : SettingsBase<int>
     {
-        [Info, SerializeField] private string _info =
+        private const string Info =
             "Specifies a refresh rate for rendering, which can differ from the screen refresh rate. " +
             "Performance optimization, as rendering at a lower refresh rate can improve GPU frame times while still displaying at a higher fps. " +
             "If set to 0, it will match the current screen refresh rate.";
@@ -13,12 +13,12 @@ namespace UnityEssentials
         protected override string FileName => "Settings/Display";
         protected override string Reference => "Settings/Display/RenderRefreshRate";
 
-        public override void InitMetadata() =>
+        public override void InitDefinition() =>
             Definition.SetIntSlider(Reference, 0, 1000, 1, 0, "FPS")
-                .SetTooltip(_info);
+                .SetTooltip(Info);
 
         public override void InitValue() =>
-            Value = Profile.Value.Get<int>(Reference);
+            Value = GetProfileValue<int>();
 
         public CameraRefreshRate CameraRefreshRate =>
             _cameraRefreshRate ??= CameraProvider.Active?.GetComponent<CameraRefreshRate>();
@@ -44,7 +44,7 @@ namespace UnityEssentials
             return $"RenderRefreshRate = {fps.Value}";
         }
         
-        [Console("settings.display.renderRequest", "Gets/sets send render request.")]
+        [Console("settings.display.renderRequest", Info)]
         private string ConsoleRenderRequest(bool? enabled) =>
             $"RenderRefreshRate = {GetOrSetProfileValue(enabled).Value}";
     }
