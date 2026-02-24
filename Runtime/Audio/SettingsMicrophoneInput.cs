@@ -6,7 +6,7 @@ namespace UnityEssentials
     public class SettingsMicrophoneInput : SettingsBase<int>
     {
         private const string Info =
-            "Selects the microphone input device for audio capture. 'Default' uses the system's default microphone.";
+            "Selects the microphone input device for audio capture.";
 
         public static event Action OnChanged;
         private static void RaiseChanged() => OnChanged?.Invoke();

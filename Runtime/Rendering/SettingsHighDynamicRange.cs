@@ -6,8 +6,8 @@ namespace UnityEssentials
             "Enables or disables High Dynamic Range (HDR) rendering for the camera's render texture.";
 
         protected override bool Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/HDR";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/HDR";
 
         public override void InitDefinition() =>
             Definition.SetToggle(Reference)
@@ -29,7 +29,7 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.HighDynamicRange = Value;
         }
 
-        [Console("settings.display.hdr", Info)]
+        [Console("settings.rendering.hdr", Info)]
         private string ConsoleHdr(bool? enabled) =>
             $"HDR = {GetOrSetProfileValue(enabled).Value}";
     }

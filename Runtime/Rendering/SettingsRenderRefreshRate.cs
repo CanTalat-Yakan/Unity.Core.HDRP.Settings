@@ -10,8 +10,8 @@ namespace UnityEssentials
             "If set to 0, it will match the current screen refresh rate.";
 
         protected override int Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/RenderRefreshRate";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/RenderRefreshRate";
 
         public override void InitDefinition() =>
             Definition.SetIntSlider(Reference, 0, 1000, 1, 0, "FPS")
@@ -36,7 +36,7 @@ namespace UnityEssentials
             CameraRefreshRate?.SetTarget(Value);
         }
 
-        [Console("settings.display.renderRefreshRate", "Gets/sets render refresh rate. 0 means match screen refresh rate.")]
+        [Console("settings.rendering.renderRefreshRate", "Gets/sets render refresh rate. 0 means match screen refresh rate.")]
         private string ConsoleRenderRefreshRate(int? fps)
         {
             if (fps == null) return $"RenderRefreshRate = {Profile.Value.Get<int>(Reference)}";
@@ -44,7 +44,7 @@ namespace UnityEssentials
             return $"RenderRefreshRate = {fps.Value}";
         }
         
-        [Console("settings.display.renderRequest", Info)]
+        [Console("settings.rendering.renderRequest", Info)]
         private string ConsoleRenderRequest(bool? enabled) =>
             $"RenderRefreshRate = {GetOrSetProfileValue(enabled).Value}";
     }

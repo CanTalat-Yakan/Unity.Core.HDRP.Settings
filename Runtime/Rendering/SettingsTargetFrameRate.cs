@@ -8,8 +8,8 @@ namespace UnityEssentials
             "Sets the target frame rate for the application.";
 
         protected override int Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/TargetFramerate";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/TargetFramerate";
 
         public override void InitDefinition() =>
             Definition.SetIntSlider(Reference, 0, 1000, 1, 0, "FPS")
@@ -21,7 +21,7 @@ namespace UnityEssentials
         public override void UpdateSettings() =>
             Application.targetFrameRate = Value;
 
-        [Console("settings.display.targetFrameRate",Info)]
+        [Console("settings.rendering.targetFrameRate",Info)]
         private string ConsoleTargetFrameRate(int? fps) =>
             $"TargetFrameRate = {GetOrSetProfileValue(fps).Value}";
     }

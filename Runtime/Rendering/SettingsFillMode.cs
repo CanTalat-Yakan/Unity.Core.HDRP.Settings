@@ -4,13 +4,13 @@ namespace UnityEssentials
 {
     public class SettingsFillMode : SettingsBase<FillMode>
     {
-        private const string Info =@"
-            Sets the fill mode for the camera's render texture, which determines how the rendered image is scaled to fit the screen. 
-            This can affect performance and visual quality, especially when using dynamic resolution scaling.";
+        private const string Info =
+            "Sets the fill mode for the camera's render texture, which determines how the rendered image is scaled to fit the screen.\n" + 
+            "This can affect performance and visual quality, especially when using dynamic resolution scaling.";
 
         protected override FillMode Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/FillMode";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/FillMode";
 
         public string[] Options { get; set; }
 
@@ -30,7 +30,9 @@ namespace UnityEssentials
         protected override void UnsubscribeActions() =>
             SettingsDisplayInput.OnChanged -= MarkDirty;
 
-        public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
+        public CameraRenderTextureHandler RenderTextureHandler => 
+            _renderTextureHandler ??= CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
+        
         private CameraRenderTextureHandler _renderTextureHandler;
 
         public override void UpdateSettings()
@@ -41,7 +43,7 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.FillMode = Value;
         }
 
-        [Console("settings.display.fillMode", Info)]
+        [Console("settings.rendering.fillMode", Info)]
         private string ConsoleFillMode(int? value) =>
             $"FillMode = {(FillMode)GetOrSetProfileValue(value).Value}";
     }

@@ -9,8 +9,8 @@ namespace UnityEssentials
 
         protected override int Value { get; set; }
 
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/ResolutionScale";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/ResolutionScale";
 
         public override void InitDefinition() =>
             Definition.SetIntSlider(Reference, 10, 100, 1, 100, "%")
@@ -25,7 +25,7 @@ namespace UnityEssentials
             DynamicResolutionHandler.SetDynamicResScaler(() => Value, 0);
         }
 
-        [Console("settings.display.resolutionScale", Info)]
+        [Console("settings.rendering.resolutionScale", Info)]
         private string ConsoleResolutionScale(int? percent) =>
             $"ResolutionScale = {GetOrSetProfileValue(percent).Value}";
     }

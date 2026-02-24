@@ -3,13 +3,12 @@ namespace UnityEssentials
     public class SettingsGlobalRefreshRate : SettingsBase<int>
     {
         private const string Info =
-            "Sets the global refresh rate for all cameras that use the GlobalRefreshRate component. " +
-            "Performance optimization, as scheduling updates at a lower refresh rate can improve CPU frame times while still displaying at a higher fps. " +
+            "Sets the global refresh rate for all cameras that use the GlobalRefreshRate component.\n" +
             "If set to 0, the limiter is disabled (unlimited).";
 
         protected override int Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/GlobalRefreshRate";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/GlobalRefreshRate";
 
         public float MinValue => 0;
         public float MaxValue => 1000;
@@ -26,7 +25,7 @@ namespace UnityEssentials
             // 0 (or less) means unlimited / disabled limiter.
             GlobalRefreshRate.SetTarget(Value);
 
-        [Console("settings.display.globalRefreshRate",Info)]
+        [Console("settings.rendering.globalRefreshRate",Info)]
         private string ConsoleGlobalRefreshRate(int? fps) =>
             $"GlobalRefreshRate = {GetOrSetProfileValue(fps).Value}";
     }

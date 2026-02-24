@@ -10,8 +10,8 @@ namespace UnityEssentials
             "Listens for changes in the window mode setting and applies the selected mode to the application window.";
 
         protected override FullScreenMode Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/WindowMode";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/WindowMode";
 
         public string[] Options { get; set; }
 
@@ -30,7 +30,7 @@ namespace UnityEssentials
         public override void UpdateSettings() =>
             Screen.fullScreenMode = Value;
 
-        [Console("settings.display.windowMode", Info)]
+        [Console("settings.rendering.windowMode", Info)]
         private string ConsoleWindowMode(int? mode) =>
             $"WindowMode = {GetOrSetProfileValue(mode).Value}";
     }

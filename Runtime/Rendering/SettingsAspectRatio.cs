@@ -8,8 +8,8 @@ namespace UnityEssentials
             "Sets the aspect ratio for the camera's render texture.";
 
         protected override Vector2 Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/AspectRatio";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/AspectRatio";
 
         public string[] Options { get; set; }
 
@@ -51,11 +51,11 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.AspectRatioDenominator = Mathf.Max(0, Value.y);
         }
 
-        [Console("settings.display.aspectRatio", Info)]
+        [Console("settings.rendering.aspectRatio", Info)]
         private string ConsoleAspectRatio(int? index) =>
             $"AspectRatio index = {Options[GetOrSetProfileValue(index).Value]}";
 
-        [Console("settings.display.aspectRatioForced", Info)] 
+        [Console("settings.rendering.aspectRatioForced", Info)] 
         private string ConsoleAspectRatioForced(float numerator, float denominator)
         {
             Value = new Vector2(numerator, denominator);

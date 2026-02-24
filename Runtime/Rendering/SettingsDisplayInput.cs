@@ -12,8 +12,8 @@ namespace UnityEssentials
         private static void RaiseChanged() => OnChanged?.Invoke();
 
         protected override int Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/DisplayInput";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/DisplayInput";
 
         public string[] Options { get; set; }
 
@@ -58,7 +58,7 @@ namespace UnityEssentials
             RaiseChanged();
         }
 
-        [Console("settings.display.displayInput", Info)]
+        [Console("settings.rendering.displayInput", Info)]
         private string ConsoleDisplayInput(int? index) =>
             $"DisplayInput index = {Options[GetOrSetProfileValue(index).Value]}";
     }

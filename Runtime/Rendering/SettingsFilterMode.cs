@@ -9,8 +9,8 @@ namespace UnityEssentials
             "Sets the filter mode for the camera's render texture.";
 
         protected override FilterMode Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/FilterMode";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/FilterMode";
 
         public string[] Options { get; set; }
 
@@ -35,7 +35,7 @@ namespace UnityEssentials
             RenderTextureHandler.Settings.FilterMode = Value;
         }
 
-        [Console("settings.display.filterMode", Info)]
+        [Console("settings.rendering.filterMode", Info)]
         private string ConsoleFillMode(int? value) =>
             $"FilterMode = {(FilterMode)GetOrSetProfileValue(value).Value}";
     }

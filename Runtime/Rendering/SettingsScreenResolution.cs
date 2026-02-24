@@ -3,15 +3,14 @@ using UnityEngine;
 
 namespace UnityEssentials
 {
-    public class SettingsRenderResolution : SettingsBase<Vector2Int>
+    public class SettingsScreenResolution : SettingsBase<Vector2Int>
     {
         private const string Info =
-            "Specifies a resolution for rendering, which can differ from the screen resolution. " +
-            "Performance optimization, as rendering at a lower resolution can improve GPU frame times while still displaying at a higher resolution.";
+            "Listens for changes in the screen resolution setting and applies the selected resolution to the application window.";
 
         protected override Vector2Int Value { get; set; }
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/RenderResolution";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/ScreenResolution";
 
         public string[] Options { get; set; }
 
@@ -42,33 +41,24 @@ namespace UnityEssentials
         protected override void UnsubscribeActions() =>
             SettingsDisplayInput.OnChanged -= MarkDirty;
 
-        public CameraRenderTextureHandler RenderTextureHandler => _renderTextureHandler ??=
-            CameraProvider.Active?.GetComponent<CameraRenderTextureHandler>();
-
-        private CameraRenderTextureHandler _renderTextureHandler;
-
         public override void UpdateSettings()
         {
-            if (RenderTextureHandler == null)
-                return;
-
             if (Value.x <= 0 || Value.y <= 0)
                 Value = new(Screen.currentResolution.width, Screen.currentResolution.height);
 
-            RenderTextureHandler.Settings.RenderWidth = Value.x;
-            RenderTextureHandler.Settings.RenderHeight = Value.y;
+            Screen.SetResolution(Value.x, Value.y, Screen.fullScreenMode);
         }
 
-        [Console("settings.display.renderResolution", Info)]
-        private string ConsoleRenderResolution(int? index) =>
-            $"RenderResolution index = {Options[GetOrSetProfileValue(index).Value]}";
+        [Console("settings.rendering.screenResolution", Info)]
+        private string ConsoleScreenResolution(int? index) =>
+            $"ScreenResolution index = {Options[GetOrSetProfileValue(index).Value]}";
 
-        [Console("settings.display.renderResolutionForced",Info)]
-        private string ConsoleRenderResolutionForced(int width, int height)
+        [Console("settings.rendering.screenResolutionForced",Info)]
+        private string ConsoleScreenResolutionForced(int width, int height)
         {
             Value = new Vector2Int(width, height);
             UpdateSettings();
-            return $"RenderResolution = {Value.x}x{Value.y}";
+            return $"ScreenResolution = {Value.x}x{Value.y}";
         }
     }
 }

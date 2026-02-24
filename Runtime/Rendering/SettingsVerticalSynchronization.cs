@@ -9,8 +9,8 @@ namespace UnityEssentials
 
         protected override int Value { get; set; }
 
-        protected override string FileName => "Settings/Display";
-        protected override string Reference => "Settings/Display/VSync";
+        protected override string FileName => "Settings/Rendering";
+        protected override string Reference => "Settings/Rendering/VSync";
 
         public string[] Options { get; set; }
 
@@ -32,7 +32,7 @@ namespace UnityEssentials
         public override void UpdateSettings() =>
             QualitySettings.vSyncCount = Value;
 
-        [Console("settings.display.vsync", Info)]
+        [Console("settings.rendering.vsync", Info)]
         private string ConsoleVSync(int? count) =>
             $"VSync = {GetOrSetProfileValue(count).Value}";
     }
