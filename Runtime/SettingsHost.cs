@@ -24,7 +24,7 @@ namespace UnityEssentials
             {
                 // Always instantiate each setting component on its own child GameObject: <SettingsHost>/<TypeName>
                 var settingsObject = GetOrCreateSettingsObject(root, type);
-                var existingInScene = FindFirstObjectByType(type) as MonoBehaviour;
+                var existingInScene = FindAnyObjectByType(type) as MonoBehaviour;
                 if (existingInScene != null)
                 {
                     if (existingInScene.gameObject != settingsObject)
